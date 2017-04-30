@@ -1,0 +1,108 @@
+{% for page in page_accueil_from_view %}
+  {% if page.confirm %}
+    <div style="
+      width                : 100vw;
+      height               : 100vh;
+      min-height           : 500px;
+      background-image     : url('{{ page.fondEcran.url }}');
+      background-position  : top center;
+      background-size      : cover;
+      background-attachment: fixed;
+      background-repeat    : no-repeat;">
+      <div style="text-align:center">
+        <img id="logo"
+        src="{{ page.logo.url }}"
+        style="
+        top : 50px;
+        left : 50px;
+        margin-top: {{ page.hauteur_logo }}vh;
+        margin-left : {{ page.decalage_logo }}vw;
+        width     : {{page.largeur_logo}}px;
+        height    : auto;
+        cursor    : pointer;">
+        <h1 id="presentation"
+        style="
+        color      : {{ page.couleur_text }};
+        margin-left : {{ page.decalage_logo }}vw;
+        font-size  : 200%;
+        font-family: 'CaviarDreams',Arial;
+        text-shadow: 4px 4px 1px rgba(10,10,10,1);
+        cursor     : pointer;
+        ">MY CUSTOM
+        </h1>
+        <div id="slogan" style="
+          color      : {{ page.couleur_text }};
+          margin-left : {{ page.decalage_logo }}vw;
+          font-size  : 200%;
+          font-family: 'CaviarDreams';
+          text-shadow: 4px 4px 1px rgba(10,10,10,1);
+          cursor     : pointer;">
+          <!--<i>{{ page.slogan }}</i>-->
+          <!--<i>MY CHOICE,</i>
+          <span2>
+            <span1>
+              <i>MY CONFIDENCE</i><br/>
+              <i>MY RULE</i><br/>
+              <i>MY VISION</i><br/>
+              <i>MY POWER</i><br/>
+              <i>MY FEELS</i><br/>
+              <i>MY MIND</i><br/>
+              <i>MY OPINION</i><br/>
+              <i>MY CUSTOM</i>
+            </span1>
+          </span2>-->
+        </div>
+      </div>
+      <i id="downArrow"
+      style="
+      position: absolute;
+      cursor: pointer;
+      font-size: 400%;
+      color: rgba(255,255,255,0.5);
+      margin-top : 85vh;
+      margin-left: 50vw; " class="infinite animated-slow flip glyphicon glyphicon-arrow-down"></i>
+    </div>
+    <video poster="https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/polina.jpg" id="bgvid" playsinline autoplay muted loop>
+      <source src="http://thenewcode.com/assets/videos/polina.webm" type="video/webm">
+      <source src="http://thenewcode.com/assets/videos/polina.mp4" type="video/mp4">
+    </video>
+  {% endif %}
+  {% empty %}
+  {% load staticfiles %}
+  <div style="
+    width                : 100vw;
+    height               : 100vh;
+    min-height           : 500px;
+    background-image     : url('{% static 'mySelf/image/85VWHKWDW9_3.png'%}');
+    background-position  : top center;
+    background-size      : cover;
+    background-attachment: fixed;
+    background-repeat    : no-repeat;">
+    <center>
+    <img id="logo"
+    src="{% static 'mySelf/image/logo.png' %}"
+    style="
+    margin-top: 40vh;
+    cursor: pointer;
+    width: 100px;
+    height: auto;">
+    <h1 id="presentation"
+    style="
+    color : white;
+    font-size: 400%;
+    font-family: 'CaviarDreams',Arial;
+    text-shadow: 4px 4px 1px rgba(10,10,10,1);
+    cursor: pointer;
+    ">My Custom
+    </h1>
+    <div id="boutonScroll" style="
+      color : white;
+      font-size: 200%;
+      font-family: 'CaviarDreams';
+      text-shadow: 4px 4px 1px rgba(10,10,10,1);
+      cursor: pointer;">
+      My choice, My Custom
+    </div>
+    </center>
+  </div>
+{% endfor %}

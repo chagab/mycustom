@@ -1,0 +1,73 @@
+{% for page in page_accueil_from_view %}
+  {% if page.confirm %}
+    <div style="height: 100vh; z-index: -1;">
+      <center>
+      <video style="
+        position             : absolute;
+        height               : auto;
+        width                : 100%;
+        transform            : translateX(-50%);
+        background-image     : url('{{ page.fondEcran.url }}');
+        background-position  : top center;
+        background-size      : cover;
+        background-attachment: fixed;
+        background-repeat    : no-repeat;"
+        poster="{{ page.fondEcran.url }}" id="bgvid" playsinline autoplay muted loop>
+        <source src="{{ page.video_webm.url }}" type="video/webm">
+        <source src="{{ page.video_mp4.url }}" type="video/mp4">
+      </video>
+      <div id="downArrow">
+        <p class="myfont bounce infinite animated"
+          style="
+          position: absolute;
+          top      : 85vh;
+          left     : 48vw;
+          cursor   : pointer;
+          font-size: 400%;
+        color: white;">.</p>
+        <p class="myfont bounce infinite animated2"
+          style="
+          position: absolute;
+          top      : 85vh;
+          left     : 50vw;
+          cursor   : pointer;
+          font-size: 400%;
+        color: white;">.</p>
+        <p class="myfont bounce infinite animated3"
+          style="
+          position: absolute;
+          top      : 85vh;
+          left     : 52vw;
+          cursor   : pointer;
+          font-size: 400%;
+        color: white;">.</p>
+      </div>
+    </div>
+    </center>
+    <img id="logo"
+    src="{{ page.logo.url }}"
+    style="
+    position: absolute;
+    //top:0; bottom: 0; left: 0; right: 0; 
+    top     : {{ page.hauteur_logo }}vh;
+    left    : {{ page.decalage_logo }}vw;
+    width   : {{page.largeur_logo}}px;
+    height  : auto;
+    cursor  : pointer;">
+    <center>
+   <!-- <h1 id="presentation"
+    style="
+    position   : absolute;
+    top        : {{ page.hauteur_my_custom }}vh;
+    left       : {{ page.decalage_my_custom }}vw;
+    font-size: 500%;
+    color      : {{ page.couleur_text }};
+    font-family: 'CaviarDreams',Arial;
+    text-shadow: 4px 4px 1px rgba(10,10,10,1);
+    cursor     : pointer;
+    ">MY CUSTOM
+    </h1>-->
+    </center>
+  </div>
+{% endif %}
+{% endfor %}

@@ -1,0 +1,38 @@
+{% for page in page_accueil_from_view %}
+	<div id="menu">
+		<nav class="navbar transparent navbar-default navbar-fixed-top"> <!--navbar-inverse-->
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" 	aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				</button>
+				
+			</div>
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li><a id="Accueil" class="onglet myfont">ACCUEIL</a></li>
+					<li><a id="Collection" class="onglet myfont">COLLECTION</a></li>
+					<li><a id="Customizez" class="onglet myfont">CUSTOMISER</a></li>
+					<li id='logo-menu-contenair' class="onglet"><img id="logo-menu" src="{{ page.logo.url }}"></li>
+					<li><a id="Achetez" class="onglet myfont">ACHETER</a></li>
+					<li><a id="Vendre" class="onglet myfont">VENDRE</a></li>
+					<li><a id="Professionel" href="utilisateur/compte/" class="onglet myfont" {#data-toggle="modal" data-target="#Connexion"#} >CONNEXION </a></li>
+					<li> <a href=""><i class="glyphicon glyphicon-shopping-cart"></i> </a></li>
+					<li> <a href="#search"><i class="glyphicon glyphicon-search"></i> </a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+</div>
+{% endfor %}
+
+<div id="search">
+    <button type="button" class="close">×</button>
+    <form>
+        <input type="search" value="" class="myfont" placeholder="Entrez un mot clé" />
+        <button type="submit" class="btn btn-primary myfont">Cherchez</button>
+    </form>
+</div>

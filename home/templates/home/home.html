@@ -1,0 +1,31 @@
+{% extends "home/header.html" %}
+{% block menu %}
+	{% include "home/includes/menu.html" %}
+{% endblock %}
+{% block accueil %}
+	{% include "home/includes/accueil2.html" %}
+{% endblock %}
+{% block collection %}
+	{% include "collection_ephemere/includes/collection_ephemere.html" %}
+{% endblock %}
+{% block customise %}
+	{% include "cutsomise/includes/customise.html" %}
+{% endblock %}
+{% block achat %}
+	{% include "achetez/includes/achat.html" %}
+{% endblock %}
+{% block vendre %}
+	{% include "vendre/includes/vendre.html" %}
+{% endblock %}
+{% block footer %}
+	{% include "home/includes/footer.html" %}
+{% endblock %}
+{% block scriptMenu %}
+	{% load static %}
+	<script type="text/javascript" src="{% static 'mySelf/js/scroll.js' %}"></script>
+	<script type="text/javascript" src="{% static 'mySelf/js/search.js' %}"></script>
+	<script type="text/javascript" src="{% static 'mySelf/js/getPageScroll.js' %}"></script>
+	<script type="text/javascript" src="{% static 'mySelf/js/menu.js' %}"></script>
+	<script type="text/javascript" src="{% static 'mySelf/js/animation.js' %}"></script>
+	<script type="text/javascript" src="{% static 'mySelf/js/extern.js' %}"></script>
+{% endblock %}
