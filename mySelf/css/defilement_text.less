@@ -1,0 +1,31 @@
+span2 
+{
+  float: left;
+  overflow: hidden;
+  position: relative;
+  height: 40px;
+  //font-size: 120%;
+  width: 100%;
+
+}
+
+span1 
+{
+  wdisplay: inline-block;
+  color: white;
+  position: relative;
+  white-space: nowrap;
+  top: 0;
+  left: 0;
+  -webkit-animation: move 9s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-delay: 1s;
+}
+
+@keyframes move {
+0%  { top: 0px; }
+20% { top: -40px; }
+40% { top: -80px; }
+60% { top: -120px; }
+80% { top: -160px; }
+}

@@ -1,0 +1,32 @@
+//@font-face {
+//	font-family: 'CaviarDreams';
+//	src: url('Caviar-Dreams-fontfacekit/web_fonts/caviardreams_regular_macroman/CaviarDreams-webfont.eot') format('eot'), url('Caviar-Dreams-fontfacekit/web_fonts/caviardreams_regular_macroman/CaviarDreams-webfont.ttf') format('truetype'), url('Caviar-Dreams-fontfacekit/web_fonts/caviardreams_regular_macroman/CaviarDreams-webfont.svg') format('svg'), url('Caviar-Dreams-fontfacekit/web_fonts/caviardreams_regular_macroman/CaviarDreams-webfont.woff') format('woff')
+//}
+
+body {
+//	overflow: hidden;
+	z-index: 100;
+	font-family: 'CaviarDreams';
+	padding: 0;
+	margin: 0;
+	background-color: white;
+}
+
+canvas {
+	vertical-align: top;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 25%;
+	margin: auto;
+	border-radius: 5px;
+	box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.5);
+}
+
+#colorPicker{
+	border : 1px solid rgba(0, 0, 0, 0.5);
+	border-radius: 5px;
+	box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);	
+}
+
