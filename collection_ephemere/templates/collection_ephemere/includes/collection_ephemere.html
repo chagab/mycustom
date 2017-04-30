@@ -1,0 +1,208 @@
+{% load staticfiles %}
+<div id="collection_ephemere">
+	<center>
+	<div class="col-xs-12 space_section-lg fond" style="color: black; background-image: url({% static 'mySelf/image/streetwear-2.jpg' %}); ">
+		<div class="container">
+			<h2>Collection Ephémère</h2>
+		</div>
+	</div>
+	<h4 class="myfont">A propos de la collection</h4>
+	<p class="container myfont">Consectetur beatae autem corporis magni consectetur commodi tempora minima. Corrupti necessitatibus libero ut labore. Sit explicabo quaerat optio architecto.Dolorum qui molestiae facere omnis quo totam mollitia tempora. Velit molestiae vitae nemo occaecati. Et nemo qui labore qui.Possimus vel minima quos. Sit praesentium sapiente dolores consequatur tempore. Enim labore quo aliquam eos harum. Magni voluptates optio molestiae nostrum aspernatur rerum blanditiis rerum.Minus rerum laudantium dolorem. Quia quia vitae non officiis quis. Numquam consequatur libero eum officiis similique quis ut. Repellat laudantium sapiente qui dolor fugiat exercitationem eum. Est dolor rem iste. In amet distinctio blanditiis quasi. Perferendis eligendi est inventore voluptas dicta ipsa facilis. Nam necessitatibus impedit voluptatem. Beatae est omnis et non est dolor ut. Eaque esse molestias vel voluptatem alias.</p>
+	</center>
+	<br>
+	<br>
+	<br>
+	<br>
+	<div class="backgroundImageCVR container" style="z-index: 1">
+		<a href="" class="onglet button myfont-llg btn-lg" style="position: absolute; z-index: 3; background-color: rgba(255,255,255,0.5); top: 45%; left: 40%; filter: invert(100%);"> <b>SEE RIGHT NOW</b></a>
+		<center>
+		<div class="fond-collection" style=" z-index: 2 ; background-image: url({% static 'mySelf/image/0E2A6041-2.jpg' %})"></div>
+		</center>
+		<br>
+		<br>
+		<center class="content">
+		<br>
+		<a href=""><img class="animation_ease-slow animation_scale_up-small" src="{% static 'mySelf/image/0E2A6041-2.jpg' %}" style="
+			width                : auto;
+			height               : 50vh;
+			border-radius        : 5px;
+			margin               : auto;
+			background-position  : top center;
+			background-size      : cover;
+			background-attachment: fixed;
+			background-repeat    : no-repeat;
+			box-shadow           : 10px 10px 5px rgba(1,1,1,0.2);
+			z-index              : 100;
+		" alt='...'></a>
+		<br>
+		<br>
+		<br>
+		<br>
+		</center>
+	</div>
+	<br>
+	<br>
+	<br>
+	<br>
+	<center>
+	<h4 class="myfont" style="font-size: 300%;"> Nos modèles </h4>
+	<br>
+	<br>
+	<br>
+	</center>
+	<div class="container">
+		<div class="col-xs-4">
+			{% for mosaique in mosaique_from_view %}
+				{% if mosaique.confirm %}
+					{% if mosaique.colonne == "colonne_1" %}
+						<div class="gal-item none">
+							<div class="zoom">
+								<div class="cache">
+									<b><p class="myfont-llg">Miss angel</p></b>
+									<a href="#" data-toggle="modal" data-target="#gal_mosaique_{{ mosaique.id }}" class="wrap">
+									<i class="myfont">voir la collection</i></a>
+								</div>
+								{% if mosaique.video %}
+									<video style="
+										height               : auto;
+										width                : 100%;
+										background-image     : url('{{ mosaique.fondEcran.url }}');
+										background-position  : top center;
+										background-size      : cover;
+										background-attachment: fixed;
+										background-repeat    : no-repeat;"
+										poster="{{ mosaique.fondEcran.url }}" id="bgvid" playsinline autoplay muted loop>
+										<source src="{{ mosaique.video_webm.url }}" type="video/webm">
+										<source src="{{ mosaique.video_mp4.url }}" type="video/mp4">
+									</video>
+								{% endif %}
+								{% if not mosaique.video %}
+									<img class="zoom-in" src="{{ mosaique.image.url }}">
+								{% endif %}
+							</div>
+							<div class="container gal-container">
+								<div class="modal fade" id="gal_mosaique_{{ mosaique.id }}" tabindex="-1" role="dialog">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+											<div class="modal-body">
+												<center>
+												<img src="{{ mosaique.image.url }}">
+												</center>
+											</div>
+											<div class="col-md-12 description">
+												<h4 class="myfont">{{ mosaique.text_description_short }}</h4>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					{% endif %}
+				{% endif %}
+			{% endfor %}
+		</div>
+		<div class="col-xs-4">
+			{% for mosaique in mosaique_from_view %}
+				{% if mosaique.confirm %}
+					{% if mosaique.colonne == "colonne_2" %}
+						<div class="gal-item none">
+							<div class="zoom">
+								<div class="cache">
+									<b><p class="myfont-llg">Miss angel</p></b>
+									<a href="#" data-toggle="modal" data-target="#gal_mosaique_{{ mosaique.id }}" class="wrap">
+									<i class="myfont">voir la collection</i></a>
+								</div>
+								{% if mosaique.video %}
+									<video style="
+										height               : auto;
+										width                : 100%;
+										background-image     : url('{{ mosaique.fondEcran.url }}');
+										background-position  : top center;
+										background-size      : cover;
+										background-attachment: fixed;
+										background-repeat    : no-repeat;"
+										poster="{{ mosaique.fondEcran.url }}" id="bgvid" playsinline autoplay muted loop>
+										<source src="{{ mosaique.video_webm.url }}" type="video/webm">
+										<source src="{{ mosaique.video_mp4.url }}" type="video/mp4">
+									</video>
+								{% endif %}
+								{% if not mosaique.video %}
+									<img class="zoom-in" src="{{ mosaique.image.url }}">
+								{% endif %}
+							</div>
+							<div class="container gal-container">
+								<div class="modal fade" id="gal_mosaique_{{ mosaique.id }}" tabindex="-1" role="dialog">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+											<div class="modal-body">
+												<center>
+												<img src="{{ mosaique.image.url }}">
+												</center>
+											</div>
+											<div class="col-md-12 description">
+												<h4 class="myfont">{{ mosaique.text_description_short }}</h4>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					{% endif %}
+				{% endif %}
+			{% endfor %}
+		</div>
+		<div class="col-xs-4">
+			{% for mosaique in mosaique_from_view %}
+				{% if mosaique.confirm %}
+					{% if mosaique.colonne == "colonne_3" %}
+						<div class="gal-item none">
+							<div class="zoom">
+								<div class="cache">
+									<b><p class="myfont-llg">Miss angel</p></b>
+									<a href="#" data-toggle="modal" data-target="#gal_mosaique_{{ mosaique.id }}" class="wrap">
+									<i class="myfont">voir la collection</i></a>
+								</div>
+								{% if mosaique.video %}
+									<video style="
+										height               : auto;
+										width                : 100%;
+										background-image     : url('{{ mosaique.fondEcran.url }}');
+										background-position  : top center;
+										background-size      : cover;
+										background-attachment: fixed;
+										background-repeat    : no-repeat;"
+										poster="{{ mosaique.fondEcran.url }}" id="bgvid" playsinline autoplay muted loop>
+										<source src="{{ mosaique.video_webm.url }}" type="video/webm">
+										<source src="{{ mosaique.video_mp4.url }}" type="video/mp4">
+									</video>
+								{% endif %}
+								{% if not mosaique.video %}
+									<img class="zoom-in" src="{{ mosaique.image.url }}">
+								{% endif %}
+							</div>
+							<div class="container gal-container">
+								<div class="modal fade" id="gal_mosaique_{{ mosaique.id }}" tabindex="-1" role="dialog">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+											<div class="modal-body">
+												<center>
+												<img src="{{ mosaique.image.url }}">
+												</center>
+											</div>
+											<div class="col-md-12 description">
+												<h4 class="myfont">{{ mosaique.text_description_short }}</h4>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					{% endif %}
+				{% endif %}
+			{% endfor %}
+		</div>
+	</div>
+</div>

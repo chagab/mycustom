@@ -1,0 +1,190 @@
+{% load staticfiles %}
+<div id="achat" class="space_section">
+  <center>
+  {% for onglet in ongletAchetez_from_view %}
+    {% if onglet.confirm %}
+      <div class="col-xs-12 space_section-lg fond" style="color: {{ onglet.couleur_titre }}; background-image: url({{ onglet.image_titre.url }}); ">
+        <div class="container">
+          <h2>{{ onglet.nom }}
+          </h2>
+        </div>
+      </div>
+    {% endif %}
+  {% endfor %}
+  <br>
+  <br>
+  </center>
+  <div class="container">
+    <center>
+    <h4 class="myfont">A propos de la collection</h4>
+    <p class="container myfont">Consectetur beatae autem corporis magni consectetur commodi tempora minima. Corrupti necessitatibus libero ut labore. Sit explicabo quaerat optio architecto.Dolorum qui molestiae facere omnis quo totam mollitia tempora. Velit molestiae vitae nemo occaecati. Et nemo qui labore qui.Possimus vel minima quos. Sit praesentium sapiente dolores consequatur tempore. Enim labore quo aliquam eos harum. Magni voluptates optio molestiae nostrum aspernatur rerum blanditiis rerum.Minus rerum laudantium dolorem. Quia quia vitae non officiis quis. Numquam consequatur libero eum officiis similique quis ut. Repellat laudantium sapiente qui dolor fugiat exercitationem eum. Est dolor rem iste. In amet distinctio blanditiis quasi. Perferendis eligendi est inventore voluptas dicta ipsa facilis. Nam necessitatibus impedit voluptatem. Beatae est omnis et non est dolor ut. Eaque esse molestias vel voluptatem alias.</p>
+    </center>
+  </div>
+  <br><br><br><br>
+  <div class="container">
+    <div id="accordion" aria-multiselectable="true">
+      {% for ligne in ligneCategorie_from_view %}
+        {% if ligne.confirm %}
+          <div style="">
+            {% if ligne.categorie_1.confirm %}
+              <a style="background-image: url({{ ligne.categorie_1.image.url }});" class="wrap col-{{ ligne.categorie_1.taille }}-{{ ligne.categorie_1.nombre_colonnes }} col-{{ ligne.categorie_1.taille }}-offset-{{ ligne.categorie_1.nombre_offset }} collapsed categorie_achat animation_ease-fast" role="button" data-toggle="collapse" data-parent="#accordion" href="#achat_categorie_{{ ligne.categorie_1.id }}" aria-expanded="false" aria-controls="achat_categorie_{{ ligne.categorie_1.id }}">
+                <center class="myfont">
+                <b style="color : {{ligne.categorie_1.couleur_titre }} ;">{{ ligne.categorie_1.titre }}
+                </b>
+                </center>
+              </a>
+            {% endif %}
+            {% if ligne.categorie_2.confirm %}
+              <a style="background-image: url({{ ligne.categorie_2.image.url }});" class="wrap col-{{ ligne.categorie_2.taille }}-{{ ligne.categorie_2.nombre_colonnes }} col-{{ ligne.categorie_2.taille }}-offset-{{ ligne.categorie_2.nombre_offset }} collapsed categorie_achat animation_ease-fast" role="button" data-toggle="collapse" data-parent="#accordion" href="#achat_categorie_{{ ligne.categorie_2.id }}" aria-expanded="false" aria-controls="achat_categorie_{{ ligne.categorie_2.id }}">
+                <center class="myfont">
+                <b style="color : {{ligne.categorie_2.couleur_titre }} ;">{{ ligne.categorie_2.titre }}
+                </b>
+                </center>
+              </a>
+            {% endif %}
+            {% if ligne.categorie_3.confirm %}
+              <a style="background-image: url({{ ligne.categorie_3.image.url  }});" class="wrap col-{{ ligne.categorie_3.taille }}-{{ ligne.categorie_3.nombre_colonnes }} col-{{ ligne.categorie_3.taille }}-offset-{{ ligne.categorie_3.nombre_offset }} collapsed categorie_achat animation_ease-fast" role="button" data-toggle="collapse" data-parent="#accordion" href="#achat_categorie_{{ ligne.categorie_3.id }}" aria-expanded="false" aria-controls="achat_categorie_{{ ligne.categorie_3.id }}">
+                <center class="myfont">
+                <b style="color : {{ligne.categorie_3.couleur_titre }} ;">{{ ligne.categorie_3.titre }}
+                </b>
+                </center>
+              </a>
+            {% endif %}
+          </div>
+          <div  class="panel col-xs-12">
+            <div id="achat_categorie_{{ ligne.categorie_1.id }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne_{{ ligne.categorie_1.id }}">
+              <div class="container gal-container">
+                {% for logo in achatLogo_from_view %}
+                  {% if logo.categorie == ligne.categorie_1  %}
+                    {% if logo.confirm %}
+                      <div class="col-{{ logo.taille }}-{{ logo.nombre_colonnes }} col-{{ logo.taille }}-offset-{{ logo.nombre_offset }} gal-item">
+                        <div class="box">
+                          <a href="#" data-toggle="modal" data-target="#gal_{{ logo.id }}" class="wrap">
+                            <center>
+                            <img src="{{ logo.logo.url }}">
+                            </center>
+                          </a>
+                          <div class="modal fade" id="gal_{{ logo.id }}" tabindex="-1" role="dialog">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×
+                                </span>
+                                </button>
+                                <div class="modal-body">
+                                  <center>
+                                  <img src="{{ logo.logo.url }}">
+                                  </center>
+                                </div>
+                                <div class="col-md-12 description">
+                                  <h4 style="color : {{ logo.couleur_text }};">{{ logo.text_description_short }}
+                                  </h4>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    {% endif %}
+                  {% endif %}
+                  {% empty %}
+                  <center>
+                  <p class="myfont">il n'y a pas de logo dans cette catégorie pour le moment ... </p>
+                  </center>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+          <div  class="panel col-xs-12">
+            <div id="achat_categorie_{{ ligne.categorie_2.id }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo_{{ ligne.categorie_2.id }}">
+              <div class="container gal-container">
+                {% for logo in achatLogo_from_view %}
+                  {% if logo.categorie == ligne.categorie_2  %}
+                    {% if logo.confirm %}
+                      <div class="col-{{ logo.taille }}-{{ logo.nombre_colonnes }} col-{{ logo.taille }}-offset-{{ logo.nombre_offset }} gal-item">
+                        <div class="box">
+                          <a href="#" data-toggle="modal" data-target="#gal_{{ logo.id }}" class="wrap">
+                            <center>
+                            <img src="{{ logo.logo.url }}">
+                            </center>
+                          </a>
+                          <div class="modal fade" id="gal_{{ logo.id }}" tabindex="-1" role="dialog">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×
+                                </span>
+                                </button>
+                                <div class="modal-body">
+                                  <center>
+                                  <img src="{{ logo.logo.url }}">
+                                  </center>
+                                </div>
+                                <div class="col-md-12 description">
+                                  <h4 style="color : {{ logo.couleur_text }};">{{ logo.text_description_short }}
+                                  </h4>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    {% endif %}
+                  {% endif %}
+                  {% empty %}
+                  <center>
+                  <p class="myfont">il n'y a pas de logo dans cette catégorie pour le moment ... </p>
+                  </center>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+          <div  class="panel col-xs-12">
+            <div id="achat_categorie_{{ ligne.categorie_3.id }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree_{{ ligne.categorie_3.id }}">
+              <div class="container gal-container">
+                {% for logo in achatLogo_from_view %}
+                  {% if logo.categorie == ligne.categorie_3  %}
+                    {% if logo.confirm %}
+                      <div class="col-{{ logo.taille }}-{{ logo.nombre_colonnes }} col-{{ logo.taille }}-offset-{{ logo.nombre_offset }} gal-item">
+                        <div class="box">
+                          <a href="#" data-toggle="modal" data-target="#gal_{{ logo.id }}" class="wrap">
+                            <center>
+                            <img src="{{ logo.logo.url }}">
+                            </center>
+                          </a>
+                          <div class="modal fade" id="gal_{{ logo.id }}" tabindex="-1" role="dialog">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×
+                                </span>
+                                </button>
+                                <div class="modal-body">
+                                  <center>
+                                  <img src="{{ logo.logo.url }}">
+                                  </center>
+                                </div>
+                                <div class="col-md-12 description">
+                                  <h4 style="color : {{ logo.couleur_text }};">{{ logo.text_description_short }}
+                                  </h4>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    {% endif %}
+                  {% endif %}
+                  {% empty %}
+                  <center>
+                  <p class="myfont">il n'y a pas de logo dans cette catégorie pour le moment ... </p>
+                  </center>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>

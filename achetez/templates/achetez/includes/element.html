@@ -1,0 +1,57 @@
+<script src="//cdn.tinymce.com/4/tinymce.min.js">
+</script>
+<script>
+tinymce.init({
+  selector: 'textarea',
+  height: 200,
+  width :  800,
+  statusbar : false,
+  plugins: [
+        "advlist autolink lists link image charmap print preview anchor",
+        "searchreplace visualblocks code fullscreen",
+        "insertdatetime media table contextmenu paste imagetools"
+    ],
+    toolbar: "insertfile undo redo | bold italic | image",
+  imagetools_cors_hosts: ['www.tinymce.com', 'codepen.io'],
+  content_css: [
+    '//fast.fonts.net/cssapi/e6dc9b99-64fe-4292-ad98-6974f93cd2a2.css',
+    '//www.tinymce.com/css/codepen.min.css'
+  ]
+});
+</script>
+<center>
+  <div class="container" style="margin-bottom: 100px;">
+    <h2>{{ Element.nom }}
+    </h2>
+    <br>
+    <br>
+    <p class="myfont" align="justify">{{ Element.text_description }}
+    </p>
+    
+    <br>
+    <br>
+    <p class="myfont-lg">{{ Element.prix }}€
+    </p>
+    <br>
+    <br>
+    <center>
+      <p class="myfont" align="center">Ajoutez du text sur votre t-shirt !
+      </p>
+          <img class="resize_width-sm adjust_height" 
+         style="    
+            width:40%;
+            height: auto;
+                background-color: {{ Element.couleur_fond_image }};
+                border-radius: {{ Element.contour_arrondi_image }}px;"
+         src="/media/{{ Element.image }}">
+    <br>
+    <br>
+        <br>
+    <br>
+<textarea id='editable'></textarea>
+    <br>
+    <br>
+    <button>Customizer !</button>
+    </center>
+</center>
+    
