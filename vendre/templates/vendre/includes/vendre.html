@@ -1,0 +1,91 @@
+<div id="vendre" class="space_section">
+  <center>
+  {% for onglet in Onglet_vendre_from_view %}
+    <div class="col-xs-12 space_section-lg fond" style="color: {{ onglet.couleur_titre }}; background-image: url({{ onglet.image_titre.url }}); ">
+      <div class="container">
+        <h2>{{ onglet.titre }}
+        </h2>
+      </div>
+    </div>
+  {% endfor %}
+  <div class="container wrap">
+    <div class="col-xs-12 space_section">
+      {% for methode in methode_description_from_view %}
+        <div class="col-{{ methode.taille }}-offset-{{ methode.nombre_offset }} col-{{ methode.taille }}-{{ methode.nombre_colonnes }}">
+          <div style="min-height: 72px;">
+            <i class="icon_vendre glyphicon glyphicon-{{ methode.icone }}">
+            </i>
+          </div>
+          <br>
+          <br>
+          <p align="justify" class="myfont" style="padding : 15px;">{{ methode.contenu }}
+          </p>
+        </div>
+      {% endfor %}
+    </div>
+    <h3 class="myfont-llg space_section">La démarche à suivre
+    </h3>
+    {% for onglet in Onglet_vendre_from_view %}
+      <p align="justify" class="myfont" style="color : {{ onglet.couleur_text }}; font-size: {{ onglet.taille_text }};">{{ onglet.contenu }}
+      </p>
+    {% endfor %}
+  </div>
+  <br>
+  <br>
+  <div class="col-xs-offset-2 col-xs-4">
+    <a type="button" class="wrap onglet button myfont btn-lg" data-toggle="modal" data-target="#Inscription">
+      Inscription
+    </a>
+  </div>
+  <div class="col-xs-4">
+    <a type="button" class="wrap onglet button myfont btn-lg" data-toggle="modal" data-target="#Connexion">
+      Connexion
+    </a>
+  </div>
+  <div class="gal-container">
+    <div class="gal-item none">
+      <div class="modal fade" id="Inscription" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×
+            </span>
+            </button>
+            <br>
+            <br>
+            <br>
+            <h4 class="myfont-lg"> Inscrivez-vous sur notre site pour participer à la communauté MY CUSTOM
+            </h4>
+            <br>
+            <br>
+            <br>
+            <div class="modal-body">
+              <p class="myfont">Inscrivez-vous en tant que :
+              </p>
+              <br>
+              <a type="button" class="onglet button myfont btn-lg" style="margin-left: 5px; margin-right: 5px;" data-toggle="modal" data-target="#InscriptionParticulier">
+                Particulier
+              </a>
+              <a type="button" class="onglet button myfont btn-lg" style="margin-left: 5px; margin-right: 5px;" data-toggle="modal" data-target="#InscriptionRevendeur">
+                Revendeur
+              </a>
+              <a type="button" class="onglet button myfont btn-lg" style="margin-left: 5px; margin-right: 5px;" data-toggle="modal" data-target="#InscriptionProfessionel">
+                Professionel
+              </a>
+              <a type="button" class="onglet button myfont btn-lg" style="margin-left: 5px; margin-right: 5px;" data-toggle="modal" data-target="#InscriptionArtiste">
+                Artiste
+              </a>
+            </div>
+            <br>
+            <br>
+            <br>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </center>
+  <br>
+  <br>
+  <br>
+</div>
