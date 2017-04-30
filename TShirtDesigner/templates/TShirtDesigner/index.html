@@ -1,0 +1,12 @@
+{% extends "home/header.html" %}
+{% block designer %}
+{% load staticfiles %}
+    <title>TShirtDesigner</title>
+    <input id="colorPicker" class="jscolor" value="ab2567" style="width: 200px;">
+    <link rel="stylesheet" type="text/css" href="{% static 'mySelf/css/TshirtDesigner/designer.css' %}">
+    <script src="{% static 'p5/p5.js' %}" type="text/javascript"></script>
+    <script src="{% static 'p5/p5.dom.js' %}" type="text/javascript"></script>
+    <script src="{% static 'p5/p5.sound.js' %}" type="text/javascript"></script>
+    <script src="{% static 'mySelf/js/TshirtDesigner/sketch.js' %}" type="text/javascript"></script>
+    <script src="{% static 'mySelf/js/TshirtDesigner/designer.js' %}" type="text/javascript"></script>
+{% endblock %}
