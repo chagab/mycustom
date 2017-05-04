@@ -26,4 +26,5 @@ urlpatterns = [
     url(r'', include('home.urls')),
     url(r'^utilisateur/', include('utilisateur.urls')),
     url(r'^TshirtDesigner/', include('TShirtDesigner.urls')),
+    url(r'^content/', include('TShirtDesigner.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

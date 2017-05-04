@@ -1,66 +1,51 @@
 var d;
-var path;
-
-function preload() { // preload() runs once
-	d = new Designer();
-	path = "../../static/mySelf/image/TshirtDesigner/image/";
-	d.font = loadFont('../../static/mySelf/css/Caviar-Dreams-fontfacekit/web_fonts/caviardreams_regular_macroman/CaviarDreams-webfont.ttf');
-	d.face = loadImage(path + "face.png");
-	d.dos = loadImage(path + "dos.png");
-	d.droite = loadImage(path + "droite.png");
-	d.gauche = loadImage(path + "gauche.png");
-	d.in = loadImage(path + "in.png");
-	d.out = loadImage(path + "out.png");
-}
+var Position;
+var modal;
 
 function setup() {
+	d = new Designer();
+	var path = "../../../static/mySelf/image/TshirtDesigner/"
+	d.font = loadFont('../../../static/mySelf/css/Caviar-Dreams-fontfacekit/web_fonts/caviardreams_regular_macroman/CaviarDreams-webfont.ttf');
+	d.face = loadImage(path + "image/1-face.png");
+	d.dos = loadImage(path + "image/1-dos.png");
+	d.droite = loadImage(path + "image/1-droite.png");
+	d.gauche = loadImage(path + "image/1-gauche.png");
+	d.in = loadImage(path + "image/in.png");
+	d.out = loadImage(path + "image/out.png");
 	d.fond = d.face;
-	d.canvas = createCanvas(500, 500).position(windowWidth / 2 - 500, windowHeight / 2 - 250);
+	console.log(d.fond);
+	d.canvas = createCanvas(2 * windowHeight / 3, 2 * windowHeight / 3).position(windowWidth / 2 - 250, windowHeight / 2 - 200);
+	console.log(document.getElementById("conteneur"));
+	var canvasWidth = d.canvas.size().width;
+	var canvasHeight = d.canvas.size().height;
+	var index = 0;
+	document.getElementById("conteneur").height = 500 + canvasHeight;
+	document.getElementById("conteneur").clientHeight = 500 + canvasHeight;
+	document.getElementById("conteneur").insertBefore(d.canvas.elt, document.getElementById('buttonNb'));
+	// on initialise tout ce qu'il faut dans le designer
 	d.ctx = d.canvas.elt.getContext("2d");
 	d.canvasOffset = d.canvas.position();
 	d.offsetX = d.canvasOffset.x;
 	d.offsetY = d.canvasOffset.y;
-	var canvasWidth = d.canvas.size().width;
-	var index = 0;
-	// on remplit le designer de tous les éléments de DOM nécéssaires
-	d.h1 = createElement('h1', 'MY CUSTOM').position(windowWidth / 2 - 100, 0);
-	d.p.push(createP('customisez toutes vos créations sur MY CUSTOM').position(windowWidth / 2 - 180, d.h1.size().height + 30));
-	d.p.push(createP('couleur texte').position(d.offsetX + canvasWidth + 280, d.offsetY + 50));
-	d.buttons.push(createButton('Imprimer !'));
-	d.buttons.push(createButton('importer votre logo'));
-	d.buttons.push(createButton('choisir un logo'));
-	d.buttons.push(createButton('face'));
-	d.buttons.push(createButton('dos'));
-	d.buttons.push(createButton('droite'));
-	d.buttons.push(createButton('gauche'));
-	d.sliders.push(new Slider('taille texte', 1, 200, 1, d.offsetX + canvasWidth + 50, d.offsetY));
-	d.imgs.push(createImg(path + "in.png").position(d.offsetX + canvasWidth + 50, d.offsetY + 20).size(25, 25));
-	d.textareas.push(createElement("textarea").position(d.offsetX + canvasWidth + 50, d.offsetY + 130).id('first'));
-	d.inputs.push(document.getElementById('colorPicker'));
-	console.log(d.inputs);
-	console.log(d.input('colorPicker'));
-	console.log(d.input('colorPicker').jscolor);
-	// on ajuste la position ou le style des élements
-	d.button('Imprimer !').position(canvasWidth + d.offsetX + 50, d.offsetY);
-	d.button('importer votre logo').position(canvasWidth + d.offsetX + 150, d.offsetY);
-	d.button('choisir un logo').position(canvasWidth + d.offsetX + 300, d.offsetY);
-	d.button('face').position(d.offsetX - 80, d.offsetY).style('background-image', "url('../../static/mySelf/image/TshirtDesigner/image/face.png')");
-	d.button('dos').position(d.offsetX - 80, d.offsetY + 100).style('background-image', "url('../../static/mySelf/image/TshirtDesigner/image/dos.png')");
-	d.button('droite').position(d.offsetX - 80, d.offsetY + 200).style('background-image', "url('../../static/mySelf/image/TshirtDesigner/image/droite.png')");
-	d.button('gauche').position(d.offsetX - 80, d.offsetY + 300).style('background-image', "url('../../static/mySelf/image/TshirtDesigner/image/gauche.png')");
-	d.buttonStyle(d.button('face'));
-	d.buttonStyle(d.button('dos'));
-	d.buttonStyle(d.button('droite'));
-	d.buttonStyle(d.button('gauche'));
-	d.slider('taille texte').value(20);
-	d.textarea('first').size(300, 35).value('add some text on your custom !');
-	d.textarea('first').style('max-height', '35px').style('max-width', '300px');
-	d.textarea('first').style('min-height', '35px').style('min-width', '300px');
-	d.input('colorPicker').style.position = "absolute"
-	d.input('colorPicker').style.left = d.offsetX + canvasWidth + 80 + 'px';
-	d.input('colorPicker').style.top = d.offsetY + 50 + 'px';
-	// gestion des evenements 
-	d.canvas.drop(d.gotfile);
+	// on ajoute dans le designer les éléments du DOM
+	d.textareas.push(new p5.Element(document.getElementById("first")));
+	d.buttons.push(new p5.Element(document.getElementById('buttonNb')));
+	d.buttons.push(new p5.Element(document.getElementById('buttonProduit')));
+	d.buttons.push(new p5.Element(document.getElementById('buttonDesign')));
+	d.buttons.push(new p5.Element(document.getElementById('buttonImage')));
+	d.buttons.push(new p5.Element(document.getElementById('buttonText')));
+	d.buttons.push(new p5.Element(document.getElementById('face')));
+	d.buttons.push(new p5.Element(document.getElementById('dos')));
+	d.buttons.push(new p5.Element(document.getElementById('droite')));
+	d.buttons.push(new p5.Element(document.getElementById('gauche')));
+	d.buttons.push(new p5.Element(document.getElementById('choixDesign')));
+	d.buttons.push(new p5.Element(document.getElementById('choixParametreDesign')));
+	d.buttons.push(new p5.Element(document.getElementById('choixTexte')));
+	d.buttons.push(new p5.Element(document.getElementById('choixParametreTexte')));
+	d.buttons.push(new p5.Element(document.getElementById('ajoutText')));
+	d.textarea('first').size(300, 35).value('Ajoutez du texte sur votre CUSTOM !');
+	// gestion des evenements
+	d.canvas.drop(gotfile);
 	d.canvas.mousePressed(function(e) {
 		d.startX = parseInt(e.clientX - d.offsetX);
 		d.startY = parseInt(e.clientY - d.offsetY);
@@ -84,7 +69,7 @@ function setup() {
 		d.draggingImage = false;
 		d.draggingText = false;
 	});
-	d.canvas.elt.addEventListener("dblclick", function() {
+	d.button('ajoutText').mousePressed(function() {
 		if (index == 0) {
 			d.textarea('first').value('');
 			d.textarea('first').elt.focus();
@@ -111,9 +96,79 @@ function setup() {
 	d.button('gauche').mousePressed(function() {
 		d.fond = d.gauche;
 	});
+	d.button('buttonDesign').mousePressed(function() {
+		modal('modalDesign');
+	});
+	d.button('buttonText').mousePressed(function() {
+		modal('modalTexte');
+	});
+	d.button('buttonProduit').mousePressed(function() {
+		modal('modalProduit');
+	});
+	d.button('buttonNb').mousePressed(function() {
+		modal('modalNb');
+	});
+	d.button('choixDesign').mousePressed(function() {
+		document.getElementById('choisiDesign').style.display = "block";
+		document.getElementById('choisiParametreDesign').style.display = "none";
+	});
+	d.button('choixParametreDesign').mousePressed(function() {
+		document.getElementById('choisiDesign').style.display = "none";
+		document.getElementById('choisiParametreDesign').style.display = "block";
+	});
+	d.button('choixTexte').mousePressed(function() {
+		document.getElementById('choisiTexte').style.display = "block";
+		document.getElementById('choisiParametreTexte').style.display = "none";
+	});
+	d.button('choixParametreTexte').mousePressed(function() {
+		document.getElementById('choisiTexte').style.display = "none";
+		document.getElementById('choisiParametreTexte').style.display = "block";
+	});
+	for (var i = 0; i < document.getElementsByClassName('close').length; i++) {
+		document.getElementsByClassName('close')[i].onclick = function() {
+			modal();
+		}
+	}
+	modal = function(id) {
+			// on utilise la fonction soit pour fermer toutes les modales
+			// soit pour un afficher une
+			document.getElementById('modalProduit').style.display = "none";
+			document.getElementById('modalDesign').style.display = "none";
+			document.getElementById('modalTexte').style.display = "none";
+			document.getElementById('modalNb').style.display = "none";
+			if (id) {
+				document.getElementById(id).style.display = "block";
+			}
+		}
+		//on gère tous le positionnement ici :
+	Position = function() {
+		d.canvas.position(windowWidth / 2 - 250, windowHeight / 2 - 200);
+		d.button('buttonProduit').position(d.offsetX - d.button('buttonProduit').width - 25, d.offsetY);
+		d.button('buttonDesign').position(d.offsetX - d.button('buttonDesign').width - 25, d.offsetY + canvasHeight / 5);
+		d.button('buttonImage').position(d.offsetX - d.button('buttonImage').width - 25, d.offsetY + 2 * canvasHeight / 5);
+		d.button('buttonText').position(d.offsetX - d.button('buttonText').width - 25, d.offsetY + 3 * canvasHeight / 5);
+		d.button('buttonNb').position(d.offsetX - d.button('buttonNb').width - 25, d.offsetY + 4 * canvasHeight / 5);
+		d.button('face').position(d.offsetX + 30, d.offsetY + canvasHeight + 20);
+		d.button('dos').position(d.offsetX + 30 + canvasWidth / 4, d.offsetY + canvasHeight + 20);
+		d.button('droite').position(d.offsetX + 30 + 2 * canvasWidth / 4, d.offsetY + canvasHeight + 20);
+		d.button('gauche').position(d.offsetX + 30 + 3 * canvasWidth / 4, d.offsetY + canvasHeight + 20);
+		for (var i = 0; i < document.getElementsByClassName('modal-right').length; i++) {
+			document.getElementsByClassName('modal-right')[i].style.paddingLeft = (d.offsetX + canvasWidth + 25).toString() + "px";
+			document.getElementsByClassName('modal-right')[i].style.paddingTop = (d.offsetY - 120).toString() + 'px';
+		}
+	}
+	Position();
 }
 
 function draw() {
+	var canvasWidth = d.canvas.size().width;
+	d.canvasOffset = d.canvas.position();
+	d.offsetX = d.canvasOffset.x;
+	d.offsetY = d.canvasOffset.y;
+	for (var i = 0; i < d.sliders.length; i++) {
+		d.sliders[i].position(d.sliders[i].x, d.sliders[i].y);
+	}
+	Position();
 	background(200);
 	background(d.fond);
 	textFont(d.font);
@@ -148,51 +203,36 @@ function draw() {
 			d.imageBottom += 2;
 		}
 	}
-	if (d.droped && d.logo[d.nb]) {
-		push();
-		rotate(d.aImage);
-		d.ctx.drawImage(d.logo[d.nb], 0, 0, d.logo[d.nb].width, d.logo[d.nb].height, d.imageX, d.imageY, d.imageWidth, d.imageHeight);
-		if (d.hitImage(d.startX, d.startY)) {
-			d.drawDragging(d.imageX, d.imageY, d.imageRight, d.imageBottom, d.imageWidth);
-		}
-		pop();
-	}
-	if (d.textarea('first').value() != 'add some text on your custom !') {
-		push();
-		fill(d.input('colorPicker').jscolor.rgb[0], d.input('colorPicker').jscolor.rgb[1], d.input('colorPicker').jscolor.rgb[2]);
-		textSize(d.slider('taille texte').value());
-		d.text = text(d.textarea('first').value(), d.textX, d.textY, d.textWidth, d.textHeight);
-		if (d.hitText(d.startX, d.startY)) {
-			d.drawDragging(d.textX, d.textY, d.textRight, d.textBottom, d.textWidth);
-		}
-		pop();
-	}
-	if (!d.droped && d.textarea('first').value() == 'add some text on your custom !') {
+	if (!d.droped && d.textarea('first').value() == 'Ajoutez du texte sur votre CUSTOM !') {
 		textSize(32);
 		text('drag an image !', width / 2, height / 2);
 	}
-	for (var i = 0; i < d.sliders.length; i++) {
-		d.sliders[i].show();
+	translate(width / 2, height / 2);
+	if (d.textarea('first').value() != 'Ajoutez du texte sur votre CUSTOM !') {
+		push();
+		fill(d.textColor[0], d.textColor[1], d.textColor[2]);
+		//textSize(document.getElementById('tailleTexte'));
+		d.text = text(d.textarea('first').value(), d.textX - width / 2, d.textY - height / 2, d.textWidth, d.textHeight);
+		if (d.hitText(d.startX, d.startY)) {
+			d.drawDragging(d.textX - width / 2, d.textY - height / 2, d.textRight - width / 2, d.textBottom - height / 2, d.textWidth);
+		} else {
+			d.xtext = cos(document.getElementById('orientationTexte').value * 0.017453292519943);
+			d.ytext = sin(document.getElementById('orientationTexte').value * 0.017453292519943);
+			d.atext = atan2(d.ytext, d.xtext);
+		}
+		pop();
 	}
-}
-
-function windowResized() {
-	// on update les positions des éléments ...
-	var canvasWidth = d.canvas.size().width;
-	d.canvasOffset = d.canvas.position();
-	d.offsetX = d.canvasOffset.x;
-	d.offsetY = d.canvasOffset.y;
-	// .. et on repositionne tous en fonctions des modfications
-	d.h1.position(windowWidth / 2 - 100, 0);
-	d.p[0].position(windowWidth / 2 - 180, 40);
-	d.button('Imprimer !').position(canvasWidth + d.offsetX + 50, d.offsetY);
-	d.button('importer votre logo').position(canvasWidth + d.offsetX + 150, d.offsetY);
-	d.button('choisir un logo').position(canvasWidth + d.offsetX + 300, d.offsetY);
-	d.button('face').position(d.offsetX - 80, d.offsetY);
-	d.button('dos').position(d.offsetX - 80, d.offsetY + 100);
-	d.button('droite').position(d.offsetX - 80, d.offsetY + 200);
-	d.button('gauche').position(d.offsetX - 80, d.offsetY + 300);
-	for (var i = 0; i < d.sliders.length; i++) {
-		d.sliders[i].position(d.offsetX + canvasWidth, d.offsetY);
+	if (d.droped && d.logo[d.nb]) {
+		push();
+		rotate(d.aImage);
+		d.ctx.drawImage(d.logo[d.nb], 0, 0, d.logo[d.nb].width, d.logo[d.nb].height, d.imageX - width / 2, d.imageY - height / 2, d.imageWidth, d.imageHeight);
+		if (d.hitImage(d.startX, d.startY)) {
+			d.drawDragging(d.imageX - width / 2, d.imageY - height / 2, d.imageRight - width / 2, d.imageBottom - height / 2, d.imageWidth);
+		} else {
+			d.xImage = cos(document.getElementById('orientationImage').value * 0.017453292519943);
+			d.yImage = sin(document.getElementById('orientationImage').value * 0.017453292519943);
+			d.aImage = atan2(d.yImage, d.xImage);
+		}
+		pop();
 	}
 }

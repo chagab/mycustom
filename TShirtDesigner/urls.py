@@ -5,4 +5,5 @@ from . import views
 
 urlpatterns = [
     url(r'designer', views.designer, name='TshirtDesigner'),
+    url(r'content', views.content, name='content'),
 ]

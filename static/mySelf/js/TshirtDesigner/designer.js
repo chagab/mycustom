@@ -1,3 +1,8 @@
+///////////////////////////////////////////////////////////////////////////////////
+// partie du code qui contient tout les contstructeurs nécéssaire au designer .. //
+// c'est une partie un peu fouillie du code, qui peut largement encore être 	 //
+// améliorée et qui possède encore quelques bugs 								 //
+///////////////////////////////////////////////////////////////////////////////////
 function Designer() {
 	this.canvas;
 	this.ctx;
@@ -44,6 +49,7 @@ function Designer() {
 	this.textHeight = 50;
 	this.textRight = this.textX + this.textWidth;
 	this.textBottom = this.textY + this.textHeight;
+	this.textColor = [0, 0, 0];
 	this.draggingText = false;
 	this.draggingResizerText = {
 		x: 0,
@@ -55,15 +61,11 @@ function Designer() {
 	//variable contenant le nombre d'image déposée
 	this.nb = 0;
 	// variables contenant les éléments du DOM
-	this.h1;
 	this.logo = [];
 	this.p = [];
 	this.buttons = [];
 	this.textareas = [];
-	this.inputs = [];
 	this.sliders = [];
-	this.imgs = [];
-	this.divs = [];
 	// on ajoute des méthodes pour pouvoir retrouver les éléments du DOM facilement 
 	this.textarea = function(titre) {
 		return this.textareas.find(function(element) {
@@ -72,12 +74,12 @@ function Designer() {
 	}
 	this.button = function(titre) {
 		return this.buttons.find(function(element) {
-			return element.elt.innerText === titre;
+			return element.elt.id === titre;
 		});
 	}
 	this.slider = function(titre) {
 		return this.sliders.find(function(element) {
-			return element.titre.elt.innerText === titre;
+			return element.elt.id === titre;
 		});
 	}
 	this.input = function(titre) {
@@ -101,32 +103,6 @@ function Designer() {
 	}
 	this.hitText = function(x, y) {
 		return (x > this.textX && x < this.textX + this.textWidth && y > this.textY && y < this.textY + this.textHeight);
-	}
-	this.gotfile = function(file) {
-		var message = "Votre Logo est trop grand ... \n";
-		message += "Pour que nous puissions le gérer,";
-		message += " une taille de 300x300 au maximum est recommandée.";
-		message += " Nous vous conseillons de faire une copie de votre logo ";
-		message += " et de modifier sa taille pour utiliser le T-shirt designer\n\n";
-		message += "Envoyer nous alors les deux images : nous aurons alors une image"
-		message += " en bonne qualité pour l'impression.";
-		if (file.type === 'image') {
-			console.log(file);
-			if (file.size > 150000) {
-				alert(message);
-			} else {
-				d.droped = true;
-				d.numberOfImage++;
-				d.logo.push(new Image());
-				d.logo[d.nb].src = file.data;
-				d.imageWidth = d.logo[d.nb].width;
-				d.imageHeight = d.logo[d.nb].height;
-				d.imageRight = d.imageX + d.imageWidth;
-				d.imageBottom = d.imageY + d.imageHeight;
-			}
-		} else {
-			println('Not an image file!');
-		}
 	}
 	this.drawDragging = function(X, Y, Right, Bottom, Width) {
 		this.drawDragAnchor(X, Y);
@@ -152,15 +128,6 @@ function Designer() {
 		this.ctx.arc(x, y, this.resizerRadius, 0, this.pi2, false);
 		this.ctx.closePath();
 		this.ctx.fill();
-	}
-	this.buttonStyle = function(button) {
-		button.style('background-position', 'center center');
-		button.style('height', '70px');
-		button.style('width', '70px');
-		button.style('background-size', 'cover');
-		button.style('border-radius', '5px');
-		button.style('box-shadow', '1px 1px 5px black');
-		button.style('font-family', 'CaviarDreams');
 	}
 	this.textSizing = function(x, y) {
 		if (this.hitIn(x, y)) {
@@ -271,7 +238,6 @@ function Designer() {
 					break;
 				case 4:
 					//rotation
-					console.log('in');
 					this.xImage = cos(mouseY * 0.017453292519943);
 					this.yImage = sin(mouseY * 0.017453292519943);
 					this.aImage = atan2(this.yImage, this.xImage);
@@ -335,7 +301,6 @@ function Designer() {
 					break;
 				case 4:
 					//rotation
-					console.log('in');
 					this.xtext = cos(mouseY * 0.017453292519943);
 					this.ytext = sin(mouseY * 0.017453292519943);
 					this.atext = atan2(this.ytext, this.xtext);
@@ -397,44 +362,46 @@ function Text() {
 		y: 0
 	};
 }
-var Slider = (function() {
-	// on utilise les closures pour incrémenter ordre à chaque instance d'objet
-	// cela sert à décaler les sliders
-	var ordre = 0;
-	return function Slider(titre, debut, fin, pas, posX, posY) {
-		ordre++;
-		this.x = posX;
-		this.y = posY;
-		//this.valeur = 0;
-		this.slider = createSlider(debut, fin, pas).position(this.x + 50, this.y + ordre * 20).size(200, 0);
-		this.valeur = createP(this.slider.value()).position(this.x + 50 + this.slider.width + 20, this.y + ordre * 20);
-		this.titre = createP(titre).position(this.x + 50 + this.slider.width + this.valeur.size().width + 50, this.y + ordre * 20);
-		this.width = this.slider.width + this.valeur.size().width + this.titre.size().width + 70;
-		this.show = function() {
-			this.valeur.html(this.slider.value());
-		}
-		this.value = function(value) {
-			if (value) {
-				this.slider.value(value);
-			} else {
-				return this.slider.value();
-			}
-		}
-		this.position = function(newX, newY) {
-			if (newX && newY) {
-				this.x = newX;
-				this.y = newY;
-				this.slider.position(newX, newY);
-				this.valeur.position(this.x + this.slider.width + 20, this.y - 15);
-				this.titre.position(this.x + this.slider.width + this.valeur.size().width + 50, this.y - 15);
-			} else {
-				return this.slider.position();
-			}
-		}
-		this.hide = function() {
-			this.slider.hide();
-			this.valeur.hide();
-			this.titre.hide();
-		}
+
+function colorPicker_OnClick(color) {
+	var f = document.createElement("div");
+	f.style.color = color;
+	document.body.appendChild(f);
+	rgbValue = window.getComputedStyle(f).color.split(", ");
+	delete f;
+	d.textColor[0] = Number(rgbValue[0].slice(4));
+	d.textColor[1] = Number(rgbValue[1]);
+	d.textColor[2] = Number(rgbValue[2].slice(0, rgbValue[2].length - 1));
+}
+
+function gotfile(file) {
+	file.width = int(this.canvas.width);
+	file.height = int(this.canvas.height);
+	if (file.type === 'image') {
+		d.droped = true;
+		d.numberOfImage++;
+		d.logo.push(new Image());
+		//d.logo[d.nb].width = this.canvas.width;
+		//d.logo[d.nb].height = this.canvas.height;
+		d.logo[d.nb].src = file.data;
+		d.imageWidth = d.logo[d.nb].width;
+		d.imageHeight = d.logo[d.nb].height;
+		d.imageRight = d.imageX + d.imageWidth;
+		d.imageBottom = d.imageY + d.imageHeight;
+		//d.nb++;
+	} else {
+		alert('Not an image file!');
 	}
-})();
+}
+
+function changeProdcut(number) {
+	d.face = loadImage(path + "image/" + number + "-face.png");
+	d.dos = loadImage(path + "image/" + number + "-dos.png");
+	d.droite = loadImage(path + "image/" + number + "-droite.png");
+	d.gauche = loadImage(path + "image/" + number + "-gauche.png");
+	d.button('face').style('background-image', "url(" + path + "'image/" + number + "-face.png')");
+	d.button('dos').style('background-image', "url(" + path + "'image/" + number + "-dos.png')");
+	d.button('droite').style('background-image', "url(" + path + "'image/" + number + "-droite.png')");
+	d.button('gauche').style('background-image', "url(" + path + "'image/" + number + "-gauche.png')");
+	d.fond = d.face;
+}
