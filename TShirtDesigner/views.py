@@ -1,9 +1,8 @@
 from django.shortcuts import render
-
+from achetez.models import produit, achatLogo
 # Create your views here.
 
 def designer(request):
-	return render(request, 'TShirtDesigner/index.html')
-
-def content(request):
-	return render(request, 'TShirtDesigner/content.html')
+	achatLogo_from_view   = achatLogo.objects.all()
+	produitLogo_from_view = produit.objects.all()
+	return render(request, 'TShirtDesigner/index.html', locals())

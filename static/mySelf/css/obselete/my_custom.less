@@ -7,17 +7,54 @@
 
 @font-face {
 	font-family: 'CaviarDreams';
-	src: url('Caviar-Dreams-fontfacekit/web_fonts/caviardreams_regular_macroman/CaviarDreams-webfont.eot') format('eot'), url('Caviar-Dreams-fontfacekit/web_fonts/caviardreams_regular_macroman/CaviarDreams-webfont.ttf') format('truetype'), url('Caviar-Dreams-fontfacekit/web_fonts/caviardreams_regular_macroman/CaviarDreams-webfont.svg') format('svg'), url('Caviar-Dreams-fontfacekit/web_fonts/caviardreams_regular_macroman/CaviarDreams-webfont.woff') format('woff')
+	src: 
+	url('Caviar-Dreams-fontfacekit/web_fonts/caviardreams_regular_macroman/CaviarDreams-webfont.eot') format('eot'),
+	url('Caviar-Dreams-fontfacekit/web_fonts/caviardreams_regular_macroman/CaviarDreams-webfont.ttf') format('truetype'),
+	url('Caviar-Dreams-fontfacekit/web_fonts/caviardreams_regular_macroman/CaviarDreams-webfont.svg') format('svg'),
+	url('Caviar-Dreams-fontfacekit/web_fonts/caviardreams_regular_macroman/CaviarDreams-webfont.woff') format('woff')
 }
 
 body {
 	padding: 0;
 	margin: 0;
+	position: relative;
+    min-height: 100%;
 	//background-image: linear-gradient(to bottom, white, #F6EABA);
 }
 
 canvas {
 	vertical-align: top;
+}
+
+h2 {
+	font-family: 'CaviarDreams', Arial;
+	font-size: 400%;
+}
+
+h3{
+	font-size: 200%;
+}
+
+form {
+	text-align: center;
+}
+
+label {
+	width: 35%;
+}
+
+input {
+	width: 75%;
+}
+
+footer {
+	color: gray;
+	margin-bottom: 0px;
+	position: relative;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
 }
 
 .backGround {
@@ -88,13 +125,7 @@ a:hover {
 	background-repeat: no-repeat;
 	-moz-background-size: cover;
 	-webkit-background-size: cover;
-	background-size: cover;/*
-				&:hover {
-					-moz-transform: scale(0.95, 0.95);
-					-webkit-transform: scale(0.95, 0.95);
-					transform: scale(0.95, 0.95);
-				}
-				*/
+	background-size: cover;
 }
 
 .categorie_general(@padding-top, @padding-bottom, @padding-right, @padding-left) {
@@ -180,11 +211,6 @@ a:hover {
 
 .myfont-llg {
 	.myFont(200%)
-}
-
-h2 {
-	font-family: 'CaviarDreams', Arial;
-	font-size: 400%;
 }
 
 #logo-menu {
@@ -340,23 +366,7 @@ body.modal-open .wrap {
 	display: block
 }
 
-form {
-	text-align: center;
-}
 
-label {
-	width: 35%;
-}
-
-input {
-	width: 75%;
-}
-
-footer {
-	color: gray;
-	height: 50px;
-	margin-bottom: 0px;
-}
 
 .center {
 	position: absolute;
@@ -372,31 +382,6 @@ footer {
 
 .stopfade {
 	opacity: .5;
-}
-
-@media all and (max-width:768px) {
-	#logo-menu {
-		display: none
-	}
-
-	.categorie_achat {
-		.categorie_general(0px, 0px, 0px, 0px);
-	}
-
-}
-
-@media all and (max-width:992px) {
-	.categorie_achat {
-		.categorie_general(30px, 30px, 10px, 10px);
-	}
-
-}
-
-@media all and (max-width:1200px) {
-	.categorie_achat {
-		.categorie_general(40px, 40px, 10px, 10px);
-	}
-
 }
 
 #compte {
@@ -503,4 +488,29 @@ footer {
 
 .btn-pref .btn {
 	-webkit-border-radius: 0 !important;
+}
+
+@media all and (max-width:768px) {
+	#logo-menu {
+		display: none
+	}
+
+	.categorie_achat {
+		.categorie_general(0px, 0px, 0px, 0px);
+	}
+
+}
+
+@media all and (max-width:992px) {
+	.categorie_achat {
+		.categorie_general(30px, 30px, 10px, 10px);
+	}
+
+}
+
+@media all and (max-width:1200px) {
+	.categorie_achat {
+		.categorie_general(40px, 40px, 10px, 10px);
+	}
+
 }

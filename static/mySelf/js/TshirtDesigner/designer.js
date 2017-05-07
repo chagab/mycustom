@@ -399,9 +399,9 @@ function changeProdcut(number) {
 	d.dos = loadImage(path + "image/" + number + "-dos.png");
 	d.droite = loadImage(path + "image/" + number + "-droite.png");
 	d.gauche = loadImage(path + "image/" + number + "-gauche.png");
-	d.button('face').style('background-image', "url(" + path + "'image/" + number + "-face.png')");
-	d.button('dos').style('background-image', "url(" + path + "'image/" + number + "-dos.png')");
-	d.button('droite').style('background-image', "url(" + path + "'image/" + number + "-droite.png')");
-	d.button('gauche').style('background-image', "url(" + path + "'image/" + number + "-gauche.png')");
+	d.button('face').style('background-image', "url('" + path + "image/" + number + "-face.png')");
+	d.button('dos').style('background-image', "url('" + path + "image/" + number + "-dos.png')");
+	d.button('droite').style('background-image', "url('" + path + "image/" + number + "-droite.png')");
+	d.button('gauche').style('background-image', "url('" + path + "image/" + number + "-gauche.png')");
 	d.fond = d.face;
 }

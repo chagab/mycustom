@@ -4,6 +4,5 @@ from django.views.generic import TemplateView
 from . import views
 
 urlpatterns = [
-    url(r'designer', views.designer, name='TshirtDesigner'),
-    url(r'content', views.content, name='content'),
+    url(r'designer/$', views.designer, name='TshirtDesigner'),
 ]

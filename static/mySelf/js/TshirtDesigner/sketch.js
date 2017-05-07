@@ -1,10 +1,11 @@
 var d;
 var Position;
 var modal;
+var path;
 
 function setup() {
 	d = new Designer();
-	var path = "../../../static/mySelf/image/TshirtDesigner/"
+	path = "../../../static/mySelf/image/TshirtDesigner/"
 	d.font = loadFont('../../../static/mySelf/css/Caviar-Dreams-fontfacekit/web_fonts/caviardreams_regular_macroman/CaviarDreams-webfont.ttf');
 	d.face = loadImage(path + "image/1-face.png");
 	d.dos = loadImage(path + "image/1-dos.png");
@@ -13,15 +14,10 @@ function setup() {
 	d.in = loadImage(path + "image/in.png");
 	d.out = loadImage(path + "image/out.png");
 	d.fond = d.face;
-	console.log(d.fond);
 	d.canvas = createCanvas(2 * windowHeight / 3, 2 * windowHeight / 3).position(windowWidth / 2 - 250, windowHeight / 2 - 200);
-	console.log(document.getElementById("conteneur"));
 	var canvasWidth = d.canvas.size().width;
 	var canvasHeight = d.canvas.size().height;
 	var index = 0;
-	document.getElementById("conteneur").height = 500 + canvasHeight;
-	document.getElementById("conteneur").clientHeight = 500 + canvasHeight;
-	document.getElementById("conteneur").insertBefore(d.canvas.elt, document.getElementById('buttonNb'));
 	// on initialise tout ce qu'il faut dans le designer
 	d.ctx = d.canvas.elt.getContext("2d");
 	d.canvasOffset = d.canvas.position();
@@ -44,6 +40,35 @@ function setup() {
 	d.buttons.push(new p5.Element(document.getElementById('choixParametreTexte')));
 	d.buttons.push(new p5.Element(document.getElementById('ajoutText')));
 	d.textarea('first').size(300, 35).value('Ajoutez du texte sur votre CUSTOM !');
+	modal = function(id) {
+			// on utilise la fonction soit pour fermer toutes les modales
+			// soit pour un afficher une
+			document.getElementById('modalProduit').style.display = "none";
+			document.getElementById('modalDesign').style.display = "none";
+			document.getElementById('modalTexte').style.display = "none";
+			document.getElementById('modalNb').style.display = "none";
+			if (id) {
+				document.getElementById(id).style.display = "block";
+			}
+		}
+		//on gère tous le positionnement ici :
+	Position = function() {
+		d.canvas.position(windowWidth / 2 - 250, windowHeight / 2 - 200);
+		d.button('buttonProduit').position(d.offsetX - d.button('buttonProduit').width - 25, d.offsetY);
+		d.button('buttonDesign').position(d.offsetX - d.button('buttonDesign').width - 25, d.offsetY + canvasHeight / 5);
+		d.button('buttonImage').position(d.offsetX - d.button('buttonImage').width - 25, d.offsetY + 2 * canvasHeight / 5);
+		d.button('buttonText').position(d.offsetX - d.button('buttonText').width - 25, d.offsetY + 3 * canvasHeight / 5);
+		d.button('buttonNb').position(d.offsetX - d.button('buttonNb').width - 25, d.offsetY + 4 * canvasHeight / 5);
+		d.button('face').position(d.offsetX + 30, d.offsetY + canvasHeight + 20);
+		d.button('dos').position(d.offsetX + 30 + canvasWidth / 4, d.offsetY + canvasHeight + 20);
+		d.button('droite').position(d.offsetX + 30 + 2 * canvasWidth / 4, d.offsetY + canvasHeight + 20);
+		d.button('gauche').position(d.offsetX + 30 + 3 * canvasWidth / 4, d.offsetY + canvasHeight + 20);
+		for (var i = 0; i < document.getElementsByClassName('modal-right').length; i++) {
+			document.getElementsByClassName('modal-right')[i].style.paddingLeft = (d.offsetX + canvasWidth + 25).toString() + "px";
+			document.getElementsByClassName('modal-right')[i].style.paddingTop = (d.offsetY - 120).toString() + 'px';
+		}
+	}
+	Position();
 	// gestion des evenements
 	d.canvas.drop(gotfile);
 	d.canvas.mousePressed(function(e) {
@@ -129,35 +154,6 @@ function setup() {
 			modal();
 		}
 	}
-	modal = function(id) {
-			// on utilise la fonction soit pour fermer toutes les modales
-			// soit pour un afficher une
-			document.getElementById('modalProduit').style.display = "none";
-			document.getElementById('modalDesign').style.display = "none";
-			document.getElementById('modalTexte').style.display = "none";
-			document.getElementById('modalNb').style.display = "none";
-			if (id) {
-				document.getElementById(id).style.display = "block";
-			}
-		}
-		//on gère tous le positionnement ici :
-	Position = function() {
-		d.canvas.position(windowWidth / 2 - 250, windowHeight / 2 - 200);
-		d.button('buttonProduit').position(d.offsetX - d.button('buttonProduit').width - 25, d.offsetY);
-		d.button('buttonDesign').position(d.offsetX - d.button('buttonDesign').width - 25, d.offsetY + canvasHeight / 5);
-		d.button('buttonImage').position(d.offsetX - d.button('buttonImage').width - 25, d.offsetY + 2 * canvasHeight / 5);
-		d.button('buttonText').position(d.offsetX - d.button('buttonText').width - 25, d.offsetY + 3 * canvasHeight / 5);
-		d.button('buttonNb').position(d.offsetX - d.button('buttonNb').width - 25, d.offsetY + 4 * canvasHeight / 5);
-		d.button('face').position(d.offsetX + 30, d.offsetY + canvasHeight + 20);
-		d.button('dos').position(d.offsetX + 30 + canvasWidth / 4, d.offsetY + canvasHeight + 20);
-		d.button('droite').position(d.offsetX + 30 + 2 * canvasWidth / 4, d.offsetY + canvasHeight + 20);
-		d.button('gauche').position(d.offsetX + 30 + 3 * canvasWidth / 4, d.offsetY + canvasHeight + 20);
-		for (var i = 0; i < document.getElementsByClassName('modal-right').length; i++) {
-			document.getElementsByClassName('modal-right')[i].style.paddingLeft = (d.offsetX + canvasWidth + 25).toString() + "px";
-			document.getElementsByClassName('modal-right')[i].style.paddingTop = (d.offsetY - 120).toString() + 'px';
-		}
-	}
-	Position();
 }
 
 function draw() {

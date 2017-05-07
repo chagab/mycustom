@@ -1,61 +1,96 @@
 {% load staticfiles %}
 <div id="customize" class="space_section">
 	<center>
-	{% for onglet in customiseOnglet_from_view %}
-		{% if onglet.confirm %}
-			<div class="col-xs-12 space_section-lg fond" style="color: {{ onglet.couleur_titre }}; background-image: url({{ onglet.image_titre.url }}); ">
-				<div class="container">
-					<h2>{{ onglet.titre }}</h2>
-				</div>
+	{% for onglet in customiseOnglet_from_view %} {% if onglet.confirm %}
+		<div class="col-xs-12 space_section-lg fond" style="color: {{ onglet.couleur_titre }}; background-image: url({{ onglet.image_titre.url }}); ">
+			<div class="container">
+				<h2>{{ onglet.titre }}</h2>
 			</div>
-		{% endif %}
-	{% endfor %}
+		</div>
+	{% endif %} {% endfor %}
 	<div class="container">
 		<h4 class="myfont">A propos de la collection</h4>
 		<p class="container myfont">Consectetur beatae autem corporis magni consectetur commodi tempora minima. Corrupti necessitatibus libero ut labore. Sit explicabo quaerat optio architecto.Dolorum qui molestiae facere omnis quo totam mollitia tempora. Velit molestiae vitae nemo occaecati. Et nemo qui labore qui.Possimus vel minima quos. Sit praesentium sapiente dolores consequatur tempore. Enim labore quo aliquam eos harum. Magni voluptates optio molestiae nostrum aspernatur rerum blanditiis rerum.Minus rerum laudantium dolorem. Quia quia vitae non officiis quis. Numquam consequatur libero eum officiis similique quis ut. Repellat laudantium sapiente qui dolor fugiat exercitationem eum. Est dolor rem iste. In amet distinctio blanditiis quasi. Perferendis eligendi est inventore voluptas dicta ipsa facilis. Nam necessitatibus impedit voluptatem. Beatae est omnis et non est dolor ut. Eaque esse molestias vel voluptatem alias.</p>
-		<div class="col-md-6 myfont" >
+		<div class="col-md-6 myfont">
 			<h3>Catégories
 			</h3>
 			<div id='categorie_container'>
 				<div class="panel-group" id="accordion_2" role="tablist" aria-multiselectable="true">
-					{% for categorie in customise_categorie_from_view %}
-						{% if categorie.confirm %}
-							<div class="panel panel-default">
-								<div role="button" data-toggle="collapse" data-parent="#accordion_2" href="#categorie_{{ categorie.id }}" aria-expanded="false" aria-controls="categorie_{{ categorie.id }}" class="categorie animation_ease-slow"
-									style="background-image: url({{ categorie.image.url }});">
-									<b>{{ categorie.nom }}
-									</b>
-								</div>
-								<div id="categorie_{{ categorie.id }}" class="panel-collapse collapse " role="tabpanel">
-									<div class="panel-body">
-										<p>{{ categorie.text_description_short }}
-										</p>
-										<a href="TshirtDesigner/designer/">Customizez !</a>
+					{% for categorie in customise_categorie_from_view %} {% if categorie.confirm %}
+						<div class="panel panel-default">
+							<div role="button" data-toggle="modal" data-parent="#accordion_2" data-target="#test_{{ categorie.id }}" class="categorie animation_ease-slow" style="background-image: url({{ categorie.image.url }});">
+								<b>{{ categorie.nom }}
+								</b>
+							</div>
+							<div class="modal fade bs-example-modal-lg" id="test_{{ categorie.id }}" tabindex="-1" role="dialog" aria-labelledby="testLabel">
+								<div class="modal-dialog modal-lg" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+											<h2 class="modal-title" id="testLabel">{{ categorie.nom }}</h2>
+										</div>
+										<div class="modal-body">
+											<div class="container">
+												{% for element in Produit_from_view %} 
+												{% if element.confirm %}
+												{% if element.categorie == categorie %}
+													<div class="produit animation_ease col-{{ element.taille }}-offset-{{ element.nombre_offset }} col-{{ element.taille }}-{{ element.nombre_colonnes }}" style="
+														border : {{ element.type_contour }} {{ element.epaisseur_contour }}px {{ element.couleur_contour }};
+														border-radius: {{ element.contour_arrondi }}px;
+														color : {{ element.couleur_text }};
+														background-color: {{ element.couleur_fond }}">
+														<center>
+														<h3 class="myfont">{{ element.nom }}
+														</h3>
+														<div class="text-center">
+															<a type="button" href="TshirtDesigner/designer/">
+																<img class="resize_width adjust_height" style="
+																background-color: {{ element.couleur_fond_image }};
+																border-radius: {{ element.contour_arrondi_image }}px;" src="{{ element.image.url }}">
+															</a>
+														</div>
+														<br>
+														<br>
+														<p class="myfont">{{ element.prix}}€
+														</p>
+														<p class="myfont">{{ element.text_description_short }}
+														</p>
+														</center>
+													</div>
+												{% endif %} 
+												{% endif %} 
+												{% empty %}
+												<p class="myfont">il n'y pas d'éléments dans la collection pour le moment ...
+												</p>
+											{% endfor %}
+										</div>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 									</div>
 								</div>
 							</div>
-						{% endif %}
-					{% endfor %}
-				</div>
-			</div>
-		</div>
-		<div class="col-md-6 myfont" >
-			<h3>Produits
-			</h3>
-			<div style="overflow: scroll; height: 750px;">
-				{% for produit in customise_produit_from_view %}
-					{% if produit.confirm %}
-						<a class="col-xs-6" >
-							<img class="produit produit_customizer animation_ease-slow resize_width adjust_height" src="{{ produit.image.url }}">
-							<p class="myfont" style="color: {{ produit.couleur_text  }}">{{ produit.nom }}
-							</p>
-						</a>
-					{% endif %}
-				{% endfor %}
+						</div>
+					</div>
+				{% endif %} {% endfor %}
 			</div>
 		</div>
 	</div>
-	</center>
+	<div class="col-md-6 myfont">
+		<h3>Produits
+		</h3>
+		<div style="overflow: scroll; height: 750px;">
+			{% for produit in customise_produit_from_view %} {% if produit.confirm %}
+				<a class="col-xs-6">
+					<img class="produit produit_customizer animation_ease-slow resize_width adjust_height" src="{{ produit.image.url }}">
+					<p class="myfont" style="color: {{ produit.couleur_text  }}">{{ produit.nom }}
+					</p>
+				</a>
+			{% endif %} {% endfor %}
+		</div>
+	</div>
+</div>
+</center>
 </div>
 <br>
 <br>
@@ -66,27 +101,27 @@
 <br>
 <br>
 <div class="container">
-	<div class="row">
-		<div class="col-xs-8 col-xs-offset-2">
-			<div class="input-group">
-				<div class="input-group-btn search-panel">
-					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-					<span id="search_concept" class="myfont">Filtre par</span> <span class="caret"></span>
-					</button>
-					<ul class="dropdown-menu" role="menu">
-						<li><a class="myfont" href="#contains">Date</a></li>
-						<li><a class="myfont" href="#its_equal">Catégorie</a></li>
-						<li><a class="myfont" href="#greather_than">Artiste</a></li>
-						<li><a class="myfont" href="#less_than">Popularité</a></li>
-					</ul>
-				</div>
-				<input type="hidden" name="search_param" value="all" id="search_param">
-				<input type="text" class="form-control myfont" name="x" placeholder="Entrez un mot clé ...">
-				<span class="input-group-btn">
-					<button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
-				</span>
+<div class="row">
+	<div class="col-xs-8 col-xs-offset-2">
+		<div class="input-group">
+			<div class="input-group-btn search-panel">
+				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+				<span id="search_concept" class="myfont">Filtre par</span> <span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" role="menu">
+					<li><a class="myfont" href="#contains">Date</a></li>
+					<li><a class="myfont" href="#its_equal">Catégorie</a></li>
+					<li><a class="myfont" href="#greather_than">Artiste</a></li>
+					<li><a class="myfont" href="#less_than">Popularité</a></li>
+				</ul>
 			</div>
+			<input type="hidden" name="search_param" value="all" id="search_param">
+			<input type="text" class="form-control myfont" name="x" placeholder="Entrez un mot clé ...">
+			<span class="input-group-btn">
+				<button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+			</span>
 		</div>
 	</div>
+</div>
 </div>
 </center>

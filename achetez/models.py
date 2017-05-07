@@ -1,6 +1,7 @@
 #-*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.db import models
+from cutsomise.models import customiseCategorie
 
 COLUMN_CHOICES  = (
 	('0', '0'),
@@ -42,7 +43,7 @@ class produit(models.Model):
 	nom                    = models.CharField(max_length=140)
 	confirm                = models.BooleanField()
 	date                   = models.DateField()
-	image                  = models.ImageField(upload_to="produit/")
+	image                  = models.ImageField(upload_to="achetez/produit/")
 	text_description_short = models.CharField(max_length=200)
 	text_description       = models.TextField()
 	prix                   = models.DecimalField(max_digits=20, decimal_places=2)
@@ -55,8 +56,9 @@ class produit(models.Model):
 	contour_arrondi        = models.PositiveSmallIntegerField(default=0)
 	contour_arrondi_image  = models.PositiveSmallIntegerField(default=0)
 	type_contour           = models.CharField(max_length=15,choices=CONTOUR_CHOICES,default='none')
-	couleur_contour        = models.CharField(max_length=7)
+	couleur_contour        = models.CharField(max_length=7, default='')
 	epaisseur_contour      = models.PositiveSmallIntegerField(default=0)
+	categorie              = models.ForeignKey(customiseCategorie)
 
 	def __str__(self):
 		return self.nom
