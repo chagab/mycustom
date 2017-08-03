@@ -15,25 +15,22 @@
 		<link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.css' %}">
 		<link rel="stylesheet" type="text/css" href="{% static 'mySelf/css/animates.css' %}">
 		<link rel="stylesheet" type="text/css" href="{% static 'mySelf/css/my_custom.css' %}">
-		
 	</head>
-	
 	<body id="haut">
-		{% block menu %} 				{% endblock %}
-		{% block accueil %}				{% endblock %}
-		{% block collection %} 			{% endblock %}
-		{% block menu_accueil %}		{% endblock %}
-		{% block customise %} 			{% endblock %}
-		{% block achat %}				{% endblock %}
-		{% block vendre %} 				{% endblock %}
-		{% block element %} 			{% endblock %}
-		{% block compte %}				{% endblock %}
-		{% block designer %}			{% endblock %}
-		
+		{% block menu %}{% endblock %}
+		{% block accueil %}{% endblock %}
+		{% block collection %}{% endblock %}
+		{% block menu_accueil %}{% endblock %}
+		{% block customise %}{% endblock %}
+		{% block achat %}{% endblock %}
+		{% block vendre %}{% endblock %}
+		{% block element %}{% endblock %}
+		{% block compte %}{% endblock %}
+		{% block designer %}{% endblock %}
 		{% load staticfiles %}
-		<script type="text/javascript" src="{% static 'jquery.js' %}" ></script>
+		<script type="text/javascript" src="{% static 'jquery.js' %}"></script>
 		<script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
-		{% block scriptMenu %} {% endblock %}
+		{% block scriptMenu %}{% endblock %}
 	</body>
 	{% block footer %}{% endblock %}
 </html>

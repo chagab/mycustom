@@ -48,7 +48,7 @@ class mosaique(models.Model):
 	colonne          = models.CharField(max_length=15,choices=COLONNE_CHOICES,default='none')
 	confirm          = models.BooleanField()
 	video 	         = models.BooleanField()
-	video_mp4        = models.FileField(upload_to="collection_ephemere/video/")
+	video_mp4        = models.FileField(upload_to="collection_ephemere/video/", blank=True)
 	video_webm       = models.FileField(upload_to="collection_ephemere/video/", blank=True)
 
 

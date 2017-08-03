@@ -1,12 +1,13 @@
 {% load staticfiles %}
 <div id="collection_ephemere">
 	<center>
-	<div class="col-xs-12 space_section-lg fond" style="color: black; background-image: url({% static 'mySelf/image/streetwear-2.jpg' %}); ">
+	<div class="col-xs-12 space_section-lg fond" style="color: black; background-image: url({% static 'mySelf/image/19987404_1136638153146881_733109667_n.jpg' %}); ">
 		<div class="container">
-			<h2>Collection Ephémère</h2>
+			<!--<h2>Collection Ephémère</h2>-->
+			<h2>MY CUSTOM</h2>
 		</div>
 	</div>
-	<h4 class="myfont">A propos de la collection</h4>
+	<!--<h4 class="myfont">A propos de la collection</h4>
 	<p class="container myfont">Consectetur beatae autem corporis magni consectetur commodi tempora minima. Corrupti necessitatibus libero ut labore. Sit explicabo quaerat optio architecto.Dolorum qui molestiae facere omnis quo totam mollitia tempora. Velit molestiae vitae nemo occaecati. Et nemo qui labore qui.Possimus vel minima quos. Sit praesentium sapiente dolores consequatur tempore. Enim labore quo aliquam eos harum. Magni voluptates optio molestiae nostrum aspernatur rerum blanditiis rerum.Minus rerum laudantium dolorem. Quia quia vitae non officiis quis. Numquam consequatur libero eum officiis similique quis ut. Repellat laudantium sapiente qui dolor fugiat exercitationem eum. Est dolor rem iste. In amet distinctio blanditiis quasi. Perferendis eligendi est inventore voluptas dicta ipsa facilis. Nam necessitatibus impedit voluptatem. Beatae est omnis et non est dolor ut. Eaque esse molestias vel voluptatem alias.</p>
 	</center>
 	<br>
@@ -49,13 +50,13 @@
 	<br>
 	<br>
 	<br>
-	</center>
+	</center>-->
 	<div class="container">
 		<div class="col-xs-4">
 			{% for mosaique in mosaique_from_view %}
 				{% if mosaique.confirm %}
 					{% if mosaique.colonne == "colonne_1" %}
-						<div class="gal-item none">
+						<div class="none">
 							<div class="zoom">
 								<div class="cache">
 									<b><p class="myfont-llg">Miss angel</p></b>
@@ -80,7 +81,7 @@
 									<img class="zoom-in" src="{{ mosaique.image.url }}">
 								{% endif %}
 							</div>
-							<div class="container gal-container">
+							<div class="container">
 								<div class="modal fade" id="gal_mosaique_{{ mosaique.id }}" tabindex="-1" role="dialog">
 									<div class="modal-dialog" role="document">
 										<div class="modal-content">
@@ -106,7 +107,7 @@
 			{% for mosaique in mosaique_from_view %}
 				{% if mosaique.confirm %}
 					{% if mosaique.colonne == "colonne_2" %}
-						<div class="gal-item none">
+						<div class="none">
 							<div class="zoom">
 								<div class="cache">
 									<b><p class="myfont-llg">Miss angel</p></b>
@@ -131,7 +132,7 @@
 									<img class="zoom-in" src="{{ mosaique.image.url }}">
 								{% endif %}
 							</div>
-							<div class="container gal-container">
+							<div class="container">
 								<div class="modal fade" id="gal_mosaique_{{ mosaique.id }}" tabindex="-1" role="dialog">
 									<div class="modal-dialog" role="document">
 										<div class="modal-content">
@@ -157,7 +158,7 @@
 			{% for mosaique in mosaique_from_view %}
 				{% if mosaique.confirm %}
 					{% if mosaique.colonne == "colonne_3" %}
-						<div class="gal-item none">
+						<div class="none">
 							<div class="zoom">
 								<div class="cache">
 									<b><p class="myfont-llg">Miss angel</p></b>
@@ -182,7 +183,7 @@
 									<img class="zoom-in" src="{{ mosaique.image.url }}">
 								{% endif %}
 							</div>
-							<div class="container gal-container">
+							<div class="container">
 								<div class="modal fade" id="gal_mosaique_{{ mosaique.id }}" tabindex="-1" role="dialog">
 									<div class="modal-dialog" role="document">
 										<div class="modal-content">

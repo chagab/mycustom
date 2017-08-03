@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404
 
 # importation de tous les modèles
 from .models import pageAccueil
-from achetez.models import produit, ongletAchetez, ligneCategorie, achatLogo
+from achetez.models import produit, ongletAchetez, achatLogo, achatCategorie #ligneCategorie
 from vendre.models import ongletVendre, methodeDescription
 from cutsomise.models import customiseCategorie, customiseProduit, customiseOnglet
 from collection_ephemere.models import mosaique
@@ -16,7 +16,8 @@ def home(request):
 
 	# pour la mise en page du site 
 	achatLogo_from_view           = achatLogo.objects.all()
-	ligneCategorie_from_view      = ligneCategorie.objects.all()
+	#ligneCategorie_from_view      = ligneCategorie.objects.all()
+	achatCategorie_from_view      = achatCategorie.objects.all()
 	customiseOnglet_from_view     = customiseOnglet.objects.all()
 	ongletAchetez_from_view       = ongletAchetez.objects.all()
 	customise_produit_from_view   = customiseProduit.objects.all()
