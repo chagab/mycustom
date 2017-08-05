@@ -1,0 +1,347 @@
+{% load staticfiles %}
+<div id="conteneur" style="display: block;margin: auto; min-height: 800px;
+  /*background-image: url({% static 'mySelf/image/TshirtDesigner/image/Beautiful-Sunset-Landscape-Full-HD-Wallpapers.jpg' %}); background-size: cover;*/">
+  {% for fond in fond_from_view %}
+    <div id="fond_id" style="display: none;">{{ fond }}</div>
+    <link type="text/css" rel="stylesheet" href="{% static 'mySelf/css/TshirtDesigner/designer.css' %}">
+    <script type="text/javascript" src="{% static 'p5/p5.js' %}"></script>
+    <script type="text/javascript" src="{% static 'p5/p5.dom.js' %}"></script>
+    <script type="text/javascript" src="{% static 'p5/jscolor.js' %}"></script>
+    <script type="text/javascript" src="{% static 'mySelf/js/TshirtDesigner/sketch.js' %}"></script>
+    <script type="text/javascript" src="{% static 'mySelf/js/TshirtDesigner/Logo.js' %}"></script>
+    <script type="text/javascript" src="{% static 'mySelf/js/TshirtDesigner/Text.js' %}"></script>
+    <script type="text/javascript" src="{% static 'mySelf/js/TshirtDesigner/Designer.js' %}"></script>
+    <br>
+    <br>
+    <br>
+    <center>
+    <h1>
+    <b>MY CUSTOM - TShirtDesigner</b>
+    </h1>
+    <a href="https://fr.icons8.com/" style="font-size: 10px;">Icône fournies par icones8</a>
+    <p id="topOfPage">Customisez toutes vos créations sur MYCUSTOM</p>
+    </center>
+    <!--||||||||||||||||||||||||||||||||élément visible dès le début||||||||||||||||||||||||||||||||-->
+    <div style="display: inline-block;" id="buttonNb">
+      <button title="choisir le nombre et la taille" class="parametre" style="background-image: url({% static 'mySelf/image/TShirtDesigner/image/icons8-Panier chargé-64.png' %});"></button>
+    </div><br>
+    <div style="display: inline-block;" id="buttonProduit">
+      <button title="choisir un produit" class="parametre" style="background-image: url({% static 'mySelf/image/TShirtDesigner/image/icons8-Clothes.png' %});"></button>
+    </div><br>
+    <div style="display: inline-block;" id="buttonDesign">
+      <button title="trouver un design" class="parametre" style="background-image: url({% static 'mySelf/image/TShirtDesigner/image/icons8-Fantasy.png' %});"></button>
+    </div><br>
+    <div style="display: inline-block;display:table;" id="buttonImage">
+      <label for="file-input" class="input-label" onchange="onFileSelected(event)"><img title="télécharger une image" src="{% static 'mySelf/image/TShirtDesigner/image/icons8-Image File.png' %}" class="parametre"><input type="file" id="file-input"></label>
+    </div><br>
+    <div style="display: inline-block;" id="buttonText">
+      <button title="ajouter un texte" class="parametre" style="background-image: url({% static 'mySelf/image/TShirtDesigner/image/icons8-Pencil.png' %});"></button>
+    </div><br>
+    {% for produit in produitLogo_from_view %}
+      {% if fond == produit.num|slugify %}
+        <button class="orientation" style="margin-bottom : 50px; background-image: url(/{{ produit.face.url }})" id="face">face</button>
+        <button class="orientation" style="margin-bottom : 50px; background-image: url(/{{ produit.dos.url }})" id="dos">dos</button>
+        <button class="orientation" style="margin-bottom : 50px; background-image: url(/{{ produit.droite.url }})" id="droite">droite</button>
+        <button class="orientation" style="margin-bottom : 50px; background-image: url(/{{ produit.gauche.url }})" id="gauche">gauche</button>
+      {% endif %}
+    {% endfor %}
+  {% endfor %}
+  <br>
+  <br>
+  <br>
+  <!--||||||||||||||||||||||||||||||||éléments dans les modals||||||||||||||||||||||||||||||||-->
+  <!-- Choix des Produit -->
+  <div id="modalProduit" class="modal-right">
+    <div class="modal-content" style="height: 450px;">
+      <div class="modal-header">
+        <span class="close">&times;</span>
+        <h3>Choissez votre produit</h3>
+      </div>
+      <div class="modal-body">
+        <center>
+        {% for produit in produitLogo_from_view %}
+          <img onclick="changeProdcut('{{ produit.num }}')" style="width: 200px; height: auto;" src="/{{produit.face.url}} ">
+        {% endfor %}
+        </center>
+      </div>
+    </div>
+  </div>
+  <!-- Choix des Design -->
+  <div id="modalDesign" class="modal-right">
+    <div class="modal-content" style="height: 450px;">
+      <div class="modal-header">
+        <span class="close">&times;</span>
+        <h3>Choissez votre logo</h3>
+        <br>
+        <center>
+        <button class="parametre" id="choixDesign" style=" width: 50px; height: 50px; background-image: url({% static 'mySelf/image/TShirtDesigner/image/icons8-Fantasy.png' %}); margin-right: 20px;" title="Choix du design"></button>
+        <button class="parametre" id="choixParametreDesign" style=" width: 50px; height: 50px; background-image: url({% static 'mySelf/image/TShirtDesigner/image/icons8-Paramètres-64.png' %}); margin-right: 20px;" title="Paramètres du design"></button>
+        <button class="parametre" id="choixCouleurDesign" style=" width: 50px; height: 50px; background-image: url({% static 'mySelf/image/TShirtDesigner/image/icons8-Brosse-64.png' %});" title="couleurs du design"></button>
+        </center>
+        <br>
+      </div>
+      <div id="choisiDesign" class="modal-body" style="display: block;">
+        <center>
+        {% for logo in achatLogo_from_view %}
+          <!--<object type="image" onclick="gotfile(this)" style="width: 200px; height: auto;" data="/{{ logo.logo.url }}"></object>-->
+          <img onclick="gotfile(this)" style="width: 200px; height: auto;" src="/{{ logo.logo.url }} ">
+        {% endfor %}
+        </center>
+      </div>
+      <div id="choisiParametreDesign" class="modal-body" style="display: none;">
+        <center>
+        <br>
+        <p>Customisez des paramètres précis de votre design :</p>
+        <img src="{% static 'mySelf/image/TShirtDesigner/image/icons8-Grille-50.png' %}"><input style="width: 30px;" id="quadrillage" type="checkbox">
+        <img src="{% static 'mySelf/image/TShirtDesigner/image/icons8-Ratio d&#39;aspect-50.png' %}" title="conserver le ratio"><input style="width: 30px;" id="ratio" type="checkbox" checked="checked">
+        </center>
+        <table>
+          <tr>
+            <td><img src="{% static 'mySelf/image/TShirtDesigner/image/icons8-Zoom taille réelle-50.png' %}" title="taille du design"></td>
+            <td><input id="tailleImage" type="range" defaultValue="1" step="0.01" min="0" max="2"/></td>
+            <td class="indicator"><input style="margin-left: 15px; " type="number" name=""></td>
+          </tr>
+          <tr>
+            <td><img src="{% static 'mySelf/image/TShirtDesigner/image/icons8-Largeur-50.png' %}" title="ajuster la largeur"></td>
+            <td><input id="largeurImage" type="range" min="0" max="1000"/></td>
+            <td class="indicator"><input style="margin-left: 15px; " type="number" id="largeurImageSetting"></td>
+          </tr>
+          <tr>
+            <td><img src="{% static 'mySelf/image/TShirtDesigner/image/icons8-Hauteur Filled-50.png' %}" title="ajuster la hauteur"></td>
+            <td><input id="hauteurImage" type="range" min="0" max="1000"/></td>
+            <td class="indicator"><input style="margin-left: 15px; " type="number" id="hauteurImageSetting"></td>
+          </tr>
+          <tr>
+            <td><img src="{% static 'mySelf/image/TShirtDesigner/image/icons8-Rotate Left-64.png' %}" title="rotation du design"></td>
+            <td><input id="orientationImage" type="range" value="0" min="0" max="360" defaultValue="0"/></td>
+            <td class="indicator"><input style="margin-left: 15px; " type="number" name=""></td>
+          </tr>
+          <tr>
+            <td><img src="{% static 'mySelf/image/TShirtDesigner/image/icons8-Coordonnée X-50.png' %}" title="taille du design"></td>
+            <td><input id="xImage" type="range" min="-1000" max="1000"/></td>
+            <td class="indicator"><input style="margin-left: 15px; " type="number" id="xImageSetting"></td>
+          </tr>
+          <tr>
+            <td><img src="{% static 'mySelf/image/TShirtDesigner/image/icons8-Y Coordinate-50.png' %}" title="taille du design"></td>
+            <td><input id="yImage" type="range" min="-1000" max="1000"/></td>
+            <td class="indicator"><input style="margin-left: 15px; " type="number" id="yImageSetting"></td>
+          </tr>
+        </table>
+        <br>
+        <br>
+      </div>
+      <div id="choisiCouleurDesign" class="modal-body" style="display: none;">
+        <center>
+        <br>
+        <p>Choississez la couleur de votre design :</p>
+        <center>
+        <table id="tblColorPalette" class="colorPicker" style="background-color: white;">
+          <tr>
+            <td style="background-color:blue;" onclick="colorPicker_OnClick('blue')" title="blue"></td>
+            <td style="background-color:MediumBlue;" onclick="colorPicker_OnClick('MediumBlue')" title="MediumBlue"></td>
+            <td style="background-color:DarkBlue;" onclick="colorPicker_OnClick('DarkBlue')" title="DarkBlue"></td>
+            <td style="background-color:DarkBlue;" onclick="colorPicker_OnClick('DarkBlue')" title="DarkBlue"></td>
+            <td style="background-color:Navy;" onclick="colorPicker_OnClick('Navy')" title="Navy"></td>
+            <td style="background-color:DarkTurquoise;" onclick="colorPicker_OnClick('DarkTurquoise')" title="DarkTurquoise"></td>
+            <td style="background-color:DeepSkyBlue;" onclick="colorPicker_OnClick('DeepSkyBlue')" title="DeepSkyBlue"></td>
+            <td style="background-color:MediumSpringGreen;" onclick="colorPicker_OnClick('MediumSpringGreen')" title="MediumSpringGreen"></td>
+            <td style="background-color:DarkCyan;" onclick="colorPicker_OnClick('DarkCyan')" title="DarkCyan"></td>
+            <td style="background-color:Teal;" onclick="colorPicker_OnClick('Teal')" title="Teal"></td>
+          </tr>
+          <tr>
+            <td style="background-color:DarkOrchid;" onclick="colorPicker_OnClick('DarkOrchid')" title="DarkOrchid"></td>
+            <td style="background-color:PaleGreen;" onclick="colorPicker_OnClick('PaleGreen')" title="PaleGreen"></td>
+            <td style="background-color:DarkViolet;" onclick="colorPicker_OnClick('DarkViolet')" title="DarkViolet"></td>
+            <td style="background-color:MediumPurple;" onclick="colorPicker_OnClick('MediumPurple')" title="MediumPurple"></td>
+            <td style="background-color:LightGreen;" onclick="colorPicker_OnClick('LightGreen')" title="LightGreen"></td>
+            <td style="background-color:GreenYellow;" onclick="colorPicker_OnClick('GreenYellow')" title="GreenYellow"></td>
+            <td style="background-color:LightBlue;" onclick="colorPicker_OnClick('LightBlue')" title="LightBlue"></td>
+            <td style="background-color:Brown;" onclick="colorPicker_OnClick('Brown')" title="Brown"></td>
+            <td style="background-color:Sienna;" onclick="colorPicker_OnClick('Sienna')" title="Sienna"></td>
+            <td style="background-color:YellowGreen;" onclick="colorPicker_OnClick('YellowGreen')" title="YellowGreen"></td>
+          </tr>
+        </table>
+        <p>Ou optez pour quelque chose de plus précis :</p><input class="jscolor" value="ab2567">
+        </center>
+      </div>
+    </div>
+  </div>
+  <!-- Choix sur le texte  -->
+  <div id="modalTexte" class="modal-right">
+    <div class="modal-content" style="height: 450px;">
+      <div class="modal-header">
+        <span class="close">&times;</span>
+        <h3>Écrivez sur votre produit !</h3>
+        <br>
+        <center>
+        <button class="parametre" id="choixTexte" style=" width: 50px; height: 50px; background-image: url({% static 'mySelf/image/TShirtDesigner/image/icons8-Pencil.png' %}); margin-right: 20px;" title="Choix du texte"></button>
+        <button class="parametre" id="choixParametreTexte" style=" width: 50px; height: 50px; background-image: url({% static 'mySelf/image/TShirtDesigner/image/icons8-Paramètres-64.png' %}); margin-right: 20px;" title="Paramètres du texte"></button>
+        <button class="parametre" id="choixCouleurTexte" style=" width: 50px; height: 50px; background-image: url({% static 'mySelf/image/TShirtDesigner/image/icons8-Brosse-64.png' %}); margin-right: 20px;" title="Couleur du texte"></button>
+        </center>
+        <br>
+      </div>
+      <div id="choisiTexte" class="modal-body" style="display: block;">
+        <center>
+        <br>
+        <button id="ajoutText" class="choixButton">Ajouter plus de Texte</button>
+        </center>
+        <p>Entrez votre texte ici :</p>
+        <center>
+        <textarea id="first" maxlength="40"></textarea>
+        </center>
+      </div>
+      <div id="choisiCouleurTexte" class="modal-body" style="display: none;">
+        <br>
+        <p>Choississez la couleur de votre texte :</p>
+        <center>
+        <table id="tblColorPalette" class="colorPicker" style="background-color: white;">
+          <tr>
+            <td style="background-color:blue;" onclick="colorPicker_OnClick('blue')" title="blue"></td>
+            <td style="background-color:MediumBlue;" onclick="colorPicker_OnClick('MediumBlue')" title="MediumBlue"></td>
+            <td style="background-color:DarkBlue;" onclick="colorPicker_OnClick('DarkBlue')" title="DarkBlue"></td>
+            <td style="background-color:DarkBlue;" onclick="colorPicker_OnClick('DarkBlue')" title="DarkBlue"></td>
+            <td style="background-color:Navy;" onclick="colorPicker_OnClick('Navy')" title="Navy"></td>
+            <td style="background-color:DarkTurquoise;" onclick="colorPicker_OnClick('DarkTurquoise')" title="DarkTurquoise"></td>
+            <td style="background-color:DeepSkyBlue;" onclick="colorPicker_OnClick('DeepSkyBlue')" title="DeepSkyBlue"></td>
+            <td style="background-color:MediumSpringGreen;" onclick="colorPicker_OnClick('MediumSpringGreen')" title="MediumSpringGreen"></td>
+            <td style="background-color:DarkCyan;" onclick="colorPicker_OnClick('DarkCyan')" title="DarkCyan"></td>
+            <td style="background-color:Teal;" onclick="colorPicker_OnClick('Teal')" title="Teal"></td>
+          </tr>
+          <tr>
+            <td style="background-color:DarkOrchid;" onclick="colorPicker_OnClick('DarkOrchid')" title="DarkOrchid"></td>
+            <td style="background-color:PaleGreen;" onclick="colorPicker_OnClick('PaleGreen')" title="PaleGreen"></td>
+            <td style="background-color:DarkViolet;" onclick="colorPicker_OnClick('DarkViolet')" title="DarkViolet"></td>
+            <td style="background-color:MediumPurple;" onclick="colorPicker_OnClick('MediumPurple')" title="MediumPurple"></td>
+            <td style="background-color:LightGreen;" onclick="colorPicker_OnClick('LightGreen')" title="LightGreen"></td>
+            <td style="background-color:GreenYellow;" onclick="colorPicker_OnClick('GreenYellow')" title="GreenYellow"></td>
+            <td style="background-color:LightBlue;" onclick="colorPicker_OnClick('LightBlue')" title="LightBlue"></td>
+            <td style="background-color:Brown;" onclick="colorPicker_OnClick('Brown')" title="Brown"></td>
+            <td style="background-color:Sienna;" onclick="colorPicker_OnClick('Sienna')" title="Sienna"></td>
+            <td style="background-color:YellowGreen;" onclick="colorPicker_OnClick('YellowGreen')" title="YellowGreen"></td>
+          </tr>
+        </table>
+        <p>Ou optez pour quelque chose de plus précis :</p><input class="jscolor" value="ab2567">
+        </center>
+      </div>
+      <div id="choisiParametreTexte" class="modal-body" style="display: none;">
+        <br>
+        <center>
+        <p>Customisez des paramètres précis de votre texte :</p>
+        <img src="{% static 'mySelf/image/TShirtDesigner/image/icons8-Grille-50.png' %}"><input style="width: 30px;" id="quadrillageTexte" type="checkbox">
+        <table>
+          <tr>
+            <td>
+              <p>taille du texte &nbsp</p>
+            </td>
+            <td><input id="tailleTexte" type="range" step="1" min="1" max="100" defaultValue="32"/></td>
+            <td class="indicator"><input style="margin-left: 15px; " type="number" name=""></td>
+          </tr>
+          <tr>
+            <td>
+              <p>largeur du texte &nbsp</p>
+            </td>
+            <td><input id="largeurTexte" type="range" min="0" max="1000"/></td>
+            <td class="indicator"><input style="margin-left: 15px; " type="number" id="largeurTexteSetting"></td>
+          </tr>
+          <tr>
+            <td>
+              <p>hauteur du texte &nbsp</p>
+            </td>
+            <td><input id="hauteurTexte" type="range" min="0" max="1000" defaultValue="32"/></td>
+            <td class="indicator"><input style="margin-left: 15px; " type="number" id="hauteurTexteSetting"></td>
+          </tr>
+          <tr>
+            <td><img src="{% static 'mySelf/image/TShirtDesigner/image/icons8-Rotate Left-64.png' %}" title="rotation du design"></td>
+            <td><input id="orientationTexte" type="range" value="0" min="0" max="360" defaultValue="0"/></td>
+            <td class="indicator"><input style="margin-left: 15px; " type="number" name=""></td>
+          </tr>
+          <tr>
+            <td>
+              <img src="{% static 'mySelf/image/TShirtDesigner/image/icons8-Coordonnée X-50.png' %}" title="taille du design">
+            </td>
+            <td><input id="xTexte" type="range" min="-1000" max="1000"/></td>
+            <td class="indicator"><input style="margin-left: 15px; " type="number" id="xTexteSetting"></td>
+          </tr>
+          <tr>
+            <td>
+              <img src="{% static 'mySelf/image/TShirtDesigner/image/icons8-Y Coordinate-50.png' %}" title="taille du design">
+            </td>
+            <td><input id="yTexte" type="range" min="-1000" max="1000"/></td>
+            <td class="indicator"><input style="margin-left: 15px; " type="number" id="yTexteSetting"></td>
+          </tr>
+        </table>
+        </center>
+      </div>
+      <br>
+      <br>
+    </div>
+  </div>
+  <!-- Choix du nombre et de la taille -->
+  <div id="modalNb" class="modal-right">
+    <div class="modal-content" style="height: 450px;">
+      <div class="modal-header">
+        <span class="close">&times;</span>
+        <h3>Choissez le nombre et la taille</h3>
+      </div>
+      <div class="modal-body">
+        <center>
+        <br>
+        <table id="tblColorPalette" class="colorPicker" style="background-color: white;">
+          <tr>
+            <td style="background-color: white; width: 100px; margin: 5px;">
+              <center>
+              <button>
+              <b>XXS</b>
+              </button><br><input type="number"></center>
+            </td>
+            <td style="background-color: white; width: 100px; margin: 5px;">
+              <center>
+              <button>
+              <b>XS</b>
+              </button><br><input type="number"></center>
+            </td>
+            <td style="background-color: white; width: 100px; margin: 5px;">
+              <center>
+              <button>
+              <b>S</b>
+              </button><br><input type="number"></center>
+            </td>
+            <td style="background-color: white; width: 100px; margin: 5px;">
+              <center>
+              <button>
+              <b>M</b>
+              </button><br><input type="number"></center>
+            </td>
+            <td style="background-color: white; width: 100px; margin: 5px;">
+              <center>
+              <button>
+              <b>L</b>
+              </button><br><input type="number"></center>
+            </td>
+            <td style="background-color: white; width: 100px; margin: 5px;">
+              <center>
+              <button>
+              <b>XL</b>
+              </button><br><input type="number"></center>
+            </td>
+            <td style="background-color: white; width: 100px; margin: 5px;">
+              <center>
+              <button>
+              <b>XXL</b>
+              </button><br><input type="number"></center>
+            </td>
+          </tr>
+        </table>
+        <br>
+        <br>
+        <br>
+        <button style="padding: 15px; background-color: rgb(26,124,249); border-radius: 5px; color : white; font-size: 50px;">
+        <b>COMMANDER !
+        <img style="filter: invert(100%);" src="{% static 'mySelf/image/TShirtDesigner/image/icons8-Avion en papier-50.png' %}"></b>
+        </button>
+        </center>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

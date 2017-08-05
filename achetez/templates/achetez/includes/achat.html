@@ -43,7 +43,7 @@
               </center>
             </div>
             <div class="modal-body col-xs-12" style="overflow: hidden;">
-              <div id="propositionLogo" style="display: block;">
+              <div class="propositionLogo" style="display: block;">
                 <center>
                   {% for logo in achatLogo_from_view %}
                     {% if logo.categorie == categorie %}
@@ -61,7 +61,7 @@
                   {% endfor %}
                 </center>
               </div>
-              <div id="propositionTextile" style="display: none;">
+              <div class="propositionTextile" style="display: none;">
                 <center>
                   <p class="myfont-llg">Choisissez votre textil</p>
                 </center>
@@ -95,7 +95,7 @@
                 {% endfor %}
                 <div class="col-xs-12">
                   <center>
-                    <button id="fermerLogo" style="margin-top: 10px;"><img style="height: 40px; width: auto;" src="{% static 'mySelf/image/icons8-Back-26.png' %}"></button>
+                    <button class="fermerLogo" style="margin-top: 10px;"><img style="height: 40px; width: auto;" src="{% static 'mySelf/image/icons8-Back-26.png' %}"></button>
                   </center>
                 </div>
               </div>
