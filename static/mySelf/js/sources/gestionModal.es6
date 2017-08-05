@@ -5,6 +5,7 @@ $(function() {
 	var gauche = $('.gauche');
 	var droite = $('.droite');
 	var logo2 = $(".logo");
+	var fermer = $('.fermer');
 	var fermerLogo = $(".fermerLogo");
 	for (var i = 0; i < produitImage.length - 1; i++) {
 		$(produitImage[i]).click(function() {

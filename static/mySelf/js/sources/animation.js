@@ -13,7 +13,7 @@ $(function() {
 	function init() {
 		$('.icon_vendre').hide();
 		/* onglet du menu d'accueil */
-		$('li > a.onglet.myfont').addClass('animated-slow fadeInRight');
+		//$('li > a.onglet.myfont').addClass('animated-slow fadeInRight');
 		$('#logo').addClass('animated-slow rotateInDownLeft');
 		$('#presentation').addClass('animated-slow flipInX');
 		/* effet pour la collection éphèmère  */

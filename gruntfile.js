@@ -1,6 +1,7 @@
 module.exports = function(grunt) {
 	const pathCss = "/Users/gabrielchatelain/Desktop/mycustom/static/mySelf/css/";
 	const pathJs = "/Users/gabrielchatelain/Desktop/mycustom/static/mySelf/js/";
+	const path = "/Users/gabrielchatelain/Desktop/mycustom/static/";
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 		cssmin: {
@@ -36,9 +37,10 @@ module.exports = function(grunt) {
 			},
 			my_target: {
 				files: {
-					[pathJs + "mainPage.js"]: [
+					[pathJs + "mainPage.min.js"]: [
 						pathJs + "sources/*.js",
 					],
+					[path + "jquery.min.js"]: [path + "jquery.js"]
 				},
 			},
 		},
@@ -46,4 +48,5 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-babel');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.registerTask("default", ["babel", "uglify"]);
 };

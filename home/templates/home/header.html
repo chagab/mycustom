@@ -12,9 +12,9 @@
 		{% for page in page_accueil_from_view %}
 			<link rel="icon" type="image/png" href="{{ page.logo.url }}"/>
 		{% endfor %}
-		<link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.css' %}">
-		<link rel="stylesheet" type="text/css" href="{% static 'mySelf/css/animates.css' %}">
-		<link rel="stylesheet" type="text/css" href="{% static 'mySelf/css/my_custom.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'mySelf/css/animates.min.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'mySelf/css/my_custom.min.css' %}">
 	</head>
 	<body id="haut">
 		{% block menu %}{% endblock %}
@@ -28,8 +28,8 @@
 		{% block compte %}{% endblock %}
 		{% block designer %}{% endblock %}
 		{% load staticfiles %}
-		<script type="text/javascript" src="{% static 'jquery.js' %}"></script>
-		<script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
+		<script type="text/javascript" src="{% static 'jquery.min.js' %}"></script>
+		<script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
 		{% block scriptMenu %}{% endblock %}
 	</body>
 	{% block footer %}{% endblock %}

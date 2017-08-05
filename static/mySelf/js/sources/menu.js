@@ -8,7 +8,7 @@ $(function() {
 	/* toutes les couleurs nécéssaires */
 	var backColor = '#E1E1E1';
 	var buttonsColor = '#808080';
-	var Color = 'rgba(255, 0, 0, 0.25)';
+	var Color = 'rgba(76, 76, 76, 1)';
 	var fontColor = 'white';
 	var buttons = [
 		$('#Collection'),
@@ -19,9 +19,8 @@ $(function() {
 	];
 
 	function init() {
-		logo.hide();
 		alignement.css({
-			'text-align': 'right',
+			'text-align': 'center',
 		});
 	}
 
@@ -31,7 +30,7 @@ $(function() {
 	}
 	init();
 	Window.scroll(function() {
-		if (getPageScroll() > top - 51) {
+		if (getPageScroll() > top) {
 			navbar.css({
 				"background-color": '#E1E1E1',
 			});
@@ -41,8 +40,9 @@ $(function() {
 			alignement.css({
 				'text-align': 'center',
 			});
-			logo.fadeIn();
-			$('li > a.onglet.myfont').removeClass('animated-slow fadeInRight');
+			logo.css({
+				'filter': 'invert(70%)'
+			});
 		} else {
 			navbar.css({
 				"background-color": 'transparent',
@@ -51,9 +51,11 @@ $(function() {
 				"color": "white",
 			});
 			alignement.css({
-				'text-align': 'right',
+				'text-align': 'center',
 			});
-			logo.hide();
+			logo.css({
+				'filter': 'invert(0%)'
+			});
 		}
 		if (getPageScroll() < Window.height()) {
 			changeColor(buttons[0], 'white', 'transparent');
