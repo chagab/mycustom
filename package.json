@@ -16,10 +16,12 @@
   "author": "Gabriel Chatelain",
   "license": "ISC",
   "devDependencies": {
+    "babel-preset-env": "^1.6.0",
     "grunt": "^0.4.5",
+    "grunt-babel": "^6.0.0",
     "grunt-contrib-cssmin": "^2.2.1",
     "grunt-contrib-jshint": "~0.10.0",
     "grunt-contrib-nodeunit": "~0.4.1",
-    "grunt-contrib-uglify": "~0.5.0"
+    "grunt-contrib-uglify": "^0.5.1"
   }
 }
