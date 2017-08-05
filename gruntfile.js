@@ -58,13 +58,65 @@ module.exports = function(grunt) {
 		imagemin: {
 			dynamic: {
 				files: [{
+					expand: true,
 					cwd: pathMedia + "home/" + "fond_ecran/",
-					src: ['/*.{jpg,jpeg,png}'],
+					src: ['**/*.{jpg,jpeg,png}'],
 					dest: pathMedia + "home/" + "fond_ecran/",
 				}, {
+					expand: true,
 					cwd: pathMedia + "home/" + "logo/",
-					src: ['/*.{jpg,jpeg,png}'],
+					src: ['**/*.{jpg,jpeg,png}'],
 					dest: pathMedia + "home/" + "logo/",
+				}, {
+					expand: true,
+					cwd: pathMedia + "achetez/" + "categorie/",
+					src: ['**/*.{jpg,jpeg,png}'],
+					dest: pathMedia + "achetez/" + "categorie/",
+				}, {
+					expand: true,
+					cwd: pathMedia + "achetez/" + "image_titre/",
+					src: ['**/*.{jpg,jpeg,png}'],
+					dest: pathMedia + "achetez/" + "image_titre/",
+				}, {
+					expand: true,
+					cwd: pathMedia + "achetez/" + "logo/",
+					src: ['**/*.{jpg,jpeg,png}'],
+					dest: pathMedia + "achetez/" + "logo/",
+				}, {
+					expand: true,
+					cwd: pathMedia + "achetez/" + "produit/",
+					src: ['**/*.{jpg,jpeg,png}'],
+					dest: pathMedia + "achetez/" + "produit/",
+				}, {
+					expand: true,
+					cwd: pathMedia + "customise/" + "categorie/",
+					src: ['**/*.{jpg,jpeg,png}'],
+					dest: pathMedia + "customise/" + "categorie/",
+				}, {
+					expand: true,
+					cwd: pathMedia + "customise/" + "image_titre/",
+					src: ['**/*.{jpg,jpeg,png}'],
+					dest: pathMedia + "customise/" + "image_titre/",
+				}, {
+					expand: true,
+					cwd: pathMedia + "customise/" + "produit/",
+					src: ['**/*.{jpg,jpeg,png}'],
+					dest: pathMedia + "customise/" + "produit/",
+				}, {
+					expand: true,
+					cwd: pathMedia + "collection_ephemere/" + "image/",
+					src: ['**/*.{jpg,jpeg,png}'],
+					dest: pathMedia + "collection_ephemere/" + "image/",
+				}, {
+					expand: true,
+					cwd: pathMedia + "collection_ephemere/" + "mosaique/",
+					src: ['**/*.{jpg,jpeg,png}'],
+					dest: pathMedia + "collection_ephemere/" + "mosaique/",
+				}, {
+					expand: true,
+					cwd: pathMedia + "vendre/" + "image_titre/",
+					src: ['**/*.{jpg,jpeg,png}'],
+					dest: pathMedia + "vendre/" + "image_titre/",
 				}, ]
 			}
 		},
