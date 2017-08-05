@@ -1,17 +1,8 @@
-///////////////////////////////////////////////////////////////////////////////////
-// partie du code qui contient tout les contstructeurs nécéssaire au designer .. //
-// c'est une partie un peu fouillie du code, qui peut largement encore être 	 //
-// améliorée et qui possède encore quelques bugs 								 //
-///////////////////////////////////////////////////////////////////////////////////
 function Designer() {
 	this.canvas;
 	this.ctx;
 	this.canvasOffset;
-	this.isDown = false;
 	this.droped = false;
-	this.pi2 = Math.PI * 2;
-	this.resizerRadius = 8;
-	this.rr = this.resizerRadius * this.resizerRadius;
 	// varialbe pour la police
 	this.font;
 	// variables pour afficher le textil 
@@ -20,58 +11,38 @@ function Designer() {
 	this.gauche;
 	this.droite;
 	this.face;
-	this.in;
-	this.out;
+	this.Y_AXIS = 1;
+	this.X_AXIS = 2;
 	// variables pour les dragg (commun au deux types de dragg)
 	this.offsetX;
 	this.offsetY;
 	this.startX;
 	this.startY;
 	// variables pour le dragg d'images
-	this.imageClick = false;
-	this.imageX = 50;
-	this.imageY = 50;
-	this.imageWidth;
-	this.imageHeight;
-	this.imageRight;
-	this.imageBottom;
-	this.draggingImage = false;
-	this.draggingResizer = {
-		x: 0,
-		y: 0
-	};
-	// variables pour le dragg de texte
-	this.text;
-	this.textClick = false;
-	this.textX = 240;
-	this.textY = 240;
-	this.textWidth = 50;
-	this.textHeight = 50;
-	this.textRight = this.textX + this.textWidth;
-	this.textBottom = this.textY + this.textHeight;
-	this.textColor = [0, 0, 0];
-	this.draggingText = false;
-	this.draggingResizerText = {
-		x: 0,
-		y: 0
-	};
-	this.xImage = 0;
-	this.yImage = 0;
-	this.aImage = 0;
-	//variable contenant le nombre d'image déposée
-	this.nb = 0;
-	// variables contenant les éléments du DOM
+	this.outOfCanvas = false;
+	this.conserverRatio = true;
+	//variables pour les rotations du text
+	this.xText = 0;
+	this.yText = 0;
+	this.aText = 0;
+	//variables pour détecter l'OS (pour les différents raccourcis clavier)
+	this.OSName = "Unknown OS";
+	//variable contenant l'index de l'image courante
+	this.ci = 0;
+	//variable contenant l'index du texte courant
+	this.ct = 0;
+	//variables contenant tous les élements sur le canvas 
 	this.logo = [];
-	this.p = [];
+	this.text = [];
+	// variables contenant les éléments du DOM
 	this.buttons = [];
 	this.textareas = [];
 	this.sliders = [];
+	this.inputs = [];
 	// on ajoute des méthodes pour pouvoir retrouver les éléments du DOM facilement 
 	this.textarea = function(titre) {
-		return this.textareas.find(function(element) {
-			return element.elt.id == titre;
-		})
-	}
+		return this.textareas.find(element => element.elt.id == titre);
+	};
 	this.button = function(titre) {
 		return this.buttons.find(function(element) {
 			return element.elt.id === titre;
@@ -84,324 +55,163 @@ function Designer() {
 	}
 	this.input = function(titre) {
 		return this.inputs.find(function(element) {
-			return element.id === titre;
-		});
-	}
-	this.div = function(titre) {
-		return this.divs.find(function(element) {
 			return element.elt.id === titre;
 		});
 	}
-	this.hitImage = function(x, y) {
-		return (x > this.imageX && x < this.imageX + this.imageWidth && y > this.imageY && y < this.imageY + this.imageHeight);
-	}
-	this.hitIn = function(x, y) {
-		return (x > 10 && x < (10 + 25) && y > 25 && y < (25 + 25));
-	}
-	this.hitOut = function(x, y) {
-		return (x > 30 && x < (30 + 25) && y > 25 && y < (25 + 25));
-	}
-	this.hitText = function(x, y) {
-		return (x > this.textX && x < this.textX + this.textWidth && y > this.textY && y < this.textY + this.textHeight);
-	}
-	this.drawDragging = function(X, Y, Right, Bottom, Width) {
-		this.drawDragAnchor(X, Y);
-		this.drawDragAnchor(X + Width / 2, Y, true);
-		this.drawDragAnchor(Right, Y);
-		this.drawDragAnchor(Right, Bottom);
-		this.drawDragAnchor(X, Bottom);
-		this.ctx.beginPath();
-		this.ctx.moveTo(X, Y);
-		this.ctx.lineTo(Right, Y);
-		this.ctx.lineTo(Right, Bottom);
-		this.ctx.lineTo(X, Bottom);
-		this.ctx.closePath();
-		this.ctx.strokeStyle = '#0';
-		this.ctx.stroke();
-	}
-	this.drawDragAnchor = function(x, y, rot) {
-		fill(0);
-		if (rot) {
-			fill(0);
-		}
-		this.ctx.beginPath();
-		this.ctx.arc(x, y, this.resizerRadius, 0, this.pi2, false);
-		this.ctx.closePath();
-		this.ctx.fill();
-	}
-	this.textSizing = function(x, y) {
-		if (this.hitIn(x, y)) {
-			this.textSize += 0.5;
-		}
-		if (this.hitOut(x, y)) {
-			if (this.textSize == 1) this.textSize = 1;
-			else this.textSize -= 0.5;
-		}
-	}
-	this.anchorHitTestImage = function(x, y) {
-		var dx, dy;
-		// top-left
-		dx = x - this.imageX;
-		dy = y - this.imageY;
-		if (dx * dx + dy * dy <= this.rr) {
-			return (0);
-		}
-		// top-right
-		dx = x - this.imageRight;
-		dy = y - this.imageY;
-		if (dx * dx + dy * dy <= this.rr) {
-			return (1);
-		}
-		// bottom-right
-		dx = x - this.imageRight;
-		dy = y - this.imageBottom;
-		if (dx * dx + dy * dy <= this.rr) {
-			return (2);
-		}
-		// bottom-left
-		dx = x - this.imageX;
-		dy = y - this.imageBottom;
-		if (dx * dx + dy * dy <= this.rr) {
-			return (3);
-		}
-		// rotation
-		dx = x - (this.imageX + this.imageWidth / 2);
-		dy = y - this.imageY;
-		if (dx * dx + dy * dy <= this.rr) {
-			return (4);
-		}
-		return (-1);
-	}
-	this.anchorHitTestText = function(x, y) {
-		var dx, dy;
-		// top-left
-		dx = x - this.textX;
-		dy = y - this.textY;
-		if (dx * dx + dy * dy <= this.rr) {
-			return (0);
-		}
-		// top-right
-		dx = x - this.textRight;
-		dy = y - this.textY;
-		if (dx * dx + dy * dy <= this.rr) {
-			return (1);
-		}
-		// bottom-right
-		dx = x - this.textRight;
-		dy = y - this.textBottom;
-		if (dx * dx + dy * dy <= this.rr) {
-			return (2);
-		}
-		// bottom-left
-		dx = x - this.textX;
-		dy = y - this.textBottom;
-		if (dx * dx + dy * dy <= this.rr) {
-			return (3);
-		}
-		// rotation
-		dx = x - (this.textX + this.textWidth / 2);
-		dy = y - this.textY;
-		if (dx * dx + dy * dy <= this.rr) {
-			return (4);
-		}
-		return (-1);
-	}
-	this.dragg = function(e) {
-		if (this.draggingResizer > -1) {
-			mouseX = parseInt(e.clientX - this.offsetX);
-			mouseY = parseInt(e.clientY - this.offsetY);
-			// resize the image
-			switch (this.draggingResizer) {
-				case 0:
-					//top-left
-					this.imageX = mouseX;
-					this.imageWidth = this.imageRight - mouseX;
-					this.imageY = mouseY;
-					this.imageHeight = this.imageBottom - mouseY;
-					break;
-				case 1:
-					//top-right
-					this.imageY = mouseY;
-					this.imageWidth = mouseX - this.imageX;
-					this.imageHeight = this.imageBottom - mouseY;
-					break;
-				case 2:
-					//bottom-right
-					this.imageWidth = mouseX - this.imageX;
-					this.imageHeight = mouseY - this.imageY;
-					break;
-				case 3:
-					//bottom-left
-					this.imageX = mouseX;
-					this.imageWidth = this.imageRight - mouseX;
-					this.imageHeight = mouseY - this.imageY;
-					break;
-				case 4:
-					//rotation
-					this.xImage = cos(mouseY * 0.017453292519943);
-					this.yImage = sin(mouseY * 0.017453292519943);
-					this.aImage = atan2(this.yImage, this.xImage);
-					break;
+	this.setGradient = function(x, y, w, h, c1, c2, axis) {
+		noFill();
+		if (axis == this.Y_AXIS) { // Top to bottom gradient
+			for (var i = y; i <= y + h; i++) {
+				var inter = map(i, y, y + h, 0, 1);
+				var c = lerpColor(c1, c2, inter);
+				stroke(c);
+				line(x, i, x + w, i);
 			}
-			if (this.imageWidth < 25) {
-				this.imageWidth = 25;
+		} else if (axis == this.X_AXIS) { // Left to right gradient
+			for (var i = x; i <= x + w; i++) {
+				var inter = map(i, x, x + w, 0, 1);
+				var c = lerpColor(c1, c2, inter);
+				stroke(c);
+				line(i, y, i, y + h);
 			}
-			if (this.imageHeight < 25) {
-				this.imageHeight = 25;
-			}
-			// set the image right and bottom
-			this.imageRight = this.imageX + this.imageWidth;
-			this.imageBottom = this.imageY + this.imageHeight;
-		} else if (this.draggingImage) {
-			this.imageClick = false;
-			mouseX = parseInt(e.clientX - this.offsetX);
-			mouseY = parseInt(e.clientY - this.offsetY);
-			// move the image by the amount of the latest drag
-			var dx = mouseX - this.startX;
-			var dy = mouseY - this.startY;
-			this.imageX += dx;
-			this.imageY += dy;
-			this.imageRight += dx;
-			this.imageBottom += dy;
-			// reset the startXY for next time
-			this.startX = mouseX;
-			this.startY = mouseY;
-		}
-		/////////////////////////////
-		// 			text 		   //
-		/////////////////////////////
-		if (this.draggingResizerText > -1) {
-			mouseX = parseInt(e.clientX - this.offsetX);
-			mouseY = parseInt(e.clientY - this.offsetY);
-			// resize the text
-			switch (this.draggingResizerText) {
-				case 0:
-					//top-left
-					this.textX = mouseX;
-					this.textWidth = this.textRight - mouseX;
-					this.textY = mouseY;
-					this.textHeight = this.textBottom - mouseY;
-					break;
-				case 1:
-					//top-right
-					this.textY = mouseY;
-					this.textWidth = mouseX - this.textX;
-					this.textHeight = this.textBottom - mouseY;
-					break;
-				case 2:
-					//bottom-right
-					this.textWidth = mouseX - this.textX;
-					this.textHeight = mouseY - this.textY;
-					break;
-				case 3:
-					//bottom-left
-					this.textX = mouseX;
-					this.textWidth = this.textRight - mouseX;
-					this.textHeight = mouseY - this.textY;
-					break;
-				case 4:
-					//rotation
-					this.xtext = cos(mouseY * 0.017453292519943);
-					this.ytext = sin(mouseY * 0.017453292519943);
-					this.atext = atan2(this.ytext, this.xtext);
-					break;
-			}
-			if (this.textWidth < 25) {
-				this.textWidth = 25;
-			}
-			if (this.textHeight < 25) {
-				this.textHeight = 25;
-			}
-			// set the text right and bottom
-			this.textRight = this.textX + this.textWidth;
-			this.textBottom = this.textY + this.textHeight;
-		} else if (this.draggingText) {
-			this.textClick = false;
-			mouseX = parseInt(e.clientX - this.offsetX);
-			mouseY = parseInt(e.clientY - this.offsetY);
-			// move the text by the amount of the latest drag
-			var dx = mouseX - this.startX;
-			var dy = mouseY - this.startY;
-			this.textX += dx;
-			this.textY += dy;
-			this.textRight += dx;
-			this.textBottom += dy;
-			// reset the startXY for next time
-			this.startX = mouseX;
-			this.startY = mouseY;
 		}
 	}
-}
-
-function Logo() {
-	this.imageClick = false;
-	this.imageX = 50;
-	this.imageY = 50;
-	this.imageWidth;
-	this.imageHeight;
-	this.imageRight;
-	this.imageBottom;
-	this.draggingImage = false;
-	this.draggingResizer = {
-		x: 0,
-		y: 0
-	};
-}
-
-function Text() {
-	this.textClick = false;
-	this.textX = 240;
-	this.textY = 240;
-	this.textWidth = 50;
-	this.textHeight = 50;
-	this.textRight = this.textX + this.textWidth;
-	this.textBottom = this.textY + this.textHeight;
-	this.draggingText = false;
-	this.draggingResizerText = {
-		x: 0,
-		y: 0
-	};
-}
-
-function colorPicker_OnClick(color) {
-	var f = document.createElement("div");
-	f.style.color = color;
-	document.body.appendChild(f);
-	rgbValue = window.getComputedStyle(f).color.split(", ");
-	delete f;
-	d.textColor[0] = Number(rgbValue[0].slice(4));
-	d.textColor[1] = Number(rgbValue[1]);
-	d.textColor[2] = Number(rgbValue[2].slice(0, rgbValue[2].length - 1));
-}
-
-function gotfile(file) {
-	file.width = int(this.canvas.width);
-	file.height = int(this.canvas.height);
-	if (file.type === 'image') {
-		d.droped = true;
-		d.numberOfImage++;
-		d.logo.push(new Image());
-		//d.logo[d.nb].width = this.canvas.width;
-		//d.logo[d.nb].height = this.canvas.height;
-		d.logo[d.nb].src = file.data;
-		d.imageWidth = d.logo[d.nb].width;
-		d.imageHeight = d.logo[d.nb].height;
-		d.imageRight = d.imageX + d.imageWidth;
-		d.imageBottom = d.imageY + d.imageHeight;
-		//d.nb++;
-	} else {
-		alert('Not an image file!');
+	this.modal = function(id) {
+		// on utilise la fonction soit pour fermer toutes les modales
+		// soit pour un afficher une
+		document.getElementById('modalProduit').style.display = "none";
+		document.getElementById('modalDesign').style.display = "none";
+		document.getElementById('modalTexte').style.display = "none";
+		document.getElementById('modalNb').style.display = "none";
+		if (id) {
+			document.getElementById(id).style.display = "block";
+		}
 	}
-}
-
-function changeProdcut(number) {
-	d.face = loadImage(path + "image/" + number + "-face.png");
-	d.dos = loadImage(path + "image/" + number + "-dos.png");
-	d.droite = loadImage(path + "image/" + number + "-droite.png");
-	d.gauche = loadImage(path + "image/" + number + "-gauche.png");
-	d.button('face').style('background-image', "url(" + path + "'image/" + number + "-face.png')");
-	d.button('dos').style('background-image', "url(" + path + "'image/" + number + "-dos.png')");
-	d.button('droite').style('background-image', "url(" + path + "'image/" + number + "-droite.png')");
-	d.button('gauche').style('background-image', "url(" + path + "'image/" + number + "-gauche.png')");
-	d.fond = d.face;
+	this.Position = function() {
+		if (windowHeight < windowWidth) {
+			d.canvas.position(windowWidth / 2 - this.canvas.width / 2 - 200, document.getElementById('topOfPage').offsetTop + 100);
+		} else {
+			d.canvas.position(windowWidth / 2 - this.canvas.width / 2, document.getElementById('topOfPage').offsetTop + 100);
+		}
+		this.button('buttonProduit').position(this.offsetX - this.button('buttonProduit').width - 25, this.offsetY);
+		this.button('buttonDesign').position(this.offsetX - this.button('buttonDesign').width - 25, this.offsetY + this.canvas.height / 5);
+		this.button('buttonImage').position(this.offsetX - this.button('buttonImage').width - 25, this.offsetY + 2 * this.canvas.height / 5);
+		this.button('buttonText').position(this.offsetX - this.button('buttonText').width - 25, this.offsetY + 3 * this.canvas.height / 5);
+		this.button('buttonNb').position(this.offsetX - this.button('buttonNb').width - 25, this.offsetY + 4 * this.canvas.height / 5);
+		this.button('face').position(this.offsetX + 30, this.offsetY + this.canvas.height + 20);
+		this.button('dos').position(this.offsetX + 30 + this.canvas.width / 4, this.offsetY + this.canvas.height + 20);
+		this.button('droite').position(this.offsetX + 30 + 2 * this.canvas.width / 4, this.offsetY + this.canvas.height + 20);
+		this.button('gauche').position(this.offsetX + 30 + 3 * this.canvas.width / 4, this.offsetY + this.canvas.height + 20);
+		var modalRight = document.getElementsByClassName('modal-right');
+		for (var i = 0; i < modalRight.length; i++) {
+			modalRight[i].style.position = "absolute";
+			modalRight[i].style.top = this.offsetY + "px";
+			modalRight[i].style.left = this.canvas.position().x + this.canvas.width + 50 + "px";
+			modalRight[i].style.width = 2 * windowWidth / 5 + "px";
+			modalRight[i].style.height = this.canvas.height + "px";
+		};
+	}
+	this.history = {
+		//pour activer les redo et undo sur le canvas 
+		undoList: {
+			face: [],
+			dos: [],
+			gauche: [],
+			droite: [],
+		},
+		index: 0,
+		saveState: function() {
+			var state = {};
+			Object.assign(state, {
+				'ci': d.ci,
+				'ct': d.ct,
+			});
+			d.logo.forEach(function(e) {
+				Object.assign(state, {
+					['xImage' + e.nb.toString()]: e.x,
+					['yImage' + e.nb.toString()]: e.y,
+					['widthImage' + e.nb.toString()]: e.width,
+					['heightImage' + e.nb.toString()]: e.height,
+				});
+			});
+			d.text.forEach(function(e) {
+				Object.assign(state, {
+					['xText' + e.nb.toString()]: e.x,
+					['yText' + e.nb.toString()]: e.y,
+					['widthText' + e.nb.toString()]: e.width,
+					['heightText' + e.nb.toString()]: e.height,
+				});
+			});
+			/*if (this.index == this.undoList.length) {*/
+			this.index++;
+			if (d.fond == d.face) this.undoList.face.push(state);
+			else if (d.fond == d.dos) this.undoList.dos.push(state);
+			else if (d.fond == d.droite) this.undoList.droite.push(state);
+			else if (d.fond == d.gauche) this.undoList.gauche.push(state);
+			/*}*/
+		},
+		store: function(list, e) {
+			e.x = parseFloat(list[this.index]['xImage' + e.nb.toString()]);
+			e.y = parseFloat(list[this.index]['yImage' + e.nb.toString()]);
+			e.width = parseFloat(list[this.index]['widthImage' + e.nb.toString()]);
+			e.height = parseFloat(list[this.index]['heightImage' + e.nb.toString()]);
+			e.right = e.x + e.width;
+			e.bottom = e.y + e.height;
+		},
+		update: function() {
+			d.logo.forEach(function(e) {
+				if (isNaN(e.x) && isNaN(e.y) && isNaN(e.width) && isNaN(e.height)) {
+					d.ci = d.logo.indexOf(e) - 1;
+					d.logo.splice(d.logo.indexOf(e), 1);
+				}
+				if (d.fond == d.face) this.store(this.undoList.face, e);
+				else if (d.fond == d.dos) this.store(this.undoList.dos, e);
+				else if (d.fond == d.droite) this.store(this.undoList.droite, e);
+				else if (d.fond == d.gauche) this.store(this.undoList.gauche, e);
+			}, this);
+			d.text.forEach(function(e) {
+				if (isNaN(e.x) && isNaN(e.y) && isNaN(e.width) && isNaN(e.height)) {
+					d.ct = d.logo.indexOf(e) - 1;
+					d.text.splice(d.text.indexOf(e), 1);
+				}
+				if (d.fond == d.face) this.store(this.undoList.face, e);
+				else if (d.fond == d.dos) this.store(this.undoList.dos, e);
+				else if (d.fond == d.droite) this.store(this.undoList.droite, e);
+				else if (d.fond == d.gauche) this.store(this.undoList.gauche, e);
+			}, this);
+			d.ci = this.undoList.face[this.index]['ci'];
+			d.ct = this.undoList.face[this.index]['ct'];
+			d.slider('xImage').value(d.logo[d.ci].x);
+			d.slider('yImage').value(d.logo[d.ci].y);
+			d.slider('largeurImage').value(d.logo[d.ci].width);
+			d.slider('hauteurImage').value(d.logo[d.ci].height);
+			d.input('xImageSetting').value(d.logo[d.ci].x);
+			d.input('yImageSetting').value(d.logo[d.ci].x);
+			d.input('largeurImageSetting').value(d.logo[d.ci].width);
+			d.input('hauteurImageSetting').value(d.logo[d.ci].height);
+			d.slider('xTexte').value(d.text[d.ct].x);
+			d.slider('yTexte').value(d.text[d.ct].y);
+			d.slider('largeurTexte').value(d.text[d.ct].width);
+			d.slider('hauteurTexte').value(d.text[d.ct].height);
+			d.input('xTexteSetting').value(d.text[d.ct].x);
+			d.input('yTexteSetting').value(d.text[d.ct].x);
+			d.input('largeurTexteSetting').value(d.text[d.ct].width);
+			d.input('hauteurTexteSetting').value(d.text[d.ct].height);
+		},
+		undo: function() {
+			if (this.index > 2) {
+				this.index--;
+				this.update();
+			} else {
+				d.logo[d.ci].image.src = "";
+				this.index = 0;
+			}
+		},
+		redo: function() {
+			if (this.index < this.undoList.face.length - 1) {
+				this.index++;
+				this.update();
+			}
+		},
+	}
 }
