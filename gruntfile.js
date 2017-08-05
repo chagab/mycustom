@@ -2,22 +2,33 @@ module.exports = function(grunt) {
 	const pathCss = "/Users/gabrielchatelain/Desktop/mycustom/static/mySelf/css/";
 	const pathJs = "/Users/gabrielchatelain/Desktop/mycustom/static/mySelf/js/";
 	const path = "/Users/gabrielchatelain/Desktop/mycustom/static/";
+	const pathMedia = "/Users/gabrielchatelain/Desktop/mycustom/media/";
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 		cssmin: {
 			my_target: {
 				files: [{
-					expand: true,
-					cwd: pathCss,
-					src: ['*.css', '!*.min.css'],
-					dest: pathCss,
-					ext: ".min.css"
-				}]
-				/*combine: {
-					files: {
-						"static/allCss.css": [pathCss + "/*.min.css"],
-					}
-				}*/
+						expand: true,
+						cwd: pathCss,
+						src: ['*.css', '!*.min.css'],
+						dest: pathCss,
+						ext: ".min.css"
+					}]
+					/*combine: {
+						files: {
+							"static/allCss.css": [pathCss + "/*.min.css"],
+						}
+					}*/
+			}
+		},
+		less: {
+			development: {
+				options: {
+					paths: [path]
+				},
+				files: {
+					[pathCss + "my_custom.css"]: [pathCss + "sources/*.less"]
+				}
 			}
 		},
 		babel: {
@@ -44,9 +55,24 @@ module.exports = function(grunt) {
 				},
 			},
 		},
+		imagemin: {
+			dynamic: {
+				files: [{
+					cwd: pathMedia + "home/" + "fond_ecran/",
+					src: ['/*.{jpg,jpeg,png}'],
+					dest: pathMedia + "home/" + "fond_ecran/",
+				}, {
+					cwd: pathMedia + "home/" + "logo/",
+					src: ['/*.{jpg,jpeg,png}'],
+					dest: pathMedia + "home/" + "logo/",
+				}, ]
+			}
+		},
 	});
 	grunt.loadNpmTasks('grunt-babel');
+	grunt.loadNpmTasks('grunt-contrib-imagemin');
+	grunt.loadNpmTasks('grunt-contrib-less');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
-	grunt.registerTask("default", ["babel", "uglify"]);
+	grunt.registerTask("default", ["babel", "uglify", "less", "cssmin"]);
 };
