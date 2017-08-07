@@ -48,10 +48,8 @@
                   {% for logo in achatLogo_from_view %}
                     {% if logo.categorie == categorie %}
                       {% if logo.confirm %}
-                        <div class="gal-item col-{{ logo.taille }}-{{ logo.nombre_colonnes }} col-{{ logo.taille }}-offset-{{ logo.nombre_offset }}">
-                          <div class="box">
-                            <img src="{{ logo.logo.url }}" class="logo" style="width: 100%;height: auto; cursor: pointer;">
-                          </div>
+                        <div class="gal-item col-{{ logo.taille }}-{{ logo.nombre_colonnes }} col-{{ logo.taille }}-offset-{{ logo.nombre_offset }} logo animation_ease-slow" style="height: 250px;">
+                          <img src="{{ logo.logo.url }}" class="" style="width: 100% ;height: auto; cursor: pointer;">
                         </div>
                       {% endif %}
                     {% endif %}
@@ -70,19 +68,22 @@
                     <div
                       class="produit animation_ease col-{{ element.taille }}-offset-{{ element.nombre_offset }} col-{{ element.taille }}-{{ element.nombre_colonnes }}"
                       style="
-                  display: block;
-                  border : {{ element.type_contour }} {{ element.epaisseur_contour }}px {{ element.couleur_contour }};
-                  border-radius: {{ element.contour_arrondi }}px;
-                  color : {{ element.couleur_text }};
-                  background-color: {{ element.couleur_fond }}">
+                      display: block;
+                      border : {{ element.type_contour }} {{ element.epaisseur_contour }}px {{ element.couleur_contour }};
+                      border-radius: {{ element.contour_arrondi }}px;
+                      color : {{ element.couleur_text }};
+                      background-color: {{ element.couleur_fond }}">
                       <center>
                         <h3 class="myfont">{{ element.nom }}
                         </h3>
                         <div class="text-center">
                           <a type="button" style="cursor: pointer;">
-                            <img class="resize_width adjust_height produitImage" style="
-                      background-color: {{ element.couleur_fond_image }};
-                      border-radius: {{ element.contour_arrondi_image }}px;" src="{{ element.face_style.url }}">
+                            <img
+                              class="resize_width adjust_height produitImage"
+                              style="
+                          background-color: {{ element.couleur_fond_image }};
+                          border-radius: {{ element.contour_arrondi_image }}px;"
+                              src="{{ element.face_style.url }}">
                           </a>
                         </div>
                         <br>
@@ -95,7 +96,7 @@
                 {% endfor %}
                 <div class="col-xs-12">
                   <center>
-                    <button class="fermerLogo" style="margin-top: 10px;"><img style="height: 40px; width: auto;" src="{% static 'mySelf/image/icons8-Back-26.png' %}"></button>
+                    <button class="fermerLogo" style="margin-top: 10px;"><img style="height: 40px; width: auto;" src="{% static 'mainPage/image/icons8-Back-26.png' %}"></button>
                   </center>
                 </div>
               </div>

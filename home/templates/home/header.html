@@ -12,9 +12,9 @@
 		{% for page in page_accueil_from_view %}
 			<link rel="icon" type="image/png" href="{{ page.logo.url }}"/>
 		{% endfor %}
-		<link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
-		<link rel="stylesheet" type="text/css" href="{% static 'mySelf/css/animates.min.css' %}">
-		<link rel="stylesheet" type="text/css" href="{% static 'mySelf/css/my_custom.min.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'lib/bootstrap/css/bootstrap.min.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'lib/animates.min.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'mainPage/css/my_custom.min.css' %}">
 	</head>
 	<body id="haut">
 		{% block menu %}{% endblock %}
@@ -28,8 +28,8 @@
 		{% block compte %}{% endblock %}
 		{% block designer %}{% endblock %}
 		{% load staticfiles %}
-		<script type="text/javascript" src="{% static 'jquery.min.js' %}"></script>
-		<script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+		<script type="text/javascript" src="{% static 'lib/jquery.min.js' %}"></script>
+		<script type="text/javascript" src="{% static 'lib/bootstrap/js/bootstrap.min.js' %}"></script>
 		{% block scriptMenu %}{% endblock %}
 	</body>
 	<style type="text/css">
@@ -40,13 +40,10 @@
 			left: 0;
 			position: fixed;
 			display: flex;
-  			align-items: center;
-  			justify-content: center 
-			opacity: 1;
+			align-items: center;
+			justify-content:center opacity: 1;
 			background-color: #fff;
 			z-index: 9999;
-			/*text-align: center;
-			vertical-align: middle*/
 		}
 		#loading-image {
 			position: relative;
@@ -55,12 +52,12 @@
 		}
 	</style>
 	<div id="loading">
-		<img id="loading-image" class="animated tada" src="{% static 'mySelf/image/logo my custom by NF blanc.png' %}" alt="Loading..." />
+		<img id="loading-image" class="animated tada" src="{% static 'mainPage/image/logo my custom by NF blanc.png' %}" alt="Loading..."/>
 	</div>
 	<script language="javascript" type="text/javascript">
-	window.onload = function(){ 
-		document.getElementById("loading").style.display = "none" ;
-	} 
+		window.onload = function () {
+			document.getElementById("loading").style.display = "none";
+		}
 	</script>
 	{% block footer %}{% endblock %}
 </html>

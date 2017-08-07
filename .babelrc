@@ -1,4 +1,9 @@
 {
+  "plugins": [
+    ["transform-strict-mode", {
+      "strict": false,
+    }]
+  ],
   "presets": [
     ["env", {
       "targets": {
