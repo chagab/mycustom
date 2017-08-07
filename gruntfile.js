@@ -5,6 +5,16 @@ module.exports = function(grunt) {
 	const pathMedia = "/Users/gabrielchatelain/Desktop/mycustom/media/";
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
+		less: {
+			development: {
+				options: {
+					paths: [path]
+				},
+				files: {
+					[pathCss + "my_custom.css"]: [pathCss + "sources/*.less"]
+				}
+			}
+		},
 		cssmin: {
 			my_target: {
 				files: [{
@@ -21,15 +31,11 @@ module.exports = function(grunt) {
 					}*/
 			}
 		},
-		less: {
-			development: {
-				options: {
-					paths: [path]
-				},
-				files: {
-					[pathCss + "my_custom.css"]: [pathCss + "sources/*.less"]
-				}
-			}
+		uncss: {
+			dist: {
+				//reste ça à faire encore ! 
+				//files: "/Users/gabrielchatelain/Desktop/mycustom/"
+			},
 		},
 		babel: {
 			options: {
@@ -125,6 +131,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-imagemin');
 	grunt.loadNpmTasks('grunt-contrib-less');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
+	grunt.loadNpmTasks('grunt-uncss');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.registerTask("default", ["babel", "uglify", "less", "cssmin"]);
 };

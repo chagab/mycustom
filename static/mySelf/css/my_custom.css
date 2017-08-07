@@ -594,6 +594,7 @@ a:hover {
 .categorie_achat:hover {
   text-decoration: none;
   color: white;
+  z-index: 1;
 }
 .fond {
   color: white;
