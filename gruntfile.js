@@ -28,16 +28,17 @@ module.exports = function(grunt) {
 					ext: ".min.css"
 				}, {
 					expand: true,
-					cwd: pathLib,
-					src: ['**/*.css', '**/!*.min.css'],
-					dest: pathLib,
+					cwd: `${pathLib}bootstrap/css/`,
+					src: ['**/bootstrap.css', '**/!*.min.css'],
+					dest: `${pathLib}bootstrap/css/`,
+					ext: ".min.css"
+				}, {
+					expand: true,
+					cwd: `${pathLib}`,
+					src: ['**/animates.css', '**/!*.min.css'],
+					dest: `${pathLib}`,
 					ext: ".min.css"
 				}, ]
-				/*combine: {
-					files: {
-						"static/allCss.css": [pathCss + "/*.min.css"],
-					}
-				}*/
 			}
 		},
 		uncss: {
