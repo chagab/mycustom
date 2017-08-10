@@ -20,7 +20,7 @@ $(function() {
 		for (let i = 0; i < photos.length; i++) {
 			let effet = Math.floor(Math.random() * (max - min)) + min;
 			let randomColor = Math.floor(Math.random() * 16777215).toString(16);
-			$(`.zoom:eq(${i})`).css("background-color", `# + ${randomColor}`);
+			$(`.zoom:eq(${i})`).css("background-color", `#${randomColor}`);
 			if (effet == 0) {
 				zoomIn(photos[i]);
 			}
@@ -66,13 +66,13 @@ $(function() {
 	}
 
 	function zoomIn(element) {
-		$(element).hover(() => {
+		$(element).hover(function() {
 			$(this).find('.zoom-in').fadeTo(200, 0.5).css({
 				'transform': 'scale(0.95, 0.95)',
 				'-moz-transform': 'scale(0.95, 0.95)',
 				'-webkit-transform': 'scale(0.95, 0.95)',
 			});
-		}, () => {
+		}, function() {
 			$(this).find('.zoom-in').fadeTo(200, 1).css({
 				'transform': 'scale(1, 1)',
 				'-moz-transform': 'scale(1, 1)',
@@ -82,13 +82,13 @@ $(function() {
 	}
 
 	function zoomOut(element) {
-		$(element).hover(() => {
+		$(element).hover(function() {
 			$(this).find('.zoom-in').fadeTo(200, 0.5).css({
 				'transform': 'scale(1.05, 1.05)',
 				'-moz-transform': 'scale(1.05, 1.05)',
 				'-webkit-transform': 'scale(1.05, 1.05)',
 			});
-		}, () => {
+		}, function() {
 			$(this).find('.zoom-in').fadeTo(200, 1).css({
 				'transform': 'scale(1, 1)',
 				'-moz-transform': 'scale(1, 1)',
@@ -98,49 +98,49 @@ $(function() {
 	}
 
 	function balayageGauche(element) {
-		$(element).hover(() => {
+		$(element).hover(function() {
 			$(this).find('.zoom-in').addClass('animated fadeOutLeft');
-		}, () => {
+		}, function() {
 			$(this).find('.zoom-in').removeClass('animated fadeOutLeft').addClass('animated fadeInLeft');
 		});
 	}
 
 	function balayageDroite(element) {
-		$(element).hover(() => {
+		$(element).hover(function() {
 			$(this).find('.zoom-in').addClass('animated fadeOutRight');
-		}, () => {
+		}, function() {
 			$(this).find('.zoom-in').removeClass('animated fadeOutRight').addClass('animated fadeInRight');
 		});
 	}
 
 	function up(element) {
-		$(element).hover(() => {
+		$(element).hover(function() {
 			$(this).find('.zoom-in').addClass('animated slideOutDown');
-		}, () => {
+		}, function() {
 			$(this).find('.zoom-in').removeClass('animated slideOutDown').addClass('animated slideInUp');
 		});
 	}
 
 	function down(element) {
-		$(element).hover(() => {
+		$(element).hover(function() {
 			$(this).find('.zoom-in').addClass('animated slideOutUp');
-		}, () => {
+		}, function() {
 			$(this).find('.zoom-in').removeClass('animated slideOutUp').addClass('animated slideInDown');
 		});
 	}
 
 	function flipY(element) {
-		$(element).hover(() => {
+		$(element).hover(function() {
 			$(this).find('.zoom-in').addClass('animated flipOutY');
-		}, () => {
+		}, function() {
 			$(this).find('.zoom-in').removeClass('animated flipOutY').addClass('animated flipInY');
 		});
 	}
 
 	function flipX(element) {
-		$(element).hover(() => {
+		$(element).hover(function() {
 			$(this).find('.zoom-in').addClass('animated flipOutX');
-		}, () => {
+		}, function() {
 			$(this).find('.zoom-in').removeClass('animated flipOutX').addClass('animated flipInX');
 		});
 	}

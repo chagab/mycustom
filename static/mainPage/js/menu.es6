@@ -30,7 +30,7 @@ $(function() {
 	}
 	init();
 	Window.scroll(function() {
-		if (getPageScroll() > top - 51) {
+		if (getPageScroll() > top) {
 			navbar.css({
 				"background-color": '#E1E1E1',
 			});
@@ -57,14 +57,14 @@ $(function() {
 				'filter': 'invert(0%)'
 			});
 		}
-		if (getPageScroll() < Window.height()) {
+		if (getPageScroll() < top) {
 			changeColor(buttons[0], 'white', 'transparent');
 			changeColor(buttons[1], 'white', 'transparent');
 			changeColor(buttons[2], 'white', 'transparent');
 			changeColor(buttons[3], 'white', 'transparent');
 			changeColor(buttons[4], 'white', 'transparent');
 		}
-		if ((getPageScroll() > $('#collection_ephemere').offset().top - 200) && (getPageScroll() < $('#customize').offset().top)) {
+		if ((getPageScroll() > top) && (getPageScroll() < $('#customize').offset().top)) {
 			changeColor(buttons[0], fontColor, Color);
 			changeColor(buttons[1], buttonsColor, backColor);
 			changeColor(buttons[2], buttonsColor, backColor);
