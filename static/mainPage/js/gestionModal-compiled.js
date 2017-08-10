@@ -32,22 +32,28 @@ $(function () {
 			});
 		});
 	}
-	//proposition des textiles lors d'un appuit sur un logo
-	for (var _i3 = 0; _i3 < logo.length; _i3++) {
-		$(logo[_i3]).click(function () {
-			var toFadeOut = $(this.parentElement.parentElement);
-			var toFadeIn = $(this.parentElement.parentElement.nextElementSibling);
-			toFadeOut.fadeOut(0);
-			toFadeIn.fadeIn(400);
-		});
-	}
-	for (var _i4 = 0; _i4 < fermerLogo.length; _i4++) {
-		$(fermerLogo[_i4]).click(function () {
-			var toFadeOut = $(this.parentElement.parentElement.parentElement);
-			var toFadeIn = $(this.parentElement.parentElement.parentElement.previousElementSibling);
-			toFadeOut.fadeOut(0);
-			toFadeIn.fadeIn(400);
-		});
-	}
 });
+//fonction pour la proposition des textiles lors d'un appuit sur un logo
+function propositionTextile(logo) {
+	$(logo.parentElement.parentElement.parentElement).fadeOut(0);
+	$(logo.parentElement.parentElement.parentElement.nextElementSibling).fadeIn(400);
+}
+//fonction pour revenir de la proposition des textiles
+function revenir(button) {
+	$(button.parentElement.parentElement.parentElement).fadeOut(0);
+	$(button.parentElement.parentElement.parentElement.previousElementSibling).fadeIn(400);
+}
+
+function loadingLogo(elt) {
+	console.log('done');
+}
+
+function montrerProduit(produit) {
+	$(produit).closest('.produit').fadeOut(0);
+	$(produit).closest('.produitDetail').fadeIn(400);
+	console.log($(produit).closest('.produitDetail'));
+	console.log($(produit).closest('.produit'));
+	//$(produit.parentElement.parentElement.parentElement.parentElement).fadeOut(0);
+	//$(produit.parentElement.parentElement.parentElement.parentElement.parentElement.previousElementSibling).fadeIn(400);
+}
 //# sourceMappingURL=gestionModal-compiled.js.map

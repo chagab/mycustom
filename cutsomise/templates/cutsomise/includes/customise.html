@@ -20,7 +20,7 @@
 						{% for categorie in customise_categorie_from_view %}
 							{% if categorie.confirm %}
 								<div class="panel panel-default">
-									<div role="button" data-toggle="modal" data-parent="#accordion_2" data-target="#test_{{ categorie.id }}" class="categorie animation_ease-slow" style="background-image: url({{ categorie.image.url }});">
+									<div role="button" data-toggle="modal" data-parent="#accordion_2" data-target="#test_{{ categorie.id }}" class="categorie animation_ease-slow" style="background-image: url({{ categorie.image.url }});" name="{{categorie.nom}}">
 										<b>{{ categorie.nom }}
 										</b>
 									</div>
@@ -37,7 +37,7 @@
 													{% for element in Produit_from_view %}
 														{% if element.confirm %}
 															{% if element.categorie == categorie %}
-																<div
+																<!--<div
 																	class="produit animation_ease col-{{ element.taille }}-offset-{{ element.nombre_offset }} col-{{ element.taille }}-{{ element.nombre_colonnes }}"
 																	style="
 																display: block;
@@ -84,7 +84,7 @@
 																		<button>Customier !
 																			<img style="height: 40px; width: auto;" src="{% static 'mainPage/image/logo my custom by NF blanc.png' %}"></button>
 																	</a>
-																</div>
+																</div>-->
 															{% endif %}
 														{% endif %}
 														{% empty %}

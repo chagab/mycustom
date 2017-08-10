@@ -24,7 +24,7 @@
         class="wrap col-{{ categorie.taille }}-{{ categorie.nombre_colonnes }} col-{{ categorie.taille }}-offset-{{ categorie.nombre_offset }} collapsed categorie_achat animation_ease-fast animation_scale_up-small"
         role="button"
         data-toggle="modal"
-        data-target="#achat_categorie_{{ categorie.id }}">
+        data-target="#achat_categorie_{{ categorie.id }}" name="{{ categorie }}">
         <center>
           <b class="myfont" style="color : {{categorie.couleur_titre }} ;">{{ categorie.titre }}
           </b>
@@ -43,20 +43,9 @@
               </center>
             </div>
             <div class="modal-body col-xs-12" style="overflow: hidden;">
-              <div class="propositionLogo" style="display: block;">
+              <div class="propositionLogo" style="display: block;" name="{{ categorie }}">
                 <center>
-                  {% for logo in achatLogo_from_view %}
-                    {% if logo.categorie == categorie %}
-                      {% if logo.confirm %}
-                        <div class="gal-item col-{{ logo.taille }}-{{ logo.nombre_colonnes }} col-{{ logo.taille }}-offset-{{ logo.nombre_offset }} logo animation_ease-slow" style="height: 250px;">
-                          <img src="{{ logo.logo.url }}" class="" style="width: 100% ;height: auto; cursor: pointer;">
-                        </div>
-                      {% endif %}
-                    {% endif %}
-                    {% empty %}
-                    <p class="myfont">il n'y a pas de logo dans cette catégorie pour le moment ...
-                    </p>
-                  {% endfor %}
+                  <!-- here come the ajax load of logo -->
                 </center>
               </div>
               <div class="propositionTextile" style="display: none;">
@@ -103,11 +92,9 @@
                         <div class="col-xs-2" style="border: solid 1px gray; border-radius:0 10px 10px 0;">
                           <img class="produitImage gauche" style=" height: 100px;
                       width: auto; background-color: {{ element.couleur_fond_image }};" src="{{ element.face_style.url }}"><br>
-                          <img class="produitImage gauche" style=" height: 100px; width: auto; background-color: {{ element.couleur_fond_image }};" src="{{
-                      element.dos_style.url }}"><br>
+                          <img class="produitImage gauche" style=" height: 100px; width: auto; background-color: {{ element.couleur_fond_image }};" src="{{ element.dos_style.url }}"><br>
                           <img class="produitImage gauche" style=" height: 100px; width: auto; background-color: {{ element.couleur_fond_image }};" src="{{ element.gauche_style.url }}"><br>
-                          <img class="produitImage gauche" style=" height: 100px;
-                      width: auto; background-color: {{ element.couleur_fond_image }};" src="{{ element.droite_style.url }}"><br>
+                          <img class="produitImage gauche" style=" height: 100px; width: auto; background-color: {{ element.couleur_fond_image }};" src="{{ element.droite_style.url }}"><br>
                         </div>
                         <button class="fermer" style="margin-top: 10px;"><img style="height: 40px; width: auto;" src="{% static 'mainPage/image/icons8-Back-26.png' %}"></button>
                         <a href="TshirtDesigner/designer/{{ element.num }}" style="margin-top: 10px;">
@@ -122,7 +109,7 @@
 
                   <div class="col-xs-12">
                     <center>
-                      <button class="fermerLogo" style="margin-top: 10px;"><img style="height: 40px; width: auto;" src="{% static 'mainPage/image/icons8-Back-26.png' %}"></button>
+                      <button class="fermerLogo" onclick="revenir(this)" style="margin-top: 10px;"><img style="height: 40px; width: auto;" src="{% static 'mainPage/image/icons8-Back-26.png' %}"></button>
                     </center>
                   </div>
                 </div>
