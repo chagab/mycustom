@@ -24,7 +24,7 @@
         class="wrap col-{{ categorie.taille }}-{{ categorie.nombre_colonnes }} col-{{ categorie.taille }}-offset-{{ categorie.nombre_offset }} collapsed categorie_achat animation_ease-fast animation_scale_up-small"
         role="button"
         data-toggle="modal"
-        data-target="#achat_categorie_{{ categorie.id }}" name="{{ categorie }}">
+        data-target="#achat_categorie_{{ categorie.id }}" name="{{ categorie.id }}">
         <center>
           <b class="myfont" style="color : {{categorie.couleur_titre }} ;">{{ categorie.titre }}
           </b>
@@ -52,60 +52,7 @@
                 <center>
                   <p class="myfont-llg">Choisissez votre textil</p>
                 </center>
-                {% for element in Produit_from_view %}
-                  {% if element.confirm %}
-                    <div
-                      class="produit animation_ease col-{{ element.taille }}-offset-{{ element.nombre_offset }} col-{{ element.taille }}-{{ element.nombre_colonnes }}"
-                      style="
-                      display: block;
-                      border : {{ element.type_contour }} {{ element.epaisseur_contour }}px {{ element.couleur_contour }};
-                      border-radius: {{ element.contour_arrondi }}px;
-                      color : {{ element.couleur_text }};
-                      background-color: {{ element.couleur_fond }}">
-                      <center>
-                        <h3 class="myfont">{{ element.nom }}
-                        </h3>
-                        <div class="text-center">
-                          <a type="button" style="cursor: pointer;">
-                            <img
-                              class="resize_width adjust_height produitImage"
-                              style="
-                          background-color: {{ element.couleur_fond_image }};
-                          border-radius: {{ element.contour_arrondi_image }}px;"
-                              src="{{ element.face_style.url }}">
-                          </a>
-                        </div>
-                        <br>
-                        <br>
-                        <p class="myfont">{{ element.prix }}€</p>
-                        <p class="myfont">{{ element.text_description_short }}</p>
-                      </center>
-                    </div>
-                    <div class="produitDetail" style="display: none;">
 
-                      <center>
-                        <p class="myfont-lg">{{ element.text_description_short }} : {{ element.prix}}€</p>
-                        <div id="produitDroite" class="col-xs-10" style="border: solid 1px gray; border-radius: 10px 0 0 10px;">
-                          <img class="produitImage droite" style="height :400px;
-                      width: auto; background-color: {{ element.couleur_fond_image }};" src="{{ element.face_style.url }}">
-                        </div>
-                        <div class="col-xs-2" style="border: solid 1px gray; border-radius:0 10px 10px 0;">
-                          <img class="produitImage gauche" style=" height: 100px;
-                      width: auto; background-color: {{ element.couleur_fond_image }};" src="{{ element.face_style.url }}"><br>
-                          <img class="produitImage gauche" style=" height: 100px; width: auto; background-color: {{ element.couleur_fond_image }};" src="{{ element.dos_style.url }}"><br>
-                          <img class="produitImage gauche" style=" height: 100px; width: auto; background-color: {{ element.couleur_fond_image }};" src="{{ element.gauche_style.url }}"><br>
-                          <img class="produitImage gauche" style=" height: 100px; width: auto; background-color: {{ element.couleur_fond_image }};" src="{{ element.droite_style.url }}"><br>
-                        </div>
-                        <button class="fermer" style="margin-top: 10px;"><img style="height: 40px; width: auto;" src="{% static 'mainPage/image/icons8-Back-26.png' %}"></button>
-                        <a href="TshirtDesigner/designer/{{ element.num }}" style="margin-top: 10px;">
-                          <button>Customier !
-                            <img style="height: 40px; width: auto;" src="{% static 'mainPage/image/logo my custom by NF blanc.png' %}"></button>
-                        </a>
-                      </center>
-
-                      </div>
-                  {% endif %}
-                {% endfor %}
 
                   <div class="col-xs-12">
                     <center>

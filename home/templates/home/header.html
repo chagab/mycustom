@@ -15,11 +15,9 @@
 		<link rel="stylesheet" type="text/css" href="{% static 'lib/bootstrap/css/bootstrap.min.css' %}">
 		<link rel="stylesheet" type="text/css" href="{% static 'lib/animates.min.css' %}">
 		<link rel="stylesheet" type="text/css" href="{% static 'mainPage/css/my_custom.min.css' %}">
+		<script type="text/javascript" src="{% static 'lib/jquery.min.js' %}"></script>
+		<script type="text/javascript" src="{% static 'lib/bootstrap/js/bootstrap.min.js' %}"></script>
 	</head>
-	<script>
-	  var logoData = "{% for logo in achatLogo_from_view %}{{logo.categorie}}:{{logo.logo.url}}:{{logo.confirm}}:{{logo.taille}}:{{logo.nombre_colonnes}}:{{logo.nombre_offset}}\n{% endfor %}";
-	  var produitData = "{% for produit in Produit_from_view %}{{produit.nom}}:{{produit.categorie}}:{{produit.confirm}}:{{produit.taille}}:{{produit.nombre_colonnes}}:{{produit.nombre_offset}}:{{produit.type_contour}}:{{produit.epaisseur_contour}}:{{produit.couleur_contour}}:{{produit.contour_arrondi}}:{{produit.couleur_text}}:{{produit.couleur_fond}}:{{produit.couleur_fond_image}}:{{produit.contour_arrondi_image}}:{{produit.prix}}:{{produit.text_description_short}}:{{produit.face_style.url}}\n{% endfor %}"
-	</script>
 	<body id="haut">
 		{% block menu %}{% endblock %}
 		{% block accueil %}{% endblock %}
@@ -31,13 +29,10 @@
 		{% block element %}{% endblock %}
 		{% block compte %}{% endblock %}
 		{% block designer %}{% endblock %}
-		{% load staticfiles %}
-		<script type="text/javascript" src="{% static 'lib/jquery.min.js' %}"></script>
-		<script type="text/javascript" src="{% static 'lib/bootstrap/js/bootstrap.min.js' %}"></script>
 		{% block scriptMenu %}{% endblock %}
 	</body>
 	<style type="text/css">
-		#loading {
+		#loading, .Loading {
 			width: 100%;
 			height: 100%;
 			top: 0;
@@ -49,7 +44,7 @@
 			background-color: #fff;
 			z-index: 9999;
 		}
-		#loading-image {
+		#loading-image, .Loading-image {
 			position: relative;
 			margin: auto;
 			z-index: 10000;

@@ -1,6 +1,6 @@
 #-*- coding: utf-8 -*-
 from django.contrib import admin
-from .models import produit, achatCategorie, ongletAchetez, achatLogo #ligneCategorie,
+from .models import Produit, AchatCategorie, OngletAchetez, AchatLogo
 # Register your models here.
 
 def size_xs(modeladmin, request, queryset):
@@ -71,7 +71,7 @@ class ProduitAdmin(admin.ModelAdmin):
 		text = produit.text_description[0:60]
 		if len(text) > 40:
 			text += '...'
-		else : 
+		else :
 			pass
 		return text
 
@@ -102,7 +102,7 @@ class LogoAdmin(admin.ModelAdmin):
 	 	column_11,
 	 	column_12,
 	 ]
-	 
+
 class CategorieAdmin(admin.ModelAdmin) :
 		list_display = ('nom' ,'date', 'confirm',)
 		list_filter   = ('confirm',)
@@ -128,10 +128,10 @@ class CategorieAdmin(admin.ModelAdmin) :
 	 		column_11,
 	 		column_12,
 		]
-	
 
-admin.site.register(produit, ProduitAdmin)
-admin.site.register(achatCategorie,CategorieAdmin)
-admin.site.register(ongletAchetez)
+
+admin.site.register(Produit, ProduitAdmin)
+admin.site.register(AchatCategorie,CategorieAdmin)
+admin.site.register(OngletAchetez)
 #admin.site.register(ligneCategorie)
-admin.site.register(achatLogo,LogoAdmin)
+admin.site.register(AchatLogo,LogoAdmin)

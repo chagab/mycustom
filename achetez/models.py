@@ -39,7 +39,7 @@ CONTOUR_CHOICES = (
     ('hidden','hidden'),
 )
 
-class produit(models.Model):
+class Produit(models.Model):
 	#propriétés du produit
 	nom                    = models.CharField(max_length=140)
 	num                    = models.PositiveSmallIntegerField()
@@ -59,7 +59,7 @@ class produit(models.Model):
 	dos_style    = models.ImageField(upload_to="achetez/produit/", blank=True)
 	droite_style = models.ImageField(upload_to="achetez/produit/", blank=True)
 	gauche_style = models.ImageField(upload_to="achetez/produit/", blank=True)
-	#propriétés de style 
+	#propriétés de style
 	taille                = models.CharField(max_length=2,choices=SIZE_CHOICES,default='md')
 	nombre_colonnes       = models.CharField(max_length=2,choices=COLUMN_CHOICES,default='2')
 	nombre_offset         = models.CharField(max_length=2,choices=COLUMN_CHOICES,default='0')
@@ -75,20 +75,20 @@ class produit(models.Model):
 	class Meta:
 		verbose_name = "produits de l'onglet Achetez"
 		verbose_name_plural = "produits de l'onglet Achetez"
-	
+
 	def __str__(self):
 		return self.nom
 
 	def __unicode__(self):
 		return self.nom
 
-class achatLogo(models.Model):
+class AchatLogo(models.Model):
 	nom                    = models.CharField(max_length=140)
 	logo                   = models.ImageField(upload_to="achetez/logo/")
 	date                   = models.DateField()
 	text_description_short = models.CharField(max_length=140)
 	couleur_text           = models.CharField(max_length=7,default='black')
-	categorie              = models.ForeignKey('achatCategorie')
+	categorie              = models.ForeignKey('AchatCategorie')
 	taille                 = models.CharField(max_length=2,choices=SIZE_CHOICES,default='md')
 	nombre_colonnes        = models.CharField(max_length=2,choices=COLUMN_CHOICES,default='3')
 	nombre_offset          = models.CharField(max_length=2,choices=COLUMN_CHOICES,default='0')
@@ -106,7 +106,7 @@ class achatLogo(models.Model):
 		return self.nom
 
 
-class achatCategorie(models.Model):
+class AchatCategorie(models.Model):
 	nom             = models.CharField(max_length=140)
 	titre           = models.CharField(max_length=140)
 	date            = models.DateField()
@@ -127,7 +127,7 @@ class achatCategorie(models.Model):
 	def __unicode__(self):
 		return self.nom
 
-class ongletAchetez(models.Model):
+class OngletAchetez(models.Model):
 	nom           = models.CharField(max_length=140)
 	date          = models.DateField()
 	image_titre   = models.ImageField(upload_to="achetez/image_titre/")

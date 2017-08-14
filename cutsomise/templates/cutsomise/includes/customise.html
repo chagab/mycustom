@@ -20,7 +20,7 @@
 						{% for categorie in customise_categorie_from_view %}
 							{% if categorie.confirm %}
 								<div class="panel panel-default">
-									<div role="button" data-toggle="modal" data-parent="#accordion_2" data-target="#test_{{ categorie.id }}" class="categorie animation_ease-slow" style="background-image: url({{ categorie.image.url }});" name="{{categorie.nom}}">
+									<div role="button" data-toggle="modal" data-parent="#accordion_2" data-target="#test_{{ categorie.id }}" class="categorie animation_ease-slow" style="background-image: url({{ categorie.image.url }});" id="categorie_{{categorie.id}}">
 										<b>{{ categorie.nom }}
 										</b>
 									</div>
@@ -34,63 +34,6 @@
 													<h2 class="modal-title" id="testLabel">{{ categorie.nom }}</h2>
 												</div>
 												<div class="modal-body" style="overflow: hidden;">
-													{% for element in Produit_from_view %}
-														{% if element.confirm %}
-															{% if element.categorie == categorie %}
-																<!--<div
-																	class="produit animation_ease col-{{ element.taille }}-offset-{{ element.nombre_offset }} col-{{ element.taille }}-{{ element.nombre_colonnes }}"
-																	style="
-																display: block;
-																border : {{ element.type_contour }} {{ element.epaisseur_contour }}px {{ element.couleur_contour }};
-																border-radius: {{ element.contour_arrondi }}px;
-																color : {{ element.couleur_text }};
-																background-color: {{ element.couleur_fond }}">
-																	<center>
-																		<h3 class="myfont">{{ element.nom }}
-																		</h3>
-																		<div class="text-center">
-																			<a type="button" style="cursor: pointer;">
-																				<img class="resize_width adjust_height produitImage" style="
-																		background-color: {{ element.couleur_fond_image }};
-																		border-radius: {{ element.contour_arrondi_image }}px;" src="{{ element.face_style.url }}">
-																			</a>
-																		</div>
-																		<br>
-																		<br>
-																		<p class="myfont">{{ element.prix }}€</p>
-																		<p class="myfont">{{ element.text_description_short }}</p>
-																	</center>
-																</div>
-																<div class="produitDetail" style="display: none;">
-																	<p class="myfont-lg">{{ element.text_description_short }}
-																		:
-																		{{ element.prix}}€</p>
-																	<div id="produitDroite" class="col-xs-10" style="border: solid 1px gray; border-radius: 10px 0 0 10px;">
-																		<img class="produitImage droite" style="height :400px; width: auto;
-																	background-color: {{ element.couleur_fond_image }};" src="{{ element.face_style.url }}">
-																	</div>
-																	<div class="col-xs-2" style="border: solid 1px gray; border-radius:0 10px 10px 0;">
-																		<img class="produitImage gauche" style=" height: 100px; width: auto;
-																	background-color: {{ element.couleur_fond_image }};" src="{{ element.face_style.url }}"><br>
-																		<img class="produitImage gauche" style=" height: 100px; width: auto;
-																	background-color: {{ element.couleur_fond_image }};" src="{{ element.dos_style.url }}"><br>
-																		<img class="produitImage gauche" style=" height: 100px; width: auto;
-																	background-color: {{ element.couleur_fond_image }};" src="{{ element.gauche_style.url }}"><br>
-																		<img class="produitImage gauche" style=" height: 100px; width: auto;
-																	background-color: {{ element.couleur_fond_image }};" src="{{ element.droite_style.url }}"><br>
-																	</div>
-																	<button class="fermer" style="margin-top: 10px;"><img style="height: 40px; width: auto;" src="{% static 'mainPage/image/icons8-Back-26.png' %}"></button>
-																	<a href="TshirtDesigner/designer/{{ element.num }}" style="margin-top: 10px;">
-																		<button>Customier !
-																			<img style="height: 40px; width: auto;" src="{% static 'mainPage/image/logo my custom by NF blanc.png' %}"></button>
-																	</a>
-																</div>-->
-															{% endif %}
-														{% endif %}
-														{% empty %}
-														<p class="myfont">il n'y pas d'éléments dans la collection pour le moment ...
-														</p>
-													{% endfor %}
 												</div>
 												<div class="modal-footer">
 													<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
@@ -110,7 +53,7 @@
 					{% for produit in customise_produit_from_view %}
 						{% if produit.confirm %}
 							<div class="panel panel-default">
-								<div role="button" data-toggle="modal" data-parent="#accordion_2" data-target="#test_{{ produit.id }}" class="categorie animation_ease-slow" style="background-image: url({{ produit.image.url }});">
+								<div role="button" data-toggle="modal" data-parent="#accordion_2" data-target="#test_{{ produit.id }}" class="categorie animation_ease-slow" style="background-image: url({{ produit.image.url }});" id="produit_{{ produit.id }}">
 									<b>{{ produit.nom }}
 									</b>
 								</div>
@@ -124,63 +67,6 @@
 												<h2 class="modal-title" id="testLabel">{{ produit.nom }}</h2>
 											</div>
 											<div class="modal-body" style="overflow: hidden;">
-												{% for element in Produit_from_view %}
-													{% if element.confirm %}
-														{% if element.type_produit == produit %}
-															<div
-																class="produit animation_ease col-{{ element.taille }}-offset-{{ element.nombre_offset }} col-{{ element.taille }}-{{ element.nombre_colonnes }}"
-																style="
-															display: block;
-															border : {{ element.type_contour }} {{ element.epaisseur_contour }}px {{ element.couleur_contour }};
-															border-radius: {{ element.contour_arrondi }}px;
-															color : {{ element.couleur_text }};
-															background-color: {{ element.couleur_fond }}">
-																<center>
-																	<h3 class="myfont">{{ element.nom }}
-																	</h3>
-																	<div class="text-center">
-																		<a type="button" style="cursor: pointer;">
-																			<img class="resize_width adjust_height produitImage" style="
-																	background-color: {{ element.couleur_fond_image }};
-																	border-radius: {{ element.contour_arrondi_image }}px;" src="{{ element.face_style.url }}">
-																		</a>
-																	</div>
-																	<br>
-																	<br>
-																	<p class="myfont">{{ element.prix }}€</p>
-																	<p class="myfont">{{ element.text_description_short }}</p>
-																</center>
-															</div>
-															<div class="produitDetail" style="display: none;">
-																<p class="myfont-lg">{{ element.text_description_short }}
-																	:
-																	{{ element.prix}}€</p>
-																<div id="produitDroite" class="col-xs-10" style="border: solid 1px gray; border-radius: 10px 0 0 10px;">
-																	<img class="produitImage droite" style="height :400px; width: auto;
-																background-color: {{ element.couleur_fond_image }};" src="{{ element.face_style.url }}">
-																</div>
-																<div class="col-xs-2" style="border: solid 1px gray; border-radius:0 10px 10px 0;">
-																	<img class="produitImage gauche" style=" height: 100px; width: auto;
-																background-color: {{ element.couleur_fond_image }};" src="{{ element.face_style.url }}"><br>
-																	<img class="produitImage gauche" style=" height: 100px; width: auto;
-																background-color: {{ element.couleur_fond_image }};" src="{{ element.dos_style.url }}"><br>
-																	<img class="produitImage gauche" style=" height: 100px; width: auto;
-																background-color: {{ element.couleur_fond_image }};" src="{{ element.gauche_style.url }}"><br>
-																	<img class="produitImage gauche" style=" height: 100px; width: auto;
-																background-color: {{ element.couleur_fond_image }};" src="{{ element.droite_style.url }}"><br>
-																</div>
-																<button class="fermer" style="margin-top: 10px;"><img style="height: 40px; width: auto;" src="{% static 'mainPage/image/icons8-Back-26.png' %}"></button>
-																<a href="TshirtDesigner/designer/{{ element.num }}" style="margin-top: 10px;">
-																	<button>Customier !
-																		<img style="height: 40px; width: auto;" src="{% static 'mainPage/image/logo my custom by NF blanc.png' %}"></button>
-																</a>
-															</div>
-														{% endif %}
-													{% endif %}
-													{% empty %}
-													<p class="myfont">il n'y pas d'éléments dans la collection pour le moment ...
-													</p>
-												{% endfor %}
 											</div>
 											<div class="modal-footer">
 												<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
