@@ -1,27 +1,6 @@
 'use strict';
 
 /* gestion des modals de la partie customiser  */
-
-/*$(function() {
-	let produitImage = $('.produitImage');
-	let gauche = $('.gauche');
-	let droite = $('.droite');
-	let logo = $(".logo");
-	let fermer = $('.fermer');
-	let fermerLogo = $(".fermerLogo");
-	for (let i = 0; i < produitImage.length - 1; i++) {
-		$(produitImage[i]).click(function() {
-			produit.fadeOut(0);
-			$(this.parentElement.parentElement.parentElement.parentElement.nextElementSibling).fadeIn(400);
-		});
-	}
-});*/
-
-//fonction pour la proposition des textiles lors d'un appuit sur un logo
-function propositionTextile(logo) {
-	$(logo.parentElement.parentElement.parentElement).fadeOut(0);
-	$(logo.parentElement.parentElement.parentElement.nextElementSibling).fadeIn(400);
-}
 //fonction pour revenir de la proposition des textiles
 function revenir(button) {
 	$(button.parentElement.parentElement.parentElement).fadeOut(0);
@@ -69,14 +48,79 @@ $(function () {
 		var protocol = document.location.protocol;
 		var sr_origin = '//' + host;
 		var origin = protocol + sr_origin;
-		// Allow absolute or scheme relative URLs to same origin
-		return url == origin || url.slice(0, origin.length + 1) == origin + '/' || url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/' ||
-		// or any other URL that isn't scheme relative or absolute i.e relative.
-		!/^(\/\/|http:|https:).*/.test(url);
+		// Allow absolute or scheme relative URLs to same origin or any other URL that isn't scheme relative or absolute i.e relative.
+		return url == origin || url.slice(0, origin.length + 1) == origin + '/' || url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/' || !/^(\/\/|http:|https:).*/.test(url);
 	}
 
-	function presentationTextil(location, e) {
-		location.append('<div class="produit animation_ease col-' + e.taille + '-offset-' + e.nombre_offset + ' col-' + e.taille + '-' + e.nombre_colonnes + '"\n\t\t\t\t\t style="display:block;border:' + e.type_contour + ' ' + e.epaisseur_contour + 'px ' + e.couleur_contour + ';border-radius:' + e.contour_arrondi + 'px;color:' + e.couleur_text + ';background-color:' + e.couleur_fond + '">\n\t\t\t\t\t <center>\n\t\t\t\t\t\t\t<h3 class="myfont">' + e.nom + '</h3>\n\t\t\t\t\t\t\t<div class="text-center">\n\t\t\t\t\t\t\t\t<a type="button" style="cursor: pointer;">\n\t\t\t\t\t\t\t\t\t<img class="resize_width adjust_height produitImage" id="' + e.nom + '" style="background-color: ' + e.couleur_fond_image + ';border-radius:' + e.contour_arrondi_image + 'px;" src="media/' + e.face_style + '">\n\t\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<br>\n\t\t\t\t\t\t\t<br>\n\t\t\t\t\t\t\t<p class="myfont">' + e.prix + '\u20AC</p>\n\t\t\t\t\t\t\t<p class="myfont">' + e.text_description_short + '</p>\n\t\t\t\t\t\t</center>\n\t\t\t\t</div>\n\t\t\t\t<div class="produitDetail" style="display: none;">\n\t\t\t\t\t\t<p class="myfont-lg">' + e.text_description_short + ' : ' + e.prix + '\u20AC</p>\n\t\t\t\t\t\t<div class="col-xs-10" style="border: solid 1px gray; border-radius: 10px 0 0 10px;">\n\t\t\t\t\t\t\t<img class="produitImage droite" style="height :400px; width: auto;background-color: ' + e.couleur_fond_image + ';" src="media/' + e.face_style + '">\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class="col-xs-2" style="border: solid 1px gray; border-radius:0 10px 10px 0;">\n\t\t\t\t\t\t\t<img class="produitImage droite" style=" height: 100px; width: auto;background-color: ' + e.couleur_fond_image + ';" src="media/' + e.face_style + '"><br>\n\t\t\t\t\t\t\t<img class="produitImage droite" style=" height: 100px; width: auto;background-color: ' + e.couleur_fond_image + ';" src="media/' + e.dos_style + '"><br>\n\t\t\t\t\t\t\t<img class="produitImage droite" style=" height: 100px; width: auto;background-color: ' + e.couleur_fond_image + ';" src="media/' + e.gauche_style + '"><br>\n\t\t\t\t\t\t\t<img class="produitImage droite" style=" height: 100px; width: auto;background-color: ' + e.couleur_fond_image + ';" src="media/' + e.droite_style + '"><br>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<button class="fermer" style="margin-top: 10px;"><img style="height: 40px; width: auto;" src=' + staticBackURL + '></button>\n\t\t\t\t\t\t<a href="TshirtDesigner/designer/' + e.num + '" style="margin-top: 10px;">\n\t\t\t\t\t\t\t<button>Customier !\n\t\t\t\t\t\t\t\t<img style="height: 40px; width: auto;" src=' + staticLogoURL + '></button>\n\t\t\t\t\t\t</a>\n\t\t\t\t\t</div>');
+	$.ajaxSetup({
+		beforeSend: function beforeSend(xhr, settings) {
+			if (!csrfSafeMethod(settings.type) && sameOrigin(settings.url)) {
+				// Send the token to same-origin, relative URLs only.
+				// Send the token only if the method warrants CSRF protection
+				// Using the CSRFToken value acquired earlier
+				xhr.setRequestHeader("X-CSRFToken", csrftoken);
+			}
+		}
+	});
+
+	$('.categorie_achat').each(function () {
+		$(this).one("click", function () {
+			var categorie = $(this).attr('name');
+			var __URL__ = 'achat/addLogo/' + categorie + '/';
+			var modalBody = this.nextElementSibling.children[0].children[0].children[0].nextElementSibling.children[0].children[0];
+			$.get(__URL__, { 'csrfmiddlewaretoken': csrftoken, type: "POST" }, function (data) {
+				JSON.parse(data).forEach(function (elt) {
+					var e = elt.fields;
+					e.nom = e.nom.replace(/ /, "").replace(/'/, "");
+					$(modalBody).append('\n\t\t\t\t\t<div class="gal-item col-' + e.taille + '-' + e.nombre_colonnes + ' col-' + e.taille + '-offset-' + e.nombre_offset + ' logo animation_ease-slow" style="height: 250px;">\n\t\t\t\t\t\t<img src="media/' + e.logo + '" style="width: 100% ;height: auto; cursor: pointer;" id="' + e.nom + '">\n\t\t\t\t\t</div>\n\t\t\t\t');
+					$('#' + e.nom).one("click", function () {
+						presentationTextil(modalBody, e, 4);
+					});
+				});
+			}).fail(function () {
+				modalBody.append(errorMessage);
+			});
+		});
+	});
+
+	$('.categorie').each(function () {
+		$(this).one("click", function () {
+			var modalBody = $(this.nextElementSibling.children[0].children[0].children[0].nextElementSibling);
+			var attr = $(this).attr('id');
+			var type = attr.split("_")[0];
+			var id = attr.split("_")[1];
+			var __URL__ = function (type) {
+				if (type == "categorie") return 'achat/addTextilCategorie/' + id + '/';else if (type == "produit") return 'achat/addTextilProduit/' + id + '/';
+			}(type);
+
+			$.get(__URL__, { 'csrfmiddlewaretoken': csrftoken, type: "POST" }, function (data) {
+				JSON.parse(data).forEach(function (elt) {
+					var e = elt.fields;
+					presentationTextil(modalBody, e, id);
+				});
+			}).fail(function () {
+				modalBody.append(errorMessage);
+			});
+		});
+	});
+
+	function presentationTextil(location, e, id) {
+		location.append('\n\t\t\t<div class="produit animation_ease col-' + e.taille + '-offset-' + e.nombre_offset + ' col-' + e.taille + '-' + e.nombre_colonnes + '" style="display:block;border:' + e.type_contour + ' ' + e.epaisseur_contour + 'px ' + e.couleur_contour + ';border-radius:' + e.contour_arrondi + 'px;color:' + e.couleur_text + ';background-color:' + e.couleur_fond + '">\n\t\t\t\t<center>\n\t\t\t\t\t<h3 class="myfont">' + e.nom + '</h3>\n\t\t\t\t\t<div class="text-center">\n\t\t\t\t\t\t<a type="button" style="cursor: pointer;">\n\t\t\t\t\t\t\t<img class="resize_width adjust_height produitImage" id="produitImage_' + e.nom + '" style="background-color: ' + e.couleur_fond_image + ';border-radius:' + e.contour_arrondi_image + 'px;" src="media/' + e.face_style + '">\n\t\t\t\t\t\t</a>\n\t\t\t\t\t</div>\n\t\t\t\t\t<br>\n\t\t\t\t\t<br>\n\t\t\t\t\t<p class="myfont">' + e.prix + '\u20AC</p>\n\t\t\t\t\t<p class="myfont">' + e.text_description_short + '</p>\n\t\t\t\t</center>\n\t\t\t</div>\n\t\t');
+		$.when($('#produitImage_' + e.nom).one("click", function () {
+			presentationTextilDetail($(this), e, location);
+			location.children('.produit').hide();
+		})).done(function () {
+			$('#produitImage_' + e.nom).click(function () {
+				//location.children('.produit').show();
+				//location.children('.produit').next().hide();
+			});
+		});
+	}
+
+	function presentationTextilDetail(elt, e, location) {
+		console.log(e);
+		console.log(elt);
+		location.append('\n\t\t\t<div class="produitDetail">\n\t\t\t\t<p class="myfont-lg">' + e.text_description_short + ' : ' + e.prix + '\u20AC</p>\n\t\t\t\t<div class="col-xs-10" style="border: solid 1px gray; border-radius: 10px 0 0 10px;">\n\t\t\t\t\t<img class="produitImage droite" style="height :400px; width: auto;background-color: ' + e.couleur_fond_image + ';" src="media/' + e.face_style + '">\n\t\t\t\t</div>\n\t\t\t\t<div class="col-xs-2" style="border: solid 1px gray; border-radius:0 10px 10px 0;">\n\t\t\t\t\t<img class="produitImage droite" style=" height: 100px; width: auto;background-color: ' + e.couleur_fond_image + ';" src="media/' + e.face_style + '"><br>\n\t\t\t\t\t<img class="produitImage droite" style=" height: 100px; width: auto;background-color: ' + e.couleur_fond_image + ';" src="media/' + e.dos_style + '"><br>\n\t\t\t\t\t<img class="produitImage droite" style=" height: 100px; width: auto;background-color: ' + e.couleur_fond_image + ';" src="media/' + e.gauche_style + '"><br>\n\t\t\t\t\t<img class="produitImage droite" style=" height: 100px; width: auto;background-color: ' + e.couleur_fond_image + ';" src="media/' + e.droite_style + '"><br>\n\t\t\t\t</div>\n\t\t\t\t<button class="fermer" style="margin-top: 10px;"><img style="height: 40px; width: auto;" src=' + staticBackURL + '></button>\n\t\t\t\t<a href="TshirtDesigner/designer/' + e.num + '" style="margin-top: 10px;">\n\t\t\t\t\t<button>Customier ! <img style="height: 40px; width: auto;" src=' + staticLogoURL + '></button>\n\t\t\t\t</a>\n\t\t\t</div>\n\t\t');
 		$('.droite').each(function () {
 			$(this).click(function () {
 				var _this = this;
@@ -99,54 +143,5 @@ $(function () {
 			$(this).closest('.produit').next().fadeIn(400);
 		});
 	}
-
-	$.ajaxSetup({
-		beforeSend: function beforeSend(xhr, settings) {
-			if (!csrfSafeMethod(settings.type) && sameOrigin(settings.url)) {
-				// Send the token to same-origin, relative URLs only.
-				// Send the token only if the method warrants CSRF protection
-				// Using the CSRFToken value acquired earlier
-				xhr.setRequestHeader("X-CSRFToken", csrftoken);
-			}
-		}
-	});
-
-	$('.categorie_achat').each(function () {
-		$(this).one("click", function () {
-			var categorie = $(this).attr('name');
-			var __URL__ = 'achat/addLogo/' + categorie + '/';
-			var modalBody = this.nextElementSibling.children[0].children[0].children[0].nextElementSibling.children[0].children[0];
-			$.get(__URL__, { 'csrfmiddlewaretoken': csrftoken, type: "POST" }, function (data) {
-				JSON.parse(data).forEach(function (elt) {
-					var e = elt.fields;
-					var __HTML__ = '\n\t\t\t\t\t\t<div class="gal-item col-' + e.taille + '-' + e.nombre_colonnes + ' col-' + e.taille + '-offset-' + e.nombre_offset + ' logo animation_ease-slow" style="height: 250px;">\n\t\t\t\t\t\t\t<img src="media/' + e.logo + '" style="width: 100% ;height: auto; cursor: pointer;" onclick="propositionTextile(this)">\n\t\t\t\t\t\t</div>\n\t\t\t\t\t';
-					$(modalBody).append(__HTML__);
-				});
-			}).fail(function () {
-				modalBody.append(errorMessage);
-			});
-		});
-	});
-
-	$('.categorie').each(function () {
-		$(this).one("click", function () {
-			var modalBody = $(this.nextElementSibling.children[0].children[0].children[0].nextElementSibling);
-			var attr = $(this).attr('id');
-			var type = attr.split("_")[0];
-			var id = attr.split("_")[1];
-			var __URL__ = function (type) {
-				if (type == "categorie") return 'achat/addTextilCategorie/' + id + '/';else if (type == "produit") return 'achat/addTextilProduit/' + id + '/';
-			}(type);
-
-			$.get(__URL__, { 'csrfmiddlewaretoken': csrftoken, type: "POST" }, function (data) {
-				JSON.parse(data).forEach(function (elt) {
-					var e = elt.fields;
-					presentationTextil(modalBody, e);
-				});
-			}).fail(function () {
-				modalBody.append(errorMessage);
-			});
-		});
-	});
 });
 //# sourceMappingURL=gestionModal-compiled.js.map

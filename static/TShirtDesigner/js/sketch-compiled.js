@@ -1,13 +1,12 @@
 "use strict";
 
-var d;
-var path;
+var d = void 0;
 
 function colorPicker_OnClick(color) {
 	var f = document.createElement("div");
 	f.style.color = color;
 	document.body.appendChild(f);
-	rgbValue = window.getComputedStyle(f).color.split(", ");
+	var rgbValue = window.getComputedStyle(f).color.split(", ");
 	//delete f;
 	d.text[d.ct].textColor[0] = Number(rgbValue[0].slice(4));
 	d.text[d.ct].textColor[1] = Number(rgbValue[1]);
@@ -15,14 +14,15 @@ function colorPicker_OnClick(color) {
 }
 
 function changeProdcut(number) {
-	d.face = loadImage(path1 + number + "-face.png");
-	d.dos = loadImage(path1 + number + "-dos.png");
-	d.droite = loadImage(path1 + number + "-droite.png");
-	d.gauche = loadImage(path1 + number + "-gauche.png");
-	d.button('face').style('background-image', "url('" + path1 + number + "-face.png')");
-	d.button('dos').style('background-image', "url('" + path1 + number + "-dos.png')");
-	d.button('droite').style('background-image', "url('" + path1 + number + "-droite.png')");
-	d.button('gauche').style('background-image', "url('" + path1 + number + "-gauche.png')");
+	var path = "/media/achetez/produit/";
+	d.face = loadImage(path + number + "-face.png");
+	d.dos = loadImage(path + number + "-dos.png");
+	d.droite = loadImage(path + number + "-droite.png");
+	d.gauche = loadImage(path + number + "-gauche.png");
+	d.button('face').style('background-image', "url('" + path + number + "-face.png')");
+	d.button('dos').style('background-image', "url('" + path + number + "-dos.png')");
+	d.button('droite').style('background-image', "url('" + path + number + "-droite.png')");
+	d.button('gauche').style('background-image', "url('" + path + number + "-gauche.png')");
 	d.fond = d.face;
 }
 
@@ -61,13 +61,12 @@ function gotfile(file) {
 function setup() {
 	d = new Designer();
 	//on ajoute une image vide en premier
-	var path = "../../../static/mySelf/image/TshirtDesigner/";
-	var path1 = "../../../media/achetez/produit/";
-	d.font = loadFont('../../../static/mySelf/css/Caviar-Dreams-fontfacekit/web_fonts/caviardreams_regular_macroman/CaviarDreams-webfont.ttf');
-	d.face = loadImage(path1 + document.getElementById("fond_id").innerHTML + "-face.png");
-	d.dos = loadImage(path1 + document.getElementById("fond_id").innerHTML + "-dos.png");
-	d.droite = loadImage(path1 + document.getElementById("fond_id").innerHTML + "-droite.png");
-	d.gauche = loadImage(path1 + document.getElementById("fond_id").innerHTML + "-gauche.png");
+	var path = "/media/achetez/produit/";
+	d.font = loadFont('/static/font/Caviar-Dreams/web_fonts/caviardreams_regular_macroman/CaviarDreams-webfont.ttf');
+	d.face = loadImage(path + document.getElementById("fond_id").innerHTML + "-face.png");
+	d.dos = loadImage(path + document.getElementById("fond_id").innerHTML + "-dos.png");
+	d.droite = loadImage(path + document.getElementById("fond_id").innerHTML + "-droite.png");
+	d.gauche = loadImage(path + document.getElementById("fond_id").innerHTML + "-gauche.png");
 	d.fond = d.face;
 	//taille minimale de la page
 	document.getElementById("conteneur").style.height = windowHeight + 300 + "px";
@@ -366,7 +365,7 @@ function draw() {
 	/////////////////////////////////////
 	//initialisation à chaque itération//
 	/////////////////////////////////////
-	var inSquare;
+	var inSquare = void 0;
 	d.canvasOffset = d.canvas.position();
 	d.offsetX = d.canvasOffset.x;
 	d.offsetY = d.canvasOffset.y;

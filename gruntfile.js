@@ -5,7 +5,6 @@ module.exports = function(grunt) {
 	const pathCss = "/Users/gabrielchatelain/Desktop/mycustom/static/mainPage/css/";
 	const pathJs = "/Users/gabrielchatelain/Desktop/mycustom/static/mainPage/js/";
 	const pathDesigner = "/Users/gabrielchatelain/Desktop/mycustom/static/TShirtDesigner/";
-
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 		less: {

@@ -1,11 +1,10 @@
-var d;
-var path;
+let d;
 
 function colorPicker_OnClick(color) {
-	var f = document.createElement("div");
+	let f = document.createElement("div");
 	f.style.color = color;
 	document.body.appendChild(f);
-	rgbValue = window.getComputedStyle(f).color.split(", ");
+	let rgbValue = window.getComputedStyle(f).color.split(", ");
 	//delete f;
 	d.text[d.ct].textColor[0] = Number(rgbValue[0].slice(4));
 	d.text[d.ct].textColor[1] = Number(rgbValue[1]);
@@ -13,14 +12,15 @@ function colorPicker_OnClick(color) {
 }
 
 function changeProdcut(number) {
-	d.face = loadImage(path1 + number + "-face.png");
-	d.dos = loadImage(path1 + number + "-dos.png");
-	d.droite = loadImage(path1 + number + "-droite.png");
-	d.gauche = loadImage(path1 + number + "-gauche.png");
-	d.button('face').style('background-image', "url('" + path1 + number + "-face.png')");
-	d.button('dos').style('background-image', "url('" + path1 + number + "-dos.png')");
-	d.button('droite').style('background-image', "url('" + path1 + number + "-droite.png')");
-	d.button('gauche').style('background-image', "url('" + path1 + number + "-gauche.png')");
+	const path = "/media/achetez/produit/";
+	d.face = loadImage(path + number + "-face.png");
+	d.dos = loadImage(path + number + "-dos.png");
+	d.droite = loadImage(path + number + "-droite.png");
+	d.gauche = loadImage(path + number + "-gauche.png");
+	d.button('face').style('background-image', "url('" + path + number + "-face.png')");
+	d.button('dos').style('background-image', "url('" + path + number + "-dos.png')");
+	d.button('droite').style('background-image', "url('" + path + number + "-droite.png')");
+	d.button('gauche').style('background-image', "url('" + path + number + "-gauche.png')");
 	d.fond = d.face;
 }
 
@@ -28,7 +28,7 @@ function onFileSelected(event) {
 	//var selectedFile = event.target.files[0];
 	//var reader = new FileReader();
 	//reader.onload = function(event) {
-	var image = new Image();
+	let image = new Image();
 	image.src = event.target.result;
 	console.log(event.target);
 	console.log(event.target.files);
@@ -59,13 +59,12 @@ function gotfile(file) {
 function setup() {
 	d = new Designer();
 	//on ajoute une image vide en premier
-	const path = "../../../static/mySelf/image/TshirtDesigner/";
-	const path1 = "../../../media/achetez/produit/";
-	d.font = loadFont('../../../static/mySelf/css/Caviar-Dreams-fontfacekit/web_fonts/caviardreams_regular_macroman/CaviarDreams-webfont.ttf');
-	d.face = loadImage((path1 + document.getElementById("fond_id").innerHTML + "-face.png"));
-	d.dos = loadImage((path1 + document.getElementById("fond_id").innerHTML + "-dos.png"));
-	d.droite = loadImage((path1 + document.getElementById("fond_id").innerHTML + "-droite.png"));
-	d.gauche = loadImage((path1 + document.getElementById("fond_id").innerHTML + "-gauche.png"));
+	const path = "/media/achetez/produit/";
+	d.font = loadFont('/static/font/Caviar-Dreams/web_fonts/caviardreams_regular_macroman/CaviarDreams-webfont.ttf');
+	d.face = loadImage((path + document.getElementById("fond_id").innerHTML + "-face.png"));
+	d.dos = loadImage((path + document.getElementById("fond_id").innerHTML + "-dos.png"));
+	d.droite = loadImage((path + document.getElementById("fond_id").innerHTML + "-droite.png"));
+	d.gauche = loadImage((path + document.getElementById("fond_id").innerHTML + "-gauche.png"));
 	d.fond = d.face;
 	//taille minimale de la page
 	document.getElementById("conteneur").style.height = windowHeight + 300 + "px";
@@ -75,8 +74,8 @@ function setup() {
 	if (navigator.appVersion.indexOf("X11") != -1) d.OSName = "UNIX";
 	if (navigator.appVersion.indexOf("Linux") != -1) d.OSName = "Linux";
 	d.canvas = createCanvas(4 * windowHeight / 5, 4 * windowHeight / 5);
-	var canvasWidth = d.canvas.size().width;
-	var canvasHeight = d.canvas.size().height;
+	const canvasWidth = d.canvas.size().width;
+	const canvasHeight = d.canvas.size().height;
 	// on initialise tout ce qu'il faut dans le designer
 	d.ctx = d.canvas.elt.getContext("2d");
 	d.canvasOffset = d.canvas.position();
@@ -249,8 +248,8 @@ function setup() {
 		document.getElementById('choisiParametreTexte').style.display = "none";
 		document.getElementById('choisiCouleurTexte').style.display = "block";
 	});
-	var close = document.getElementsByClassName('close');
-	for (var i = 0; i < close.length; i++) {
+	const close = document.getElementsByClassName('close');
+	for (let i = 0; i < close.length; i++) {
 		close[i].onclick = function() {
 			d.modal();
 		}
@@ -335,7 +334,7 @@ function setup() {
 		////////////////////////////////////////
 		//pour détecter les raccourcis clavier//
 		////////////////////////////////////////
-		var evtobj = window.event ? event : e;
+		const evtobj = window.event ? event : e;
 		if (d.OSName == "Windows" || d.OSName == "Linux" || d.OSName == "UNIX") {
 			if (evtobj.keyCode == 90 && evtobj.ctrlKey) {
 				d.history.undo();
@@ -365,7 +364,7 @@ function draw() {
 	/////////////////////////////////////
 	//initialisation à chaque itération//
 	/////////////////////////////////////
-	var inSquare;
+	let inSquare;
 	d.canvasOffset = d.canvas.position();
 	d.offsetX = d.canvasOffset.x;
 	d.offsetY = d.canvasOffset.y;

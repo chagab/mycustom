@@ -59,6 +59,10 @@ class Produit(models.Model):
 	dos_style    = models.ImageField(upload_to="achetez/produit/", blank=True)
 	droite_style = models.ImageField(upload_to="achetez/produit/", blank=True)
 	gauche_style = models.ImageField(upload_to="achetez/produit/", blank=True)
+	#videos du produit
+	video_confirm = models.BooleanField()
+	video_mp4     = models.FileField(upload_to="achetez/produit/", blank=True)
+	video_webm    = models.FileField(upload_to="achetez/produit/", blank=True)
 	#propriétés de style
 	taille                = models.CharField(max_length=2,choices=SIZE_CHOICES,default='md')
 	nombre_colonnes       = models.CharField(max_length=2,choices=COLUMN_CHOICES,default='2')

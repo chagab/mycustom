@@ -30,12 +30,20 @@ def addTextilCategorie(request, getter) :
 def addTextilProduit(request, getter) :
 	""" Vue qui envoit les données nécéssaires pour ajouter les textiles de la partie
 	Produit dans la rubrique CUSTOMISER de la page principale """
-	textilProduit = customiseCategorie.objects.get(id = getter)
-	produit = Produit.objects.all().filter(categorie = textilCategorie)
-	json_models = serializers.serialize("json", textil)
+	textilProduit = customiseProduit.objects.get(id = getter)
+	produit = Produit.objects.all().filter(type_produit = textilProduit)
+	json_models = serializers.serialize("json", produit)
 	return HttpResponse(json_models)
 
 def addLogo(request, getter) :
+	""" Vue qui envoit les données nécéssaires pour ajouter un logo
+	dans la rubrique ACHAT de la page principale """
+	logoCategorie = AchatCategorie.objects.get(id = getter)
+	logo = AchatLogo.objects.all().filter(categorie = logoCategorie)
+	json_models = serializers.serialize("json", logo)
+	return HttpResponse(json_models)
+
+def search(request, getter) :
 	""" Vue qui envoit les données nécéssaires pour ajouter un logo
 	dans la rubrique ACHAT de la page principale """
 	logoCategorie = AchatCategorie.objects.get(id = getter)

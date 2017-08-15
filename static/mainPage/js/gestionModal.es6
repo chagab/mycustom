@@ -1,25 +1,4 @@
 /* gestion des modals de la partie customiser  */
-
-/*$(function() {
-	let produitImage = $('.produitImage');
-	let gauche = $('.gauche');
-	let droite = $('.droite');
-	let logo = $(".logo");
-	let fermer = $('.fermer');
-	let fermerLogo = $(".fermerLogo");
-	for (let i = 0; i < produitImage.length - 1; i++) {
-		$(produitImage[i]).click(function() {
-			produit.fadeOut(0);
-			$(this.parentElement.parentElement.parentElement.parentElement.nextElementSibling).fadeIn(400);
-		});
-	}
-});*/
-
-//fonction pour la proposition des textiles lors d'un appuit sur un logo
-function propositionTextile(logo) {
-	$(logo.parentElement.parentElement.parentElement).fadeOut(0);
-	$(logo.parentElement.parentElement.parentElement.nextElementSibling).fadeIn(400);
-}
 //fonction pour revenir de la proposition des textiles
 function revenir(button) {
 	$(button.parentElement.parentElement.parentElement).fadeOut(0);
@@ -66,69 +45,11 @@ $(function() {
 	    const protocol = document.location.protocol;
 	    const sr_origin = '//' + host;
 	    const origin = protocol + sr_origin;
-	    // Allow absolute or scheme relative URLs to same origin
-	    return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
-	        (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
-	        // or any other URL that isn't scheme relative or absolute i.e relative.
-	        !(/^(\/\/|http:|https:).*/.test(url));
+	    // Allow absolute or scheme relative URLs to same origin or any other URL that isn't scheme relative or absolute i.e relative.
+	    return 	(url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+	        	(url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+	        	!(/^(\/\/|http:|https:).*/.test(url));
 	}
-
-	function presentationTextil(location, e){
-		location.append(`<div class="produit animation_ease col-${e.taille}-offset-${e.nombre_offset} col-${e.taille}-${e.nombre_colonnes}"
-					 style="display:block;border:${e.type_contour} ${e.epaisseur_contour}px ${e.couleur_contour};border-radius:${e.contour_arrondi}px;color:${e.couleur_text};background-color:${e.couleur_fond}">
-					 <center>
-							<h3 class="myfont">${e.nom}</h3>
-							<div class="text-center">
-								<a type="button" style="cursor: pointer;">
-									<img class="resize_width adjust_height produitImage" id="${e.nom}" style="background-color: ${e.couleur_fond_image};border-radius:${e.contour_arrondi_image}px;" src="media/${e.face_style}">
-								</a>
-							</div>
-							<br>
-							<br>
-							<p class="myfont">${e.prix}€</p>
-							<p class="myfont">${e.text_description_short}</p>
-						</center>
-				</div>
-				<div class="produitDetail" style="display: none;">
-						<p class="myfont-lg">${e.text_description_short} : ${e.prix}€</p>
-						<div class="col-xs-10" style="border: solid 1px gray; border-radius: 10px 0 0 10px;">
-							<img class="produitImage droite" style="height :400px; width: auto;background-color: ${e.couleur_fond_image};" src="media/${e.face_style}">
-						</div>
-						<div class="col-xs-2" style="border: solid 1px gray; border-radius:0 10px 10px 0;">
-							<img class="produitImage droite" style=" height: 100px; width: auto;background-color: ${e.couleur_fond_image};" src="media/${e.face_style}"><br>
-							<img class="produitImage droite" style=" height: 100px; width: auto;background-color: ${e.couleur_fond_image};" src="media/${e.dos_style}"><br>
-							<img class="produitImage droite" style=" height: 100px; width: auto;background-color: ${e.couleur_fond_image};" src="media/${e.gauche_style}"><br>
-							<img class="produitImage droite" style=" height: 100px; width: auto;background-color: ${e.couleur_fond_image};" src="media/${e.droite_style}"><br>
-						</div>
-						<button class="fermer" style="margin-top: 10px;"><img style="height: 40px; width: auto;" src=${staticBackURL}></button>
-						<a href="TshirtDesigner/designer/${e.num}" style="margin-top: 10px;">
-							<button>Customier !
-								<img style="height: 40px; width: auto;" src=${staticLogoURL}></button>
-						</a>
-					</div>`
-				);
-				$('.droite').each(function(){
-					$(this).click(function(){
-						let elt = $(this.parentElement.previousElementSibling.children)[0];
-						$(elt).fadeTo(100, 0, () => {
-							elt.src = this.src;
-							$(elt).fadeTo(100, 1);
-						});
-					});
-				});
-				$('.fermer').each(function(){
-					$(this).click(function() {
-						$(this.parentElement).fadeOut(0);
-						$('.produit').fadeIn(400);
-					});
-				});
-				$(`#${e.nom}`).click(function(){
-					$('.produit').fadeOut(0);
-					$(this).closest('.produit').next().fadeIn(400);
-				});
-			}
-
-
 
 	$.ajaxSetup({
 		beforeSend: function(xhr, settings) {
@@ -149,12 +70,16 @@ $('.categorie_achat').each(function(){
 		$.get(__URL__, {'csrfmiddlewaretoken' : csrftoken, type : "POST" }, data => {
 			JSON.parse(data).forEach(elt => {
 				const e = elt.fields;
-				const __HTML__ = `
-						<div class="gal-item col-${e.taille}-${e.nombre_colonnes} col-${e.taille}-offset-${e.nombre_offset} logo animation_ease-slow" style="height: 250px;">
-							<img src="media/${e.logo}" style="width: 100% ;height: auto; cursor: pointer;" onclick="propositionTextile(this)">
-						</div>
-					`;
-				$(modalBody).append(__HTML__);
+				e.nom = e.nom.replace(/ /, "").replace(/'/,"");
+				$(modalBody).append(
+					`
+					<div class="gal-item col-${e.taille}-${e.nombre_colonnes} col-${e.taille}-offset-${e.nombre_offset} logo animation_ease-slow" style="height: 250px;">
+						<img src="media/${e.logo}" style="width: 100% ;height: auto; cursor: pointer;" id="${e.nom}">
+					</div>
+				`);
+				$(`#${e.nom}`).one("click", function(){
+					presentationTextil(modalBody, e, 4);
+				});
 			});
 		})
 		.fail(() => {
@@ -177,7 +102,7 @@ $('.categorie_achat').each(function(){
 			$.get(__URL__, {'csrfmiddlewaretoken' : csrftoken, type : "POST" }, data => {
 				JSON.parse(data).forEach(elt => {
 					const e = elt.fields;
-					presentationTextil(modalBody, e);
+					presentationTextil(modalBody, e, id);
 				});
 			})
 			.fail(() => {
@@ -185,4 +110,75 @@ $('.categorie_achat').each(function(){
 			});
 		});
 	});
+
+	function presentationTextil(location, e, id){
+		location.append(`
+			<div class="produit animation_ease col-${e.taille}-offset-${e.nombre_offset} col-${e.taille}-${e.nombre_colonnes}" style="display:block;border:${e.type_contour} ${e.epaisseur_contour}px ${e.couleur_contour};border-radius:${e.contour_arrondi}px;color:${e.couleur_text};background-color:${e.couleur_fond}">
+				<center>
+					<h3 class="myfont">${e.nom}</h3>
+					<div class="text-center">
+						<a type="button" style="cursor: pointer;">
+							<img class="resize_width adjust_height produitImage" id="produitImage_${e.nom}" style="background-color: ${e.couleur_fond_image};border-radius:${e.contour_arrondi_image}px;" src="media/${e.face_style}">
+						</a>
+					</div>
+					<br>
+					<br>
+					<p class="myfont">${e.prix}€</p>
+					<p class="myfont">${e.text_description_short}</p>
+				</center>
+			</div>
+		`);
+		$.when($(`#produitImage_${e.nom}`).one("click",function(){
+			presentationTextilDetail($(this), e, location);
+			location.children('.produit').hide();
+		}))
+		.done(function(){
+			$(`#produitImage_${e.nom}`).click(function(){
+				//location.children('.produit').show();
+				//location.children('.produit').next().hide();
+		});
+	});
+}
+
+function presentationTextilDetail(elt, e, location){
+		console.log(e);
+		console.log(elt);
+		location.append(`
+			<div class="produitDetail">
+				<p class="myfont-lg">${e.text_description_short} : ${e.prix}€</p>
+				<div class="col-xs-10" style="border: solid 1px gray; border-radius: 10px 0 0 10px;">
+					<img class="produitImage droite" style="height :400px; width: auto;background-color: ${e.couleur_fond_image};" src="media/${e.face_style}">
+				</div>
+				<div class="col-xs-2" style="border: solid 1px gray; border-radius:0 10px 10px 0;">
+					<img class="produitImage droite" style=" height: 100px; width: auto;background-color: ${e.couleur_fond_image};" src="media/${e.face_style}"><br>
+					<img class="produitImage droite" style=" height: 100px; width: auto;background-color: ${e.couleur_fond_image};" src="media/${e.dos_style}"><br>
+					<img class="produitImage droite" style=" height: 100px; width: auto;background-color: ${e.couleur_fond_image};" src="media/${e.gauche_style}"><br>
+					<img class="produitImage droite" style=" height: 100px; width: auto;background-color: ${e.couleur_fond_image};" src="media/${e.droite_style}"><br>
+				</div>
+				<button class="fermer" style="margin-top: 10px;"><img style="height: 40px; width: auto;" src=${staticBackURL}></button>
+				<a href="TshirtDesigner/designer/${e.num}" style="margin-top: 10px;">
+					<button>Customier ! <img style="height: 40px; width: auto;" src=${staticLogoURL}></button>
+				</a>
+			</div>
+		`);
+		$('.droite').each(function(){
+			$(this).click(function(){
+				let elt = $(this.parentElement.previousElementSibling.children)[0];
+				$(elt).fadeTo(100, 0, () => {
+					elt.src = this.src;
+					$(elt).fadeTo(100, 1);
+				});
+			});
+		});
+		$('.fermer').each(function(){
+			$(this).click(function() {
+				$(this.parentElement).fadeOut(0);
+				$('.produit').fadeIn(400);
+			});
+		});
+		$(`#${e.nom}`).click(function(){
+			$('.produit').fadeOut(0);
+			$(this).closest('.produit').next().fadeIn(400);
+		});
+	}
 });
