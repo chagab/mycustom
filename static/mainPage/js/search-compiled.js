@@ -17,10 +17,10 @@ $(function () {
 			}
 		});
 	});
-	//$('#search, #search button.close').on('click keyup', function(event) {
-	//	if (event.target == this || event.target.className == 'close' || event.keyCode == 27) {
-	//		$(this).removeClass('open');
-	//		}
-	//});
+	$('#search, #search button.close').on('click keyup', function (event) {
+		if (event.target == this || event.target.className == 'close' || event.keyCode == 27) {
+			$(this).removeClass('open');
+		}
+	});
 });
 //# sourceMappingURL=search-compiled.js.map

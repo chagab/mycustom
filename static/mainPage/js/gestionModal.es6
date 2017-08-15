@@ -3,6 +3,7 @@ $(function() {
 	//path to the needed images
 	const staticBackURL = "/static/mainPage/image/icons8-Back-26.png";
 	const staticLogoURL = "/static/mainPage/image/logo%20my%20custom%20by%20NF%20blanc.png";
+	const staticPlayLogoURL = "/static/mainPage/image/icons8-Circled Play Filled-50.png";
 	const errorMessage = "<p>Sorry, something went wrong...</p>";
 	const csrftoken = getCookie('csrftoken');
 	//function to generate the crsf
@@ -140,11 +141,11 @@ $(function() {
 					</div>
 				</div>
 				<div class="col-xs-2" style="border: solid 1px gray; border-radius:0 10px 10px 0;">
-					<img class="produitImage droite" style=" height: 100px; width: auto;background-color: ${e.couleur_fond_image};" src="media/${e.face_style}"><br>
-					<img class="produitImage droite" style=" height: 100px; width: auto;background-color: ${e.couleur_fond_image};" src="media/${e.dos_style}"><br>
-					<img class="produitImage droite" style=" height: 100px; width: auto;background-color: ${e.couleur_fond_image};" src="media/${e.gauche_style}"><br>
-					<img class="produitImage droite" style=" height: 100px; width: auto;background-color: ${e.couleur_fond_image};" src="media/${e.droite_style}"><br>
-					<img class="produitImage droite video" style=" height: 100px; width: auto;background-color: ${e.couleur_fond_image};" src="media/${e.face_style}"><br>
+					<div class="produitImage droite" style="background-color: ${e.couleur_fond_image}; background-image: url('media/${e.face_style}')" src="media/${e.face_style}"></div>
+					<div class="produitImage droite" style="background-color: ${e.couleur_fond_image}; background-image: url('media/${e.dos_style}')" src="media/${e.dos_style}"></div>
+					<div class="produitImage droite" style="background-color: ${e.couleur_fond_image}; background-image: url('media/${e.gauche_style}')" src="media/${e.gauche_style}"></div>
+					<div class="produitImage droite" style="background-color: ${e.couleur_fond_image}; background-image: url('media/${e.droite_style}')" src="media/${e.droite_style}"></div>
+					<div class="produitImage droite video" style="background-color: ${e.couleur_fond_image}; background-image: url('media/${e.face_style}')" src="media/${e.face_style}"><img src="${staticPlayLogoURL}" style="padding-top: 25px;"></div>
 				</div>
 				<div class="col-xs-12">
 					<button class="fermer" style="margin-top: 10px;"><img style="height: 40px; width: auto;" src=${staticBackURL}></button>
@@ -162,7 +163,7 @@ $(function() {
 				} else {
 					$(elt).fadeTo(100, 0, () => {
 						$(video).hide();
-						elt.src = this.src;
+						elt.src = this.attributes.src.nodeValue;
 						$(elt).fadeTo(100, 1);
 					});
 				}
