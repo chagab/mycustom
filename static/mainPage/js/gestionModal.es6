@@ -14,8 +14,8 @@ $(function() {
 				const cookie = jQuery.trim(cookies[i]);
 				// Does this cookie string begin with the name we want?
 				if (cookie.substring(0, name.length + 1) == (name + '=')) {
-						cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-						break;
+					cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+					break;
 				}
 			}
 		}
@@ -36,8 +36,8 @@ $(function() {
 	    const origin = protocol + sr_origin;
 	    // Allow absolute or scheme relative URLs to same origin or any other URL that isn't scheme relative or absolute i.e relative.
 	    return 	(url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
-	        	(url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
-	        	!(/^(\/\/|http:|https:).*/.test(url));
+	    (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+	    !(/^(\/\/|http:|https:).*/.test(url));
 	}
 
 	$.ajaxSetup({
@@ -51,30 +51,30 @@ $(function() {
 		}
 	});
 
-$('.categorie_achat').each(function(){
-	$(this).one("click",function(){
-		const categorie = $(this).attr('name');
-		const __URL__ = `achat/addLogo/${categorie}/`;
-		const modalBody = this.nextElementSibling.children[0].children[0].children[0].nextElementSibling.children[0].children[0];
-		$.get(__URL__, {'csrfmiddlewaretoken' : csrftoken, type : "POST" }, data => {
-			JSON.parse(data).filter(elt => elt.fields.confirm).forEach(elt => {
-				const e = elt.fields;
-				e.nom = e.nom.replace(/ /, "").replace(/'/,"");
-				$(modalBody).append(`
-					<div class="gal-item col-${e.taille}-${e.nombre_colonnes} col-${e.taille}-offset-${e.nombre_offset} logo animation_ease-slow" style="height: 250px;">
+	$('.categorie_achat').each(function(){
+		$(this).one("click",function(){
+			const categorie = $(this).attr('name');
+			const __URL__ = `achat/addLogo/${categorie}/`;
+			const modalBody = this.nextElementSibling.children[0].children[0].children[0].nextElementSibling.children[0].children[0];
+			$.get(__URL__, {'csrfmiddlewaretoken' : csrftoken, type : "POST" }, data => {
+				JSON.parse(data).filter(elt => elt.fields.confirm).forEach(elt => {
+					const e = elt.fields;
+					e.nom = e.nom.replace(/ /, "").replace(/'/,"");
+					$(modalBody).append(`
+						<div class="gal-item col-${e.taille}-${e.nombre_colonnes} col-${e.taille}-offset-${e.nombre_offset} logo animation_ease-slow" style="height: 250px;">
 						<img src="media/${e.logo}" style="width: 100% ;height: auto; cursor: pointer;" id="${e.nom}">
-					</div>
-				`);
-				$(`#${e.nom}`).one("click", function(){
-					presentationTextil(modalBody, e, 4);
+						</div>
+						`);
+					$(`#${e.nom}`).one("click", function(){
+						presentationTextil(modalBody, e, 4);
+					});
 				});
+			})
+			.fail(() => {
+				modalBody.append(errorMessage);
 			});
-		})
-		.fail(() => {
-			modalBody.append(errorMessage);
 		});
 	});
-});
 
 	$('.categorie').each(function() {
 		$(this).one("click", function() {
@@ -109,26 +109,23 @@ $('.categorie_achat').each(function(){
 							<img class="resize_width adjust_height produitImage" id="produitImage_${e.nom}" style="background-color: ${e.couleur_fond_image};border-radius:${e.contour_arrondi_image}px;" src="media/${e.face_style}">
 						</a>
 					</div>
-					<br>
-					<br>
+					<br><br>
 					<p class="myfont">${e.prix}€</p>
 					<p class="myfont">${e.text_description_short}</p>
 				</center>
 			</div>
-		`);
+			`);
 		$(`#produitImage_${e.nom}`).one("click",function(event){
-			console.log('click first');
 			presentationTextilDetail($(this), e, location);
 			location.children('.produit').hide();
 			$(this).click(function(){
-				console.log('click');
 				$('.produit').hide();
 				$(`#produitDetail_${e.nom}`).show();
 			});
 		});
 	}
 
-function presentationTextilDetail(elt, e, location){
+	function presentationTextilDetail(elt, e, location){
 		location.append(`
 			<div class="produitDetail" id="produitDetail_${e.nom}">
 				<p class="myfont-lg">${e.text_description_short} : ${e.prix}€</p>
@@ -154,7 +151,7 @@ function presentationTextilDetail(elt, e, location){
 					<a href="TshirtDesigner/designer/${e.num}" style="margin-top: 10px;"><button>Customier ! <img style="height: 40px; width: auto;" src=${staticLogoURL}></button></a>
 				</div>
 			</div>
-		`);
+			`);
 		$('.droite').each(function(){
 			$(this).click(function(){
 				let elt = $(this.parentElement.previousElementSibling.children)[0];
@@ -163,9 +160,9 @@ function presentationTextilDetail(elt, e, location){
 					$(elt).fadeOut(0);
 					$(video).fadeIn(400);
 				} else {
-				$(elt).fadeTo(100, 0, () => {
-					$(video).hide();
-					elt.src = this.src;
+					$(elt).fadeTo(100, 0, () => {
+						$(video).hide();
+						elt.src = this.src;
 						$(elt).fadeTo(100, 1);
 					});
 				}

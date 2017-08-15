@@ -41,7 +41,7 @@ def de_confirm(modeladmin, request, queryset):
 	queryset.update(confirm=False)
 
 class ProduitAdmin(admin.ModelAdmin):
-	list_display = ('nom', 'date', 'confirm', 'presentation')
+	list_display = ('nom', 'date', 'confirm', 'taille', 'nombre_colonnes', 'presentation')
 	list_filter   = ('confirm',)
 	ordering = ('date',)
 	search_fields = ('nom',)

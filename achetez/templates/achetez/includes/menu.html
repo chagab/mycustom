@@ -1,26 +1,53 @@
-{% for page in page_accueil_from_view %}
-<div id="menu">
-	<nav class="navbar navbar-default navbar-fixed-top"> <!--navbar-inverse-->
-	  <div class="container-fluid">
-	    <div class="navbar-header">
-	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" 	aria-expanded="false">
-	        <span class="sr-only">Toggle navigation</span>
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
-	      </button>
-	      
-	    </div>
-	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-	      <ul class="nav navbar-nav">
-	      	<li><a class="onglet myfont" href="#">Customizez</a></li>
-	        <li><a class="onglet myfont" href="#">Achetez</a></li>
-			<li id='logo-menu-contenair'><img id="logo-menu" src="/media/{{ page.logo }}"></li>
-			<li><a class="onglet myfont" href="#">Vendre</a></li>
-			<li><a class="onglet myfont" href="#">Professionel</a></li>
-	     </ul>
-	     </div>
-	  </div>
+{% load staticfiles %}
+	<div id="menu">
+		<nav class="navbar transparent navbar-default navbar-fixed-top"> <!--navbar-inverse-->
+		<div class="container-fluid" style="width: 100%;">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" 	aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				</button>
+
+			</div>
+			<style type="text/css">
+				.navbar-default .navbar-nav > li > a{
+					color: black;
+					/*color: white;*/
+				}
+				.navbar .navbar-collapse {
+					text-align: center;
+				}
+				#bs-example-navbar-collapse-1{
+					background-color: rgb(225,225,225);
+					/*background-color: black; */
+					/*background: linear-gradient( to left top, rgb(255,166,98), rgb(146,61,102));*/
+				}
+				#logo-menu-contenair{
+					filter : invert(75%);
+				}
+			</style>
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li><a class="onglet myfont animated-slow fadeInDown" href="/" id="Accueil" >ACCUEIL</a></li>
+					<li><a class="onglet myfont animated-slow fadeInDown" href="/#collection_ephemere" id="Collection">COLLECTION</a></li>
+					<li><a class="onglet myfont animated-slow fadeInDown"href="/#customize" id="Customizez" >CUSTOMISER</a></li>
+					<li id='logo-menu-contenair' class="onglet myfont animated-slow fadeInUp"><a href="/" style="padding: 0; "><img id="logo-menu" src="{#{{ page.logo.url }}#}{% static 'mainPage/image/logo_my_custom_police.png' %}"></a></li>
+					<li><a class="onglet myfont animated-slow fadeInDown" href="/#achat" id="Achetez">ACHETER</a></li>
+					<li><a class="onglet myfont animated-slow fadeInDown"href="/#vendre" id="Vendre">VENDRE</a></li>
+					<li><a class="onglet myfont animated-slow fadeInDown" id="Professionel" href="utilisateur/compte/"{#data-toggle="modal" data-target="#Connexion"#} >CONNEXION </a></li>
+					<li> <a class="onglet myfont animated-slow fadeInDown" href=""><i class="glyphicon glyphicon-shopping-cart"></i> </a></li>
+					<li> <a class="onglet myfont animated-slow fadeInDown" href="#search"><i class="glyphicon glyphicon-search"></i> </a></li>
+				</ul>
+			</div>
+		</div>
 	</nav>
 </div>
-{% endfor %}
+<div id="search">
+    <button type="button" class="close">×</button>
+    <form>
+        <input type="search" value="" class="myfont" placeholder="Entrez un mot clé" />
+        <button type="submit" class="btn btn-primary myfont">Cherchez</button>
+    </form>
+</div>

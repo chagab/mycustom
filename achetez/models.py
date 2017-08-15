@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 from django.db import models
 from cutsomise.models import customiseCategorie, customiseProduit
+from django.views.generic import ListView
 
 COLUMN_CHOICES  = (
 	('0', '0'),
@@ -73,7 +74,7 @@ class Produit(models.Model):
 	contour_arrondi       = models.PositiveSmallIntegerField(default=0)
 	contour_arrondi_image = models.PositiveSmallIntegerField(default=0)
 	type_contour          = models.CharField(max_length=15,choices=CONTOUR_CHOICES,default='none')
-	couleur_contour       = models.CharField(max_length=7, default='')
+	couleur_contour       = models.CharField(max_length=7, default=0)
 	epaisseur_contour     = models.PositiveSmallIntegerField(default=0)
 
 	class Meta:
@@ -85,6 +86,12 @@ class Produit(models.Model):
 
 	def __unicode__(self):
 		return self.nom
+
+class ListProduit(ListView):
+	model = Produit
+	context_object_name = "list_produit"
+	template_name = "achetez/Produit.html"
+	paginate_by = 5
 
 class AchatLogo(models.Model):
 	nom                    = models.CharField(max_length=140)

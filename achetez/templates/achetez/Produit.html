@@ -1,0 +1,104 @@
+{% extends "home/header.html" %}
+{% block menu %}
+	{% include "achetez/includes/menu.html" %}
+{% endblock %}
+{% block ListProduit %}
+	{% load staticfiles %}
+	<br>
+	<br>
+	<br>
+	<div style="display: block;margin: auto; min-height: 800px; overflow: scroll;">
+		<center>
+		<h1 class="myfont-llg"><b>Résultats de votre recherche</b></h1>
+		{% for produit in list_produit %}
+			<div class="col-xs-3">
+				<img src="/{{ produit.face_style.url }}" class="" data-toggle="modal" data-target="#produit_{{ produit.id }}" style="height:400px;width:auto;cursor:pointer;">
+			</div>
+			<div class="modal fade" id="produit_{{ produit.id }}" tabindex="-1" role="dialog" aria-hidden="true">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+							</button>
+							<h2 class="modal-title" id="testLabel">{{ produit.nom }}</h2>
+						</div>
+						<div class="modal-body" style="overflow: hidden;">
+							<div class="produitDetail" id="produitDetail_{{produit.nom}}">
+								<p class="myfont-lg">{{produit.text_description_short}} : {{produit.prix}}€</p>
+								<div class="col-xs-10" style="border: solid 1px gray; border-radius: 10px 0 0 10px;">
+									<img class="produitImage droite" style="height :500px; width: auto;background-color: {{produit.couleur_fond_image}};" src="/{{produit.face_style.url}}">
+									<div style="padding : 50px 0 50px 0; display : none;">
+										<video controls poster="/{{produit.face_style.url}}" height="395" width="auto">
+											<source src="/media/{{produit.video_mp4}}">
+											<source src="/media/{{produit.video_webm}}">
+											Cette video n'est pas supportée sur votre navigateur...
+										</video>
+									</div>
+								</div>
+								<div class="col-xs-2" style="border: solid 1px gray; border-radius:0 10px 10px 0;">
+									<img class="produitImage droite" style=" height: 100px; width: auto;background-color: {{produit.couleur_fond_image}};" src="/{{produit.face_style.url}}"><br>
+									<img class="produitImage droite" style=" height: 100px; width: auto;background-color: {{produit.couleur_fond_image}};" src="/{{produit.dos_style.url}}"><br>
+									<img class="produitImage droite" style=" height: 100px; width: auto;background-color: {{produit.couleur_fond_image}};" src="/{{produit.gauche_style.url}}"><br>
+									<img class="produitImage droite" style=" height: 100px; width: auto;background-color: {{produit.couleur_fond_image}};" src="/{{produit.droite_style.url}}"><br>
+									<img class="produitImage droite video" style=" height: 100px; width: auto;background-color: {{produit.couleur_fond_image}};" src="/{{produit.face_style.url}}"><br>
+								</div>
+								<div class="col-xs-12">
+									<br><br>
+									<a href="" style="margin-top: 10px;" class="myfont"><button>Customier !<img style="height: 40px; width: auto;" src="{% static 'mainPage/image/logo my custom by NF blanc.png' %}"></button></a>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<script type="text/javascript">
+				$("#{{ produit.nom }}").click(function () {
+					$('.produit').fadeOut(0);
+					$(this).closest('.produit').next().fadeIn(400);
+				});
+			</script>
+			
+			{% empty %}
+			<p class="myfont">Votre recherche n'a donné aucun résultat<p>
+			{% endfor %}
+			<script type="text/javascript">
+				$('.droite').each(function () {
+					$(this).click(function () {
+						var _this = this;
+		
+						var elt = $(this.parentElement.previousElementSibling.children)[0];
+						var video = $(this.parentElement.previousElementSibling.children)[1];
+						if ($(this).hasClass('video')) {
+							$(elt).fadeOut(0);
+							$(video).fadeIn(400);
+						} else {
+							$(elt).fadeTo(100, 0, function () {
+								$(video).hide();
+								elt.src = _this.src;
+								$(elt).fadeTo(100, 1);
+							});
+						}
+					});
+				});
+			</script>
+			{% if is_paginated %}
+				<div class="pagination">
+					{% if page_obj.has_previous %}
+						<a href="?page={{ page_obj.previous_page_number }}">Précédente</a> —
+					{% endif %}
+					<p class="myfont">Page {{ page_obj.number }} sur {{ page_obj.paginator.num_pages }}</p>
+					{% if page_obj.has_next %}
+						— <a href="?page={{ page_obj.next_page_number }}">Suivante</a>
+					{% endif %}
+				</div>
+			{% endif %}
+			</center>
+		</div>
+	{% endblock %}
+	{% block footer %}
+		{% include "home/includes/footer.html" %}
+	{% endblock %}
