@@ -1,15 +1,4 @@
 /* gestion des modals de la partie customiser  */
-//fonction pour revenir de la proposition des textiles
-function revenir(button) {
-	$(button.parentElement.parentElement.parentElement).fadeOut(0);
-	$(button.parentElement.parentElement.parentElement.previousElementSibling).fadeIn(400);
-}
-
-function montrerProduit(produit) {
-	$('.produit').fadeOut(0);
-	$(produit).closest('.produit').next().fadeIn(400);
-}
-
 $(function() {
 	//path to the needed images
 	const staticBackURL = "/static/mainPage/image/icons8-Back-26.png";
@@ -68,11 +57,10 @@ $('.categorie_achat').each(function(){
 		const __URL__ = `achat/addLogo/${categorie}/`;
 		const modalBody = this.nextElementSibling.children[0].children[0].children[0].nextElementSibling.children[0].children[0];
 		$.get(__URL__, {'csrfmiddlewaretoken' : csrftoken, type : "POST" }, data => {
-			JSON.parse(data).forEach(elt => {
+			JSON.parse(data).filter(elt => elt.fields.confirm).forEach(elt => {
 				const e = elt.fields;
 				e.nom = e.nom.replace(/ /, "").replace(/'/,"");
-				$(modalBody).append(
-					`
+				$(modalBody).append(`
 					<div class="gal-item col-${e.taille}-${e.nombre_colonnes} col-${e.taille}-offset-${e.nombre_offset} logo animation_ease-slow" style="height: 250px;">
 						<img src="media/${e.logo}" style="width: 100% ;height: auto; cursor: pointer;" id="${e.nom}">
 					</div>
@@ -100,7 +88,7 @@ $('.categorie_achat').each(function(){
 			})(type);
 
 			$.get(__URL__, {'csrfmiddlewaretoken' : csrftoken, type : "POST" }, data => {
-				JSON.parse(data).forEach(elt => {
+				JSON.parse(data).filter(elt => elt.fields.confirm).forEach(elt => {
 					const e = elt.fields;
 					presentationTextil(modalBody, e, id);
 				});
@@ -128,51 +116,64 @@ $('.categorie_achat').each(function(){
 				</center>
 			</div>
 		`);
-		$.when($(`#produitImage_${e.nom}`).one("click",function(){
+		$(`#produitImage_${e.nom}`).one("click",function(event){
+			console.log('click first');
 			presentationTextilDetail($(this), e, location);
 			location.children('.produit').hide();
-		}))
-		.done(function(){
-			$(`#produitImage_${e.nom}`).click(function(){
-				//location.children('.produit').show();
-				//location.children('.produit').next().hide();
+			$(this).click(function(){
+				console.log('click');
+				$('.produit').hide();
+				$(`#produitDetail_${e.nom}`).show();
+			});
 		});
-	});
-}
+	}
 
 function presentationTextilDetail(elt, e, location){
-		console.log(e);
-		console.log(elt);
 		location.append(`
-			<div class="produitDetail">
+			<div class="produitDetail" id="produitDetail_${e.nom}">
 				<p class="myfont-lg">${e.text_description_short} : ${e.prix}€</p>
 				<div class="col-xs-10" style="border: solid 1px gray; border-radius: 10px 0 0 10px;">
-					<img class="produitImage droite" style="height :400px; width: auto;background-color: ${e.couleur_fond_image};" src="media/${e.face_style}">
+					<img class="produitImage droite" style="height :500px; width: auto;background-color: ${e.couleur_fond_image};" src="media/${e.face_style}">
+					<div style="padding : 50px 0 50px 0; display : none;">
+						<video controls poster="media/${e.face_style}" height="395" width="auto">
+							<source src="media/${e.video_mp4}">
+							<source src="media/${e.video_webm}">
+							Cette video n'est pas supportée sur votre navigateur...
+						</video>
+					</div>
 				</div>
 				<div class="col-xs-2" style="border: solid 1px gray; border-radius:0 10px 10px 0;">
 					<img class="produitImage droite" style=" height: 100px; width: auto;background-color: ${e.couleur_fond_image};" src="media/${e.face_style}"><br>
 					<img class="produitImage droite" style=" height: 100px; width: auto;background-color: ${e.couleur_fond_image};" src="media/${e.dos_style}"><br>
 					<img class="produitImage droite" style=" height: 100px; width: auto;background-color: ${e.couleur_fond_image};" src="media/${e.gauche_style}"><br>
 					<img class="produitImage droite" style=" height: 100px; width: auto;background-color: ${e.couleur_fond_image};" src="media/${e.droite_style}"><br>
+					<img class="produitImage droite video" style=" height: 100px; width: auto;background-color: ${e.couleur_fond_image};" src="media/${e.face_style}"><br>
 				</div>
-				<button class="fermer" style="margin-top: 10px;"><img style="height: 40px; width: auto;" src=${staticBackURL}></button>
-				<a href="TshirtDesigner/designer/${e.num}" style="margin-top: 10px;">
-					<button>Customier ! <img style="height: 40px; width: auto;" src=${staticLogoURL}></button>
-				</a>
+				<div class="col-xs-12">
+					<button class="fermer" style="margin-top: 10px;"><img style="height: 40px; width: auto;" src=${staticBackURL}></button>
+					<a href="TshirtDesigner/designer/${e.num}" style="margin-top: 10px;"><button>Customier ! <img style="height: 40px; width: auto;" src=${staticLogoURL}></button></a>
+				</div>
 			</div>
 		`);
 		$('.droite').each(function(){
 			$(this).click(function(){
 				let elt = $(this.parentElement.previousElementSibling.children)[0];
+				let video = $(this.parentElement.previousElementSibling.children)[1];
+				if($(this).hasClass('video')){
+					$(elt).fadeOut(0);
+					$(video).fadeIn(400);
+				} else {
 				$(elt).fadeTo(100, 0, () => {
+					$(video).hide();
 					elt.src = this.src;
-					$(elt).fadeTo(100, 1);
-				});
+						$(elt).fadeTo(100, 1);
+					});
+				}
 			});
 		});
 		$('.fermer').each(function(){
 			$(this).click(function() {
-				$(this.parentElement).fadeOut(0);
+				$(this.parentElement.parentElement).fadeOut(0);
 				$('.produit').fadeIn(400);
 			});
 		});
