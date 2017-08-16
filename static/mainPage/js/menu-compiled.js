@@ -30,8 +30,6 @@ $(function () {
 	})();
 
 	Window.scroll(function () {
-		var droped = $("#bs-example-navbar-collapse-1").attr('aria-expanded');
-		console.log(droped);
 		if (getPageScroll() > top) {
 			containerFluid.css({
 				"background-color": 'rgb(225,225,225)'
@@ -49,23 +47,21 @@ $(function () {
 				'filter': 'invert(70%)'
 			});
 		} else {
-			if (!droped) {
-				containerFluid.css({
-					"background-color": 'transparent'
-				});
-				navbar.css({
-					"background-color": 'transparent'
-				});
-				lien_menu.css({
-					"color": "white"
-				});
-				alignement.css({
-					'text-align': 'center'
-				});
-				logo.css({
-					'filter': 'invert(0%)'
-				});
-			}
+			containerFluid.css({
+				"background-color": 'transparent'
+			});
+			navbar.css({
+				"background-color": 'transparent'
+			});
+			lien_menu.css({
+				"color": "white"
+			});
+			alignement.css({
+				'text-align': 'center'
+			});
+			logo.css({
+				'filter': 'invert(0%)'
+			});
 		}
 		if (getPageScroll() < top) {
 			changeColor(buttons[0], 'white', 'transparent');
