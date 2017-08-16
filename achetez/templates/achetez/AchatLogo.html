@@ -1,0 +1,29 @@
+{% extends "home/header.html" %}
+{% block menu %}
+	{% include "achetez/includes/menu.html" %}
+{% endblock %}
+{% block ListLogo %}
+	{% load staticfiles %}
+	<div style="display: block;margin: auto; min-height: 800px; overflow: scroll;">
+		<center>
+		<br>
+		<br>
+		<br>
+		<h1 class="myfont-llg">Résultats de votre recherche</h1>
+		<br>
+		<div class="container">
+			{% for logo in list_logo %}
+				<div class="col-xs-4 logo animation_ease-slow" style="height: 250px; border : 1px solid gray; vertical-align:middle; line-height: 250px;">
+					<img src="/{{logo.logo.url}}" id="{{logo.nom}}" style="max-width: 100%; max-height: 100%;">
+				</div>
+				{% empty %}
+				<p class="myfont">Désolé, votre recherche n'a donnée aucun résultat</p>
+			{% endfor %}
+		</div>
+		</center>
+		{% include "achetez/includes/pagination.html" %}
+	</div>
+{% endblock %}
+{% block footer %}
+	{% include "home/includes/footer.html" %}
+{% endblock %}

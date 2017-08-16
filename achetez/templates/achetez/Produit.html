@@ -29,7 +29,7 @@
 							<div class="produitDetail" id="produitDetail_{{produit.nom}}">
 								<p class="myfont-lg">{{produit.text_description_short}} : {{produit.prix}}€</p>
 								<div class="col-xs-10" style="border: solid 1px gray; border-radius: 10px 0 0 10px;">
-									<img class="produitImage droite" style="height :600px; width: auto;background-color: {{produit.couleur_fond_image}};" src="/{{produit.face_style.url}}">
+									<img class="produitImage droite" style="height :6à00px; width: auto;background-color: {{produit.couleur_fond_image}};" src="/{{produit.face_style.url}}">
 									<div style="padding : 100px 0 100px 0; display : none;">
 										<video controls poster="/{{produit.face_style.url}}" height="395" width="auto">
 											<source src="/media/{{produit.video_mp4}}">
@@ -88,18 +88,8 @@
 					});
 				});
 			</script>
-			{% if is_paginated %}
-				<div class="pagination">
-					{% if page_obj.has_previous %}
-						<a href="?page={{ page_obj.previous_page_number }}">Précédente</a> —
-					{% endif %}
-					<p class="myfont">Page {{ page_obj.number }} sur {{ page_obj.paginator.num_pages }}</p>
-					{% if page_obj.has_next %}
-						— <a href="?page={{ page_obj.next_page_number }}">Suivante</a>
-					{% endif %}
-				</div>
-			{% endif %}
 			</center>
+			{% include "achetez/includes/pagination.html" %}
 		</div>
 	{% endblock %}
 	{% block footer %}

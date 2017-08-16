@@ -62,8 +62,8 @@ $(function() {
 					const e = elt.fields;
 					e.nom = e.nom.replace(/ /, "").replace(/'/,"");
 					$(modalBody).append(`
-						<div class="gal-item col-${e.taille}-${e.nombre_colonnes} col-${e.taille}-offset-${e.nombre_offset} logo animation_ease-slow" style="height: 250px;">
-						<img src="media/${e.logo}" style="width: 100% ;height: auto; cursor: pointer;" id="${e.nom}">
+						<div class="col-${e.taille}-${e.nombre_colonnes} col-${e.taille}-offset-${e.nombre_offset} logo animation_ease-slow" style="height: 250px; border : 1px solid gray; vertical-align:middle; line-height: 250px;">
+							<img src="/media/${e.logo}" id="${e.nom}" style="max-width: 100%; max-height: 100%;">
 						</div>
 						`);
 					$(`#${e.nom}`).one("click", function(){

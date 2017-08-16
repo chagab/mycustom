@@ -104,7 +104,7 @@ class LogoAdmin(admin.ModelAdmin):
 	 ]
 
 class CategorieAdmin(admin.ModelAdmin) :
-		list_display = ('nom' ,'date', 'confirm',)
+		list_display = ('nom' ,'date', 'taille', 'nombre_colonnes' ,'confirm',)
 		list_filter   = ('confirm',)
 		ordering = ('date',)
 		search_fields = ('nom',)

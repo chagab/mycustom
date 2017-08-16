@@ -116,6 +116,12 @@ class AchatLogo(models.Model):
 	def __unicode__(self):
 		return self.nom
 
+class ListLogo(ListView):
+	model = AchatLogo
+	context_object_name = "list_logo"
+	template_name = "achetez/AchatLogo.html"
+	paginate_by = 9
+
 
 class AchatCategorie(models.Model):
 	nom             = models.CharField(max_length=140)

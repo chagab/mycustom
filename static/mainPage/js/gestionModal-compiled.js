@@ -64,7 +64,7 @@ $(function () {
 				}).forEach(function (elt) {
 					var e = elt.fields;
 					e.nom = e.nom.replace(/ /, "").replace(/'/, "");
-					$(modalBody).append("\n\t\t\t\t\t\t<div class=\"gal-item col-" + e.taille + "-" + e.nombre_colonnes + " col-" + e.taille + "-offset-" + e.nombre_offset + " logo animation_ease-slow\" style=\"height: 250px;\">\n\t\t\t\t\t\t<img src=\"media/" + e.logo + "\" style=\"width: 100% ;height: auto; cursor: pointer;\" id=\"" + e.nom + "\">\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t");
+					$(modalBody).append("\n\t\t\t\t\t\t<div class=\"col-" + e.taille + "-" + e.nombre_colonnes + " col-" + e.taille + "-offset-" + e.nombre_offset + " logo animation_ease-slow\" style=\"height: 250px; border : 1px solid gray; vertical-align:middle; line-height: 250px;\">\n\t\t\t\t\t\t\t<img src=\"/media/" + e.logo + "\" id=\"" + e.nom + "\" style=\"max-width: 100%; max-height: 100%;\">\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t");
 					$("#" + e.nom).one("click", function () {
 						presentationTextil(modalBody, e, 4);
 					});

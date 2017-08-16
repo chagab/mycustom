@@ -1,0 +1,70 @@
+{% if is_paginated %}
+	<style type="text/css">
+		.pagination {
+			border : solid 1px gray;
+			border-radius: 0px;
+			padding: 10px 20px 10px 20px;
+			margin: 100px 0px 100px 0px;
+			color : black;
+		}
+		.pagination:hover{
+			border-left: solid 1px white;
+			border-right: solid 1px white;
+			background-color: rgba(0,0,0,.5);
+			color : white;
+		}
+		.notAllowed:hover{
+			border-left: solid 1px gray;
+			border-right: solid 1px gray;
+			background-color: rgba(255,0,0,.5);	
+			cursor : not-allowed;
+			color : white;
+		}
+	</style>
+	<center>
+	<div class="container" id="range"></div>
+	</center>
+	<script type="text/javascript">
+		var range = $('#range');
+		{% if page_obj.has_previous %}
+					var elt = $("<a class='pagination myfont-lg animation_ease-slow' href='?page=" + {{ page_obj.previous_page_number }} + "'> &lt&lt </a>")
+					.css({
+						"border-radius" : "50px 0 0 50px",
+					});
+					range.append(elt);
+		{% else %}
+					var elt = $("<a class='pagination notAllowed myfont-lg animation_ease-slow'> &lt&lt </a>")
+					.css({
+						"border-radius" : "50px 0 0 50px",
+					});
+					range.append(elt);
+		{% endif %}
+		var rangeMax = {{ page_obj.paginator.num_pages }};
+		var currentPage = {{ page_obj.number }};
+		for(var i = 1; i < rangeMax + 1; i++){
+			var elt;
+			if(i == {{ page_obj.number }}){
+				elt = $("<a href='?page=" + i + "'><u><b>" + i + "</b></u></a>");
+			} else {
+				elt = $("<a href='?page=" + i + "'>" + i + "</a>");
+			}
+			 
+			elt.addClass("pagination myfont-lg animation_ease-slow");
+			range.append(elt);
+		}
+		{% if page_obj.has_next %}
+					var elt = $("<a href='?page=" + {{ page_obj.next_page_number }} + "'> &gt&gt </a>")
+					.addClass("pagination myfont-lg animation_ease-slow")
+					.css({
+						"border-radius" : "0 50px 50px 0",
+					});
+						range.append(elt);
+		{% else %}
+					var elt = $("<a class='pagination notAllowed myfont-lg animation_ease-slow'> &gt&gt </a>")
+					.css({
+						"border-radius" : "0 50px 50px 0",
+					});
+					range.append(elt);
+		{% endif %}
+	</script>
+{% endif %}
