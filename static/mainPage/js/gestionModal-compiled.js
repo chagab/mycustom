@@ -76,16 +76,19 @@ $(function () {
 	});
 
 	$('.categorie').each(function () {
+		//when the user click on a textile, we request the database the infos about all the matching textile
+		//and append some html to the modal body. Hence, we want to do this only once !
 		$(this).one("click", function () {
 			var modalBody = $(this.nextElementSibling.children[0].children[0].children[0].nextElementSibling);
 			var attr = $(this).attr('id');
 			var type = attr.split("_")[0];
 			var id = attr.split("_")[1];
+			//redirect to the corresponding url to match ether categorie or produit textile
 			var __URL__ = function (type) {
 				if (type == "categorie") return "achat/addTextilCategorie/" + id + "/";else if (type == "produit") return "achat/addTextilProduit/" + id + "/";
 			}(type);
-
 			$.get(__URL__, { 'csrfmiddlewaretoken': csrftoken, type: "POST" }, function (data) {
+				//on succes, show every element that we requested
 				JSON.parse(data).filter(function (elt) {
 					return elt.fields.confirm;
 				}).forEach(function (elt) {
@@ -93,16 +96,22 @@ $(function () {
 					presentationTextil(modalBody, e, id);
 				});
 			}).fail(function () {
+				//on fail, append a message error
 				modalBody.append(errorMessage);
 			});
 		});
 	});
 
 	function presentationTextil(location, e, id) {
+		//function that show up all the textil matching the user request (=> click on a categorie or produit)
 		location.append("\n\t\t\t<div class=\"produit animation_ease col-" + e.taille + "-offset-" + e.nombre_offset + " col-" + e.taille + "-" + e.nombre_colonnes + "\" style=\"display:block;border:" + e.type_contour + " " + e.epaisseur_contour + "px " + e.couleur_contour + ";border-radius:" + e.contour_arrondi + "px;color:" + e.couleur_text + ";background-color:" + e.couleur_fond + "\">\n\t\t\t\t<center>\n\t\t\t\t\t<h3 class=\"myfont\">" + e.nom + "</h3>\n\t\t\t\t\t<div class=\"text-center\">\n\t\t\t\t\t\t<a type=\"button\" style=\"cursor: pointer;\">\n\t\t\t\t\t\t\t<img class=\"resize_width adjust_height produitImage\" id=\"produitImage_" + e.nom + "\" style=\"background-color: " + e.couleur_fond_image + ";border-radius:" + e.contour_arrondi_image + "px;\" src=\"media/" + e.face_style + "\">\n\t\t\t\t\t\t</a>\n\t\t\t\t\t</div>\n\t\t\t\t\t<br><br>\n\t\t\t\t\t<p class=\"myfont\">" + e.prix + "\u20AC</p>\n\t\t\t\t\t<p class=\"myfont\">" + e.text_description_short + "</p>\n\t\t\t\t</center>\n\t\t\t</div>\n\t\t\t");
 		$("#produitImage_" + e.nom).one("click", function (event) {
+			//if this is the first titme the user click on a textil : we append the detail to the modal body
+			//and hide all the other textiles
 			presentationTextilDetail($(this), e, location);
 			location.children('.produit').hide();
+			//then we attach an event for the next time the user might want to see any detail of this specific
+			//textile
 			$(this).click(function () {
 				$('.produit').hide();
 				$("#produitDetail_" + e.nom).show();
@@ -111,7 +120,10 @@ $(function () {
 	}
 
 	function presentationTextilDetail(elt, e, location) {
-		location.append("\n\t\t\t<div class=\"produitDetail\" id=\"produitDetail_" + e.nom + "\">\n\t\t\t\t<p class=\"myfont-lg\">" + e.text_description_short + " : " + e.prix + "\u20AC</p>\n\t\t\t\t<div class=\"col-xs-10\" style=\"border: solid 1px gray; border-radius: 10px 0 0 10px;\">\n\t\t\t\t\t<img class=\"produitImage droite\" style=\"height :500px; width: auto;background-color: " + e.couleur_fond_image + ";\" src=\"media/" + e.face_style + "\">\n\t\t\t\t\t<div style=\"padding : 50px 0 50px 0; display : none;\">\n\t\t\t\t\t\t<video controls poster=\"media/" + e.face_style + "\" height=\"395\" width=\"auto\">\n\t\t\t\t\t\t\t<source src=\"media/" + e.video_mp4 + "\">\n\t\t\t\t\t\t\t<source src=\"media/" + e.video_webm + "\">\n\t\t\t\t\t\t\tCette video n'est pas support\xE9e sur votre navigateur...\n\t\t\t\t\t\t</video>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"col-xs-2\" style=\"border: solid 1px gray; border-radius:0 10px 10px 0;\">\n\t\t\t\t\t<div class=\"produitImage droite\" style=\"background-color: " + e.couleur_fond_image + "; background-image: url('media/" + e.face_style + "')\" src=\"media/" + e.face_style + "\"></div>\n\t\t\t\t\t<div class=\"produitImage droite\" style=\"background-color: " + e.couleur_fond_image + "; background-image: url('media/" + e.dos_style + "')\" src=\"media/" + e.dos_style + "\"></div>\n\t\t\t\t\t<div class=\"produitImage droite\" style=\"background-color: " + e.couleur_fond_image + "; background-image: url('media/" + e.gauche_style + "')\" src=\"media/" + e.gauche_style + "\"></div>\n\t\t\t\t\t<div class=\"produitImage droite\" style=\"background-color: " + e.couleur_fond_image + "; background-image: url('media/" + e.droite_style + "')\" src=\"media/" + e.droite_style + "\"></div>\n\t\t\t\t\t<div class=\"produitImage droite video\" style=\"background-color: " + e.couleur_fond_image + "; background-image: url('media/" + e.face_style + "')\" src=\"media/" + e.face_style + "\"><img src=\"" + staticPlayLogoURL + "\" style=\"padding-top: 25px;\"></div>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"col-xs-12\">\n\t\t\t\t\t<button class=\"fermer\" style=\"margin-top: 10px;\"><img style=\"height: 40px; width: auto;\" src=" + staticBackURL + "></button>\n\t\t\t\t\t<a href=\"TshirtDesigner/designer/" + e.num + "\" style=\"margin-top: 10px;\"><button>Customier ! <img style=\"height: 40px; width: auto;\" src=" + staticLogoURL + "></button></a>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t");
+		//function that show all the detail of one specific textile
+		location.append("\n\t\t\t<div class=\"produitDetail\" id=\"produitDetail_" + e.nom + "\">\n\t\t\t\t<p class=\"myfont-lg\">" + e.text_description_short + " : " + e.prix + "\u20AC</p>\n\t\t\t\t<div class=\"col-xs-10\" style=\"border: solid 1px gray; border-radius: 10px 0 0 10px;\">\n\t\t\t\t\t<img class=\"produitImage droite\" style=\"height :600px; width: auto;background-color: " + e.couleur_fond_image + ";\" src=\"media/" + e.face_style + "\">\n\t\t\t\t\t<div style=\"padding : 100px 0 100px 0; display : none;\">\n\t\t\t\t\t\t<video controls poster=\"media/" + e.face_style + "\" height=\"395\" width=\"auto\">\n\t\t\t\t\t\t\t<source src=\"media/" + e.video_mp4 + "\">\n\t\t\t\t\t\t\t<source src=\"media/" + e.video_webm + "\">\n\t\t\t\t\t\t\tCette video n'est pas support\xE9e sur votre navigateur...\n\t\t\t\t\t\t</video>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"col-xs-2\" style=\"border: solid 1px gray; border-radius:0 10px 10px 0;\">\n\t\t\t\t\t<div class=\"produitImage droite\" style=\"background-color: " + e.couleur_fond_image + "; background-image: url('media/" + e.face_style + "')\" src=\"media/" + e.face_style + "\"></div>\n\t\t\t\t\t<div class=\"produitImage droite\" style=\"background-color: " + e.couleur_fond_image + "; background-image: url('media/" + e.dos_style + "')\" src=\"media/" + e.dos_style + "\"></div>\n\t\t\t\t\t<div class=\"produitImage droite\" style=\"background-color: " + e.couleur_fond_image + "; background-image: url('media/" + e.gauche_style + "')\" src=\"media/" + e.gauche_style + "\"></div>\n\t\t\t\t\t<div class=\"produitImage droite\" style=\"background-color: " + e.couleur_fond_image + "; background-image: url('media/" + e.droite_style + "')\" src=\"media/" + e.droite_style + "\"></div>\n\t\t\t\t\t<div class=\"produitImage droite video\" style=\"background-color: " + e.couleur_fond_image + "; background-image: url('media/" + e.face_style + "')\" src=\"media/" + e.face_style + "\"><img src=\"" + staticPlayLogoURL + "\" style=\"padding-top: 25px;\"></div>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"col-xs-12\">\n\t\t\t\t\t<button class=\"fermer\" style=\"margin-top: 10px;\"><img style=\"height: 40px; width: auto;\" src=" + staticBackURL + "></button>\n\t\t\t\t\t<a href=\"TshirtDesigner/designer/" + e.num + "\" style=\"margin-top: 10px;\"><button>Customier ! <img style=\"height: 40px; width: auto;\" src=" + staticLogoURL + "></button></a>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t");
+		//we then attach some event to manage the user's click to go back to the proposition, change the cureent dislayed 
+		//image, display the video
 		$('.droite').each(function () {
 			$(this).click(function () {
 				var _this = this;

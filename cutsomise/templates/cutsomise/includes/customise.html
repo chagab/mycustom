@@ -112,14 +112,12 @@
 						</li>
 					</ul>
 				</div>
-				<input type="hidden" name="search_param" value="all" id="search_param">
-				<input type="text" class="form-control myfont" name="x" placeholder="Entrez un mot clé ...">
+				<input type="hidden" name="search_param" value="all" class="search_param" style="height: 33px;">
+				<input type="text" class="form-control myfont" name="x" placeholder="Entrez un mot clé ..." style="height: 33px;">
 				<span class="input-group-btn">
-					<a href="{% url "search" %}">
-						<button class="btn btn-default" type="button" style="border-bottom-right-radius: 15px; border-top-right-radius: 15px;">
+						<a class="btn btn-default" type="button" style="height: 33px; color : black ; border-bottom-right-radius: 15px; border-top-right-radius: 15px;" href="{% url "search" %}">
 						<span style="padding-right: 10px;" class="glyphicon glyphicon-search"></span>
-						</button>
-					</a>
+						</a>
 				</span>
 			</div>
 		</div>

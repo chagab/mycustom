@@ -78,29 +78,34 @@ $(function() {
 	});
 
 	$('.categorie').each(function() {
+		//when the user click on a textile, we request the database the infos about all the matching textile
+		//and append some html to the modal body. Hence, we want to do this only once !
 		$(this).one("click", function() {
 			const modalBody = $(this.nextElementSibling.children[0].children[0].children[0].nextElementSibling);
 			const attr = $(this).attr('id');
 			const type = attr.split("_")[0];
 			const id = attr.split("_")[1];
+			//redirect to the corresponding url to match ether categorie or produit textile
 			const __URL__ = (type => {
 				if(type == "categorie") return `achat/addTextilCategorie/${id}/`;
 				else if(type == "produit") return `achat/addTextilProduit/${id}/`;
 			})(type);
-
 			$.get(__URL__, {'csrfmiddlewaretoken' : csrftoken, type : "POST" }, data => {
+				//on succes, show every element that we requested
 				JSON.parse(data).filter(elt => elt.fields.confirm).forEach(elt => {
 					const e = elt.fields;
 					presentationTextil(modalBody, e, id);
 				});
 			})
 			.fail(() => {
+				//on fail, append a message error
 				modalBody.append(errorMessage);
 			});
 		});
 	});
 
 	function presentationTextil(location, e, id){
+		//function that show up all the textil matching the user request (=> click on a categorie or produit)
 		location.append(`
 			<div class="produit animation_ease col-${e.taille}-offset-${e.nombre_offset} col-${e.taille}-${e.nombre_colonnes}" style="display:block;border:${e.type_contour} ${e.epaisseur_contour}px ${e.couleur_contour};border-radius:${e.contour_arrondi}px;color:${e.couleur_text};background-color:${e.couleur_fond}">
 				<center>
@@ -117,8 +122,12 @@ $(function() {
 			</div>
 			`);
 		$(`#produitImage_${e.nom}`).one("click",function(event){
+			//if this is the first titme the user click on a textil : we append the detail to the modal body
+			//and hide all the other textiles
 			presentationTextilDetail($(this), e, location);
 			location.children('.produit').hide();
+			//then we attach an event for the next time the user might want to see any detail of this specific
+			//textile
 			$(this).click(function(){
 				$('.produit').hide();
 				$(`#produitDetail_${e.nom}`).show();
@@ -127,12 +136,13 @@ $(function() {
 	}
 
 	function presentationTextilDetail(elt, e, location){
+		//function that show all the detail of one specific textile
 		location.append(`
 			<div class="produitDetail" id="produitDetail_${e.nom}">
 				<p class="myfont-lg">${e.text_description_short} : ${e.prix}€</p>
 				<div class="col-xs-10" style="border: solid 1px gray; border-radius: 10px 0 0 10px;">
-					<img class="produitImage droite" style="height :500px; width: auto;background-color: ${e.couleur_fond_image};" src="media/${e.face_style}">
-					<div style="padding : 50px 0 50px 0; display : none;">
+					<img class="produitImage droite" style="height :600px; width: auto;background-color: ${e.couleur_fond_image};" src="media/${e.face_style}">
+					<div style="padding : 100px 0 100px 0; display : none;">
 						<video controls poster="media/${e.face_style}" height="395" width="auto">
 							<source src="media/${e.video_mp4}">
 							<source src="media/${e.video_webm}">
@@ -153,6 +163,8 @@ $(function() {
 				</div>
 			</div>
 			`);
+		//we then attach some event to manage the user's click to go back to the proposition, change the cureent dislayed 
+		//image, display the video
 		$('.droite').each(function(){
 			$(this).click(function(){
 				let elt = $(this.parentElement.previousElementSibling.children)[0];

@@ -162,8 +162,11 @@ textarea:hover {
 
 .modal-header {
 	padding: 2px 16px;
-	/*background-color: #5cb85c;*/
-	background: linear-gradient( to left top, rgb(31,107,255, 0.5), rgb(196,36,255,0.5));
+	background: rgb(31,107,255);
+	background: -moz-linear-gradient(-45deg,  rgba(31,107,255,0.5) 0%, rgba(196,36,255,0.5) 100%);
+	background: -webkit-linear-gradient(-45deg,  rgba(31,107,255,0.5) 0%,rgba(196,36,255,0.5) 100%);
+	background: linear-gradient(135deg,  rgba(31,107,255,0.5) 0%,rgba(196,36,255,0.5) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#90B4FF', endColorstr='#E191FF',GradientType=1 );
 	color: white;
 }
 

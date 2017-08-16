@@ -249,6 +249,13 @@ a.socialIcon:hover,
   -ms-transition: all 0.8s;
   transition: all 0.8s;
 }
+.ico {
+  -webkit-filter: invert(50%);
+  -moz-filter: invert(50%);
+  -o-filter: invert(50%);
+  -ms-filter: invert(50%);
+  filter: invert(50%);
+}
 .gal-container {
   padding: 12px;
 }
@@ -752,11 +759,9 @@ body.modal-open .wrap {
   margin: auto;
 }
 .droite {
-  height: 100px;
+  height: 120px;
   width: auto;
-  background-position: top center;
   background-size: cover;
-  background-attachment: fixed;
   padding: 0;
   margin: 0;
 }
@@ -1199,4 +1204,11 @@ a.socialIcon:hover,
   -o-transition: all 0.8s;
   -ms-transition: all 0.8s;
   transition: all 0.8s;
+}
+.ico {
+  -webkit-filter: invert(50%);
+  -moz-filter: invert(50%);
+  -o-filter: invert(50%);
+  -ms-filter: invert(50%);
+  filter: invert(50%);
 }
