@@ -13,8 +13,8 @@
 		<h1 class="myfont-llg">Résultats de votre recherche</h1>
 		<br>
 		{% for produit in list_produit %}
-			<div class="col-xs-3">
-				<img src="/{{ produit.face_style.url }}" class="" data-toggle="modal" data-target="#produit_{{ produit.id }}" style="height:400px;width:auto;cursor:pointer;">
+			<div class="col-md-3">
+				<img src="/{{ produit.face_style.url }}" data-toggle="modal" data-target="#produit_{{ produit.id }}" style="height:400px;width:auto;cursor:pointer;">
 			</div>
 			<div class="modal fade" id="produit_{{ produit.id }}" tabindex="-1" role="dialog" aria-hidden="true">
 				<div class="modal-dialog modal-lg">
@@ -25,12 +25,12 @@
 							</button>
 							<h2 class="modal-title" id="testLabel">{{ produit.nom }}</h2>
 						</div>
-						<div class="modal-body" style="overflow: hidden;">
+						<div class="modal-body">
 							<div class="produitDetail" id="produitDetail_{{produit.nom}}">
 								<p class="myfont-lg">{{produit.text_description_short}} : {{produit.prix}}€</p>
 								<div class="col-xs-10" style="border: solid 1px gray; border-radius: 10px 0 0 10px;">
-									<img class="produitImage droite" style="height :6à00px; width: auto;background-color: {{produit.couleur_fond_image}};" src="/{{produit.face_style.url}}">
-									<div style="padding : 100px 0 100px 0; display : none;">
+									<img class="produitImage droite" style="height :600px; width: auto;background-color: {{produit.couleur_fond_image}};" src="/{{produit.face_style.url}}">
+									<div style="padding : 100px 0 100px 0; display : none; overflow: scroll;">
 										<video controls poster="/{{produit.face_style.url}}" height="395" width="auto">
 											<source src="/media/{{produit.video_mp4}}">
 											<source src="/media/{{produit.video_webm}}">

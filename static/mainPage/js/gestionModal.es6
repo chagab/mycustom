@@ -62,7 +62,7 @@ $(function() {
 					const e = elt.fields;
 					e.nom = e.nom.replace(/ /, "").replace(/'/,"");
 					$(modalBody).append(`
-						<div class="col-${e.taille}-${e.nombre_colonnes} col-${e.taille}-offset-${e.nombre_offset} logo animation_ease-slow" style="height: 250px; border : 1px solid gray; vertical-align:middle; line-height: 250px;">
+						<div class="col-${e.taille}-${e.nombre_colonnes} col-${e.taille}-offset-${e.nombre_offset} logo animation_ease-slow" style="height: 250px; vertical-align:middle; line-height: 250px;">
 							<img src="/media/${e.logo}" id="${e.nom}" style="max-width: 100%; max-height: 100%;">
 						</div>
 						`);
@@ -142,7 +142,7 @@ $(function() {
 				<p class="myfont-lg">${e.text_description_short} : ${e.prix}€</p>
 				<div class="col-xs-10" style="border: solid 1px gray; border-radius: 10px 0 0 10px;">
 					<img class="produitImage droite" style="height :600px; width: auto;background-color: ${e.couleur_fond_image};" src="media/${e.face_style}">
-					<div style="padding : 100px 0 100px 0; display : none;">
+					<div style="padding : 100px 0 100px 0; display : none;overflow: scroll;">
 						<video controls poster="media/${e.face_style}" height="395" width="auto">
 							<source src="media/${e.video_mp4}">
 							<source src="media/${e.video_webm}">

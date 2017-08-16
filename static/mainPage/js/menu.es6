@@ -1,6 +1,7 @@
 $(function() {
 	let Window = $(window);
 	let navbar = $('.navbar');
+	let containerFluid = $(".container-fluid");
 	let lien_menu = $('.navbar-default .navbar-nav > li > a');
 	let alignement = $('.navbar .navbar-collapse ');
 	let logo = $('#logo-menu-contenair');
@@ -17,20 +18,28 @@ $(function() {
 		$('#Vendre'),
 		$('#Professionel'),
 	];
-
-	function init() {
-		alignement.css({
-			'text-align': 'center',
-		});
-	}
-
+	
 	function changeColor(objet, fontColor, backColor) {
 		objet.css("color", fontColor);
 		objet.css("background-color", backColor);
 	}
-	init();
+
+	(function() {
+		containerFluid.css({
+			"background-color": 'transparent',
+			});
+		alignement.css({
+			'text-align': 'center',
+		});
+	})();
+
 	Window.scroll(function() {
+		let droped = $("#bs-example-navbar-collapse-1").attr('aria-expanded');
+		console.log(droped);
 		if (getPageScroll() > top) {
+			containerFluid.css({
+				"background-color": 'rgb(225,225,225)',
+			})
 			navbar.css({
 				"background-color": '#E1E1E1',
 			});
@@ -44,18 +53,23 @@ $(function() {
 				'filter': 'invert(70%)'
 			});
 		} else {
-			navbar.css({
-				"background-color": 'transparent',
-			});
-			lien_menu.css({
-				"color": "white",
-			});
-			alignement.css({
-				'text-align': 'center',
-			});
-			logo.css({
-				'filter': 'invert(0%)'
-			});
+			if(!droped){
+				containerFluid.css({
+					"background-color": 'transparent',
+				});
+				navbar.css({
+					"background-color": 'transparent',
+				});
+				lien_menu.css({
+					"color": "white",
+				});
+				alignement.css({
+					'text-align': 'center',
+				});
+				logo.css({
+					'filter': 'invert(0%)'
+				});
+			}
 		}
 		if (getPageScroll() < top) {
 			changeColor(buttons[0], 'white', 'transparent');
