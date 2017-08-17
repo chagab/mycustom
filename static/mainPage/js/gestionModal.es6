@@ -112,7 +112,7 @@ $(function() {
 					<h3 class="myfont">${e.nom}</h3>
 					<div class="text-center">
 						<a type="button" style="cursor: pointer;">
-							<img class="resize_width adjust_height produitImage" id="produitImage_${e.num}_${type}" style="background-color: ${e.couleur_fond_image};border-radius:${e.contour_arrondi_image}px;" src="media/${e.face_style}">
+							<img class="resize_width adjust_height produitImage" id="produitImage_${e.num}_${type}" style="background-color:${e.couleur_fond_image}; border-radius:${e.contour_arrondi_image}px;height:400px;width:auto;cursor:pointer;" src="media/${e.face_style}">
 						</a>
 					</div>
 					<br><br>
