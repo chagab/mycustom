@@ -6,6 +6,10 @@ $(function() {
 	const staticPlayLogoURL = "/static/mainPage/image/icons8-Circled Play Filled-50.png";
 	const errorMessage = "<p>Sorry, something went wrong...</p>";
 	const csrftoken = getCookie('csrftoken');
+	const __DATA__ = {
+		'csrfmiddlewaretoken': csrftoken,
+		type: "POST",
+	};
 	//function to generate the crsf
 	function getCookie(name) {
 		let cookieValue = null;
@@ -24,22 +28,30 @@ $(function() {
 	}
 
 	function csrfSafeMethod(method) {
-	    // these HTTP methods do not require CSRF protection
-	    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+		// these HTTP methods do not require CSRF protection
+		return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
 	}
 
 	function sameOrigin(url) {
-	    // test that a given url is a same-origin URL
-	    // url could be relative or scheme relative or absolute
-	    const host = document.location.host; // host + port
-	    const protocol = document.location.protocol;
-	    const sr_origin = '//' + host;
-	    const origin = protocol + sr_origin;
-	    // Allow absolute or scheme relative URLs to same origin or any other URL that isn't scheme relative or absolute i.e relative.
-	    return 	(url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
-	    (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
-	    !(/^(\/\/|http:|https:).*/.test(url));
+		// test that a given url is a same-origin URL
+		// url could be relative or scheme relative or absolute
+		const host = document.location.host; // host + port
+		const protocol = document.location.protocol;
+		const sr_origin = '//' + host;
+		const origin = protocol + sr_origin;
+		// Allow absolute or scheme relative URLs to same origin or any other URL that isn't scheme relative or absolute i.e relative.
+		return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+			(url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+			!(/^(\/\/|http:|https:).*/.test(url));
 	}
+
+	$(document).ajaxStart(function() {
+		//document.getElementById("loading").style.display = "flex";
+	});
+
+	$(document).ajaxStop(function() {
+		//document.getElementById("loading").style.display = "none";
+	});
 
 	$.ajaxSetup({
 		beforeSend: function(xhr, settings) {
@@ -52,21 +64,19 @@ $(function() {
 		}
 	});
 
-	$('.categorie_achat').each(function(){
-		$(this).one("click",function(){
+	$('.categorie_achat').each(function() {
+		$(this).one("click", function() {
+			const modalBody = $(this.nextElementSibling.children[0].children[0].children[0].nextElementSibling.children[0].children[0]);
 			const categorie = $(this).attr('name');
 			const __URL__ = `achat/addLogo/${categorie}/`;
-			const modalBody = this.nextElementSibling.children[0].children[0].children[0].nextElementSibling.children[0].children[0];
-			$.get(__URL__, {'csrfmiddlewaretoken' : csrftoken, type : "POST" }, data => {
+			$.get(__URL__, __DATA__, data => {
 				JSON.parse(data).filter(elt => elt.fields.confirm).forEach(elt => {
-					const e = elt.fields;
-					e.nom = e.nom.replace(/ /, "").replace(/'/,"");
-					$(modalBody).append(`
-						<div class="col-${e.taille}-${e.nombre_colonnes} col-${e.taille}-offset-${e.nombre_offset} logo animation_ease-slow" style="height: 250px; vertical-align:middle; line-height: 250px;">
-							<img src="/media/${e.logo}" id="logo_${e.num}" style="max-width: 100%; max-height: 100%;">
-						</div>
-						`);
-					$(`#logo_${e.num}`).one("click", function(){
+					modalBody.append(`
+					<div class="col-${e.taille}-${e.nombre_colonnes} col-${e.taille}-offset-${e.nombre_offset} logo animation_ease-slow" style="height: 250px; vertical-align:middle; line-height: 250px;">
+						<img src="/media/${e.logo}" id="logo_${e.num}" style="max-width: 100%; max-height: 100%;">
+					</div>
+					`);
+					$(`#logo_${e.num}`).one("click", function() {
 						presentationTextil(modalBody, e, 4);
 					});
 				});
@@ -87,10 +97,10 @@ $(function() {
 			const id = attr.split("_")[1];
 			//redirect to the corresponding url to match ether categorie or produit textile
 			const __URL__ = (type => {
-				if(type == "categorie") return `achat/addTextilCategorie/${id}/`;
-				else if(type == "produit") return `achat/addTextilProduit/${id}/`;
+				if (type == "categorie") return `achat/addTextilCategorie/${id}/`;
+				else if (type == "produit") return `achat/addTextilProduit/${id}/`;
 			})(type);
-			$.get(__URL__, {'csrfmiddlewaretoken' : csrftoken, type : "POST" }, data => {
+			$.get(__URL__, __DATA__, data => {
 				//on succes, show every element that we requested
 				JSON.parse(data).filter(elt => elt.fields.confirm).forEach(elt => {
 					const e = elt.fields;
@@ -104,7 +114,7 @@ $(function() {
 		});
 	});
 
-	function presentationTextil(location, e, type){
+	function presentationTextil(location, e, type) {
 		//function that show up all the textil matching the user request (=> click on a categorie or produit)
 		location.append(`
 			<div class="produit animation_ease col-${e.taille}-offset-${e.nombre_offset} col-${e.taille}-${e.nombre_colonnes}" style="display:block;border:${e.type_contour} ${e.epaisseur_contour}px ${e.couleur_contour};border-radius:${e.contour_arrondi}px;color:${e.couleur_text};background-color:${e.couleur_fond}">
@@ -120,22 +130,22 @@ $(function() {
 					<p class="myfont">${e.text_description_short}</p>
 				</center>
 			</div>
-			`);
-		$(`#produitImage_${e.num}_${type}`).one("click",function(event){
+		`);
+		$(`#produitImage_${e.num}_${type}`).one("click", function(event) {
 			//if this is the first titme the user click on a textil : we append the detail to the modal body
 			//and hide all the other textiles
 			presentationTextilDetail($(this), e, location, type);
 			location.children('.produit').fadeOut(0);
 			//then we attach an event for the next time the user might want to see any detail of this specific
 			//textile
-			$(this).click(function(){
+			$(this).click(function() {
 				$('.produit').fadeOut(0);
 				$(`#produitDetail_${e.num}_${type}`).fadeIn(0);
 			});
 		});
 	}
 
-	function presentationTextilDetail(elt, e, location, type){
+	function presentationTextilDetail(elt, e, location, type) {
 		//function that show all the detail of one specific textile
 		location.append(`
 			<div class="produitDetail" id="produitDetail_${e.num}_${type}">
@@ -162,14 +172,14 @@ $(function() {
 					<a href="TshirtDesigner/designer/${e.num}" style="margin-top: 10px;"><button>Customier ! <img style="height: 40px; width: auto;" src=${staticLogoURL}></button></a>
 				</div>
 			</div>
-			`);
+		`);
 		//we then attach some event to manage the user's click to go back to the proposition, change the cureent dislayed 
 		//image, display the video
-		$('.droite').each(function(){
-			$(this).click(function(){
+		$('.droite').each(function() {
+			$(this).click(function() {
 				let elt = $(this.parentElement.previousElementSibling.children)[0];
 				let video = $(this.parentElement.previousElementSibling.children)[1];
-				if($(this).hasClass('video')){
+				if ($(this).hasClass('video')) {
 					$(elt).fadeOut(0);
 					$(video).fadeIn(400);
 				} else {
@@ -181,21 +191,30 @@ $(function() {
 				}
 			});
 		});
-		$('.fermer').each(function(){
+		$('.fermer').each(function() {
 			$(this).click(function() {
-				$(this.parentElement.parentElement).fadeOut(0);
-				$('.produit').fadeIn(400);
-			});
-		});
-		$('.modal').each(function(){
-			$(this).on('hidden.bs.modal', function(){
-				$(this).find('video').each(function(){
+				const produitDetail = $(this.parentElement.parentElement);
+				produitDetail.find('video').each(function() {
 					this.pause();
 					this.currentTime = 0;
 					this.load();
 					$(this.parentElement).fadeOut(0);
 				});
-				$('.produitDetail').each(function(){
+				produitDetail.fadeOut(0);
+				$('.produit').fadeIn(400);
+				$(`#image_${e.num}_${type}`).fadeIn(0);
+				$(`#image_${e.num}_${type}`)[0].src = $(`#first_${e.num}_${type}`)[0].attributes.src.value;
+			});
+		});
+		$('.modal').each(function() {
+			$(this).on('hidden.bs.modal', function() {
+				$(this).find('video').each(function() {
+					this.pause();
+					this.currentTime = 0;
+					this.load();
+					$(this.parentElement).fadeOut(0);
+				});
+				$('.produitDetail').each(function() {
 					$(this).fadeOut(0);
 				});
 				$('.produit').fadeIn(0);
