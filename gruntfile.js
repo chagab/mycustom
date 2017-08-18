@@ -1,9 +1,10 @@
 module.exports = function(grunt) {
+	const path = "/Users/gabrielchatelain/Desktop/mycustom/static/";
 	const pathMedia = "/Users/gabrielchatelain/Desktop/mycustom/media/";
 	const pathLib = "/Users/gabrielchatelain/Desktop/mycustom/static/lib/";
-	const path = "/Users/gabrielchatelain/Desktop/mycustom/static/";
 	const pathCss = "/Users/gabrielchatelain/Desktop/mycustom/static/mainPage/css/";
 	const pathJs = "/Users/gabrielchatelain/Desktop/mycustom/static/mainPage/js/";
+	const pathImage = "/Users/gabrielchatelain/Desktop/mycustom/static/mainPage/image/";
 	const pathDesigner = "/Users/gabrielchatelain/Desktop/mycustom/static/TShirtDesigner/";
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
@@ -38,6 +39,11 @@ module.exports = function(grunt) {
 					dest: `${pathLib}`,
 					ext: ".min.css"
 				}, ]
+			},
+			target: {
+				files: {
+					[`${path}my_custom.min.css`]: [`${path}lib/animates.min.css`, `${path}lib/bootstrap/css/bootstrap.min.css`, `${path}mainPage/css/my_custom.min.css`, `${pathImage}sprites/sprites/sprites.css`]
+				}
 			}
 		},
 		uncss: {
@@ -73,6 +79,8 @@ module.exports = function(grunt) {
 					[`${pathLib}jquery.min.js`]: [pathLib + "jquery.js"],
 				}, {
 					[`${pathDesigner}js/TshirtDesigner.min.js`]: [pathDesigner + "js/*-compiled.js"],
+				}, {
+					[`${path}my_custom.min.js`]: [`${pathLib}jquery.min.js`, `${pathLib}bootstrap/js/bootstrap.min.js`, `${pathJs}mainPage.min.js`],
 				}],
 			},
 		},

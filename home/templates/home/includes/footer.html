@@ -1,23 +1,16 @@
 {% load staticfiles %}
 <footer class="wrap">
-	<div class="col-sm-12" style="padding: 75px;background-color: rgb(37,33,30);">
+	<div class="col-xs-12" style="padding: 75px;background-color: rgb(37,33,30);">
 		<div class="container">
-			<div class="col-sm-2">
+			<div class="col-xs-2">
 				<h3 class="myfont" style="color: white;">MOYEN DE PAIEMENT</h3>
-				<span class="myfont">
-					<img style="  height: 20px; width: auto; margin-right: 5px; filter: invert(50%);" src="{% static 'mainPage/image/master-card-icon.png' %}">
-					Master card
-				</span><br>
-				<span class="myfont">
-					<img style="  height: 20px; width: auto; margin-right: 5px; filter: invert(50%);" src="{% static 'mainPage/image/Paypal-icon.png' %}">
-					Paypal
-				</span><br>
-				<span class="myfont">
-					<img style="  height: 20px; width: auto; margin-right: 5px; filter: invert(50%);" src="{% static 'mainPage/image/visa.png' %}">
-					Visa
-				</span><br>
+				<center>
+					<div class="master-card-icon"></div>
+					<div class="Paypal-icon"></div>
+					<div class="visa"></div>
+				</center>
 			</div>
-			<div class="col-sm-2">
+			<div class="col-xs-2">
 				<h3 class="myfont" style="color: white;">LANGUES</h3>
 				<p class="myfont" style="font-size :10px;">Profitez des services de MY CUTOM dans plusieurs langues :
 				</p>
@@ -26,7 +19,7 @@
 				<a class="myfont" href="" style="color : gray;">Deutsch</a><br>
 				<a class="myfont" href="" style="color : gray;">Espagnol</a><br>
 			</div>
-			<div class="col-sm-2">
+			<div class="col-xs-2">
 				<h3 class="myfont" style="color: white;">INFORMATIONS SUR LA SOCIÉTÉ</h3>
 				<span class="myfont">A propos de MY CUSTOM</span><br>
 				<span class="myfont">Informations sur la socité</span><br>
@@ -34,25 +27,23 @@
 				<span class="myfont">Carrière</span><br>
 				<span class="myfont">Politique de confidientialité des cookies</span><br>
 			</div>
-			<div class="col-sm-2" style="border-right : 1px solid rgb(64,59,53);">
+			<div class="col-xs-2" style="border-right : 1px solid rgb(64,59,53);">
+			<center>
 				<h3 class="myfont" style="color: white;">RETROUVEZ NOUS SUR</h3>
 				<ul class="social-network social-circle">
-					<li>
-						<a href="https://www.facebook.com/1mycustom/" class="myfont"><img class="ico icoFacebook" src="{% static 'mainPage/image/facebook.png' %}">facebook</a>
-					</li>
-					<li>
-						<a href="https://www.instagram.com/1mycustom/" class="myfont"><img class="ico icoInstagram" src="{% static 'mainPage/image/instagram.png' %}">instagram</a>
-					</li>
-					<li>
-						<a href="https://twitter.com/1mycustom" class="myfont"><img class="ico icoTwitter" src="{% static 'mainPage/image/twitter.png' %}">twitter</a>
-					</li>
-					<li>
-						<a href="https://fr.pinterest.com/1mycustom/" class="myfont"><img class="ico icoLinkedin" src="{% static 'mainPage/image/icons8-Pinterest-26.png' %}">pinterest</a>
-					</li>
+						<a class="icoFacebook" href="https://www.facebook.com/1mycustom/"><div class="facebook"></div></a>
+						<a class="icoFacebook" href="https://www.instagram.com/1mycustom/"><div class="instagram"></div> </a>
+						<a class="icoFacebook" href="https://twitter.com/1mycustom"><div class="twitter"></div> </a>
+						<a class="icoFacebook" href="https://fr.pinterest.com/1mycustom/" style="height: 50px; width: 50px;">
+							<center>
+								<div class="icons8-Pinterest-26" style="margin-top: 10px;"></div> 
+							</center>
+						</a>
 				</ul>
+				</center>
 			</div>
 			<center>
-				<div class="col-sm-offset-1 col-sm-3" style="border-bottom: 1px solid rgb(64,59,53); margin-bottom: 10px;">
+				<div class="col-xs-offset-1 col-xs-3" style="border-bottom: 1px solid rgb(64,59,53); margin-bottom: 10px;">
 					<h3 class="myfont" style="color: white;">ABONNEZ VOUS À LA NEWSLETTER</h3>
 					<p class="myfont" style="font-size: 10px;">En m'inscrivant, j'accepte les conditions de la Politique de confidentialité de MY CUSTOM et de recevoir les courriels de MY CUSTOM vous présentant nos dernières collections, nos évènements et nos initiatives.</p>
 					<br>

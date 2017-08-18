@@ -1,0 +1,76 @@
+.logoMyCustomByNFBlanc, .facebook, .icons8-Back-26, .icons8-Circled-Play Filled-50, .icons8-Double-Down Filled-50, .icons8-Pinterest-26, .instagram, .logo_my_custom_police, .master-card-icon, .Paypal-icon, .twitter, .visa{
+	background: url(sprites.png) no-repeat;
+}
+
+.logoMyCustomByNFBlanc{
+	background-position: 0 0;
+	width: 100px;
+	height: 98px;
+}
+
+.facebook{
+	background-position: -100px -1px ;
+	width: 50px;
+	height: 50px;
+}
+
+.icons8-Back-26{
+	background-position: -161px -12px ;
+	width: 26px;
+	height: 26px;
+}
+
+.icons8-Circled-Play Filled-50{
+	background-position: -199px 0;
+	width: 50px;
+	height: 50px;
+}
+
+.icons8-Double-Down Filled-50{
+	background-position: -249px 0;
+	width: 50px;
+	height: 50px;
+}
+
+.icons8-Pinterest-26{
+	background-position: -110px -62px ;
+	width: 26px;
+	height: 26px;
+}
+
+.instagram{
+	background-position: -148px -49px ;
+	width: 50px;
+	height: 50px;
+}
+
+.logo_my_custom_police{
+	background-position: -1px -99.99998474121094px ;
+	width: 162px;
+	height: 50px;
+}
+
+.master-card-icon{
+	background-position: -200px -50px ;
+	width: 50px;
+	height: 50px;
+}
+
+.Paypal-icon{
+	background-position: -250px -49.99998474121094px ;
+	width: 50px;
+	height: 50px;
+}
+
+.twitter{
+	background-position: -300px 0;
+	width: 50px;
+	height: 50px;
+}
+
+.visa{
+	background-position: -300px -49.99998474121094px ;
+	width: 50px;
+	height: 50px;
+}
+

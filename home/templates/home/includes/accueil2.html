@@ -49,23 +49,13 @@
           cursor   : pointer;
           font-size: 400%;
         color: white;">.</p>-->
-          <img class="bounce infinite animated" src="{% static 'mainPage/image/icons8-Double Down Filled-50.png' %}" style="
-            width:80px;
-            height:auto;
-            filter: invert(100%);
-            -webkit-filter: invert(100%);
-            -moz-filter: invert(100%);
-            -o-filter: invert(100%);
-            -ms-filter: invert(100%);
-            position:absolute;
-            top:85vh;
-            left:48vw;
-            cursor:pointer;
-            transform: rotate(180deg);">
+          <div class="bounce infinite animated" style="position:absolute;top:85vh;left:48vw;cursor:pointer;transform: rotate(180deg);width: 50px!important;height: 50px!important;">
+              <div class="icons8-Double-DownFilled-50"></div>
+          </div>
         </div>
       </div>
     </center>
-    <img
+    <div
       id="logo"
       src="{{ page.logo.url }}"
       style="
@@ -75,7 +65,7 @@
     left    : {{ page.decalage_logo }}vw;
     width   : {{page.largeur_logo}}px;
     height  : auto;
-    cursor  : pointer;">
+    cursor  : pointer;"></div>
     <center>
       <!-- <h1 id="presentation"
     style="

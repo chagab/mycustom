@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.core import serializers
 from cutsomise.models import customiseCategorie, customiseProduit
 from .models import Produit, AchatCategorie, AchatLogo
+import random
 # Create your views here.
 
 def afficher_element(request):
@@ -35,12 +36,24 @@ def addTextilProduit(request, getter) :
 	json_models = serializers.serialize("json", produit)
 	return HttpResponse(json_models)
 
+def addTextil(request) :
+	ids = []
+	textil = []
+	for produit in Produit.objects.all() :
+		ids.append(produit.pk)
+	random.shuffle(ids)
+	for ID in ids[:5] :
+		textil.append(Produit.objects.get(pk = ID))
+	json_models = serializers.serialize("json", textil)
+	return HttpResponse(json_models)	
+
 def addLogo(request, getter) :
 	""" Vue qui envoit les données nécéssaires pour ajouter un logo
 	dans la rubrique ACHAT de la page principale """
+	print(getter)
 	logoCategorie = AchatCategorie.objects.get(id = getter)
-	logo = AchatLogo.objects.all().filter(categorie = logoCategorie)
-	json_models = serializers.serialize("json", logo)
+	logos = AchatLogo.objects.all().filter(categorie = logoCategorie)
+	json_models = serializers.serialize("json", logos)
 	return HttpResponse(json_models)
 
 def search(request, getter) :
