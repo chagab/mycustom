@@ -1,0 +1,117 @@
+.sprites {
+	background: url(sprites.png) no-repeat;
+}
+
+.circular-arrow-counterclockwise-rotating-symbol_icon-icons {
+	width: 50px;
+	height: 50px;
+	background-position: 0 0;
+}
+
+.icons8-Avionenpapier-50 {
+	width: 50px;
+	height: 50px;
+	background-position: -51px 0;
+}
+
+.icons8-Brosse-64 {
+	width: 64px;
+	height: 64px;
+	background-position: -116px 0;
+}
+
+.icons8-Clothes {
+	width: 64px;
+	height: 64px;
+	background-position: 0 -102px;
+}
+
+.icons8-CoordonneX-50 {
+	width: 50px;
+	height: 50px;
+	background-position: 0 -51px;
+}
+
+.icons8-Executerlacommande-64 {
+	width: 64px;
+	height: 64px;
+	background-position: -65px -102px;
+}
+
+.icons8-Fantasy {
+	width: 64px;
+	height: 64px;
+	background-position: 0 -167px;
+}
+
+.icons8-Grille-50 {
+	width: 50px;
+	height: 50px;
+	background-position: -51px -51px;
+}
+
+.icons8-HauteurFilled-50 {
+	width: 50px;
+	height: 50px;
+	background-position: -130px -65px;
+}
+
+.icons8-ImageFile {
+	width: 64px;
+	height: 64px;
+	background-position: -65px -167px;
+}
+
+.icons8-Largeur-50 {
+	width: 50px;
+	height: 50px;
+	background-position: -130px -116px;
+}
+
+.icons8-Paniercharge-64 {
+	width: 64px;
+	height: 64px;
+	background-position: 0 -232px;
+}
+
+.icons8-Parametres-64 {
+	width: 64px;
+	height: 64px;
+	background-position: -65px -232px;
+}
+
+.icons8-ParametresFilled-50 {
+	width: 50px;
+	height: 50px;
+	background-position: -130px -167px;
+}
+
+.icons8-Pencil {
+	width: 64px;
+	height: 64px;
+	background-position: 0 -297px;
+}
+
+.icons8-Ratiod {
+	width: 50px;
+	height: 50px;
+	background-position: -130px -218px;
+}
+
+.icons8-RotateLeft-64 {
+	width: 64px;
+	height: 64px;
+	background-position: -65px -297px;
+}
+
+.icons8-YCoordinate-50 {
+	width: 50px;
+	height: 50px;
+	background-position: -130px -269px;
+}
+
+.icons8-Zoomtaillereelle-50 {
+	width: 50px;
+	height: 50px;
+	background-position: -130px -320px;
+}
