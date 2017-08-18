@@ -12131,11 +12131,11 @@ ul.social-network li {
 	background-color: #f56505
 }
 
-.social-network div.icoFacebook:hover {
+.icoFacebook:hover {
 	background-color: #3b5998
 }
 
-.social-network div.icoTwitter:hover {
+.icoTwitter:hover {
 	background-color: #3cf
 }
 
@@ -12151,8 +12151,12 @@ ul.social-network li {
 	background-color: #007bb7
 }
 
-.social-network div.icoInstagram:hover {
-	background-color: #fdc62e
+.icoInstagram:hover {
+	background-color: #FF00F7
+}
+
+.icoPinterest:hover {
+	background-color: ##BD081C
 }
 
 .socialHoverClass,
@@ -13348,7 +13352,8 @@ a.socialIcon:hover {
 .facebook {
 	background-position: -100px -1px;
 	width: 50px;
-	height: 50px
+	height: 50px;
+	border-radius: 50px;
 }
 
 .icons8-Back-26 {
@@ -13379,12 +13384,13 @@ a.socialIcon:hover {
 	background-position: -148px -49px;
 	width: 50px;
 	height: 50px;
+	border-radius: 50px;
 }
 
 .logo_my_custom_police {
-	background-position: -1px -99.99998474121094px ;
+	background-position: -1px -98.8px ;
 	width: 162px!important;
-	height: 50px;
+	height: 50.2px;
 }
 
 .master-card-icon {
@@ -13402,7 +13408,8 @@ a.socialIcon:hover {
 .twitter {
 	background-position: -300px 0;
 	width: 50px;
-	height: 50px
+	height: 50px;
+	border-radius: 50px;
 }
 
 .visa {
