@@ -42,7 +42,7 @@ module.exports = function(grunt) {
 			},
 			target: {
 				files: {
-					[`${path}my_custom.min.css`]: [`${path}lib/animates.min.css`, `${path}lib/bootstrap/css/bootstrap.min.css`, `${path}mainPage/css/my_custom.min.css`, `${pathImage}sprites/sprites/sprites.css`]
+					[`${path}my_custom.min.css`]: [`${path}lib/animates.min.css`, `${path}lib/bootstrap/css/bootstrap.min.css`, `${path}mainPage/css/my_custom.min.css`, `${pathImage}sprite/sprite.css`]
 				}
 			}
 		},

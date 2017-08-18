@@ -45,14 +45,6 @@ $(function() {
 			!(/^(\/\/|http:|https:).*/.test(url));
 	}
 
-	$(document).ajaxStart(function() {
-		//document.getElementById("loading").style.display = "flex";
-	});
-
-	$(document).ajaxStop(function() {
-		//document.getElementById("loading").style.display = "none";
-	});
-
 	$.ajaxSetup({
 		beforeSend: function(xhr, settings) {
 			if (!csrfSafeMethod(settings.type) && sameOrigin(settings.url)) {
@@ -71,13 +63,25 @@ $(function() {
 			const __URL__ = `achat/addLogo/${categorie}/`;
 			$.get(__URL__, __DATA__, data => {
 				JSON.parse(data).filter(elt => elt.fields.confirm).forEach(elt => {
+					const e = elt.fields;
 					modalBody.append(`
 					<div class="col-${e.taille}-${e.nombre_colonnes} col-${e.taille}-offset-${e.nombre_offset} logo animation_ease-slow" style="height: 250px; vertical-align:middle; line-height: 250px;">
-						<img src="/media/${e.logo}" id="logo_${e.num}" style="max-width: 100%; max-height: 100%;">
+						<img src="/media/${e.logo}" id="logo_${elt.pk}" style="max-width: 100%; max-height: 100%;">
 					</div>
 					`);
-					$(`#logo_${e.num}`).one("click", function() {
-						presentationTextil(modalBody, e, 4);
+					$(`#logo_${elt.pk}`).one("click", function() {
+						console.log('click');
+						$(this.parentElement.parentElement).fadeOut(0);
+						const __URL2__ = "achat/addTextil/";
+						const type = "logo";
+						$.get(__URL2__, __DATA__, data => {
+							JSON.parse(data).filter(elt => elt.fields.confirm).forEach(elt =>{
+								presentationTextil(modalBody, elt, logo);
+							});
+						})
+						.fail(() => {
+							modalBody.append(errorMessage);
+						});
 					});
 				});
 			})
@@ -103,8 +107,7 @@ $(function() {
 			$.get(__URL__, __DATA__, data => {
 				//on succes, show every element that we requested
 				JSON.parse(data).filter(elt => elt.fields.confirm).forEach(elt => {
-					const e = elt.fields;
-					presentationTextil(modalBody, e, type);
+					presentationTextil(modalBody, elt, type);
 				});
 			})
 			.fail(() => {
@@ -114,7 +117,8 @@ $(function() {
 		});
 	});
 
-	function presentationTextil(location, e, type) {
+	function presentationTextil(location, elt, type) {
+		const e = elt.fields;
 		//function that show up all the textil matching the user request (=> click on a categorie or produit)
 		location.append(`
 			<div class="produit animation_ease col-${e.taille}-offset-${e.nombre_offset} col-${e.taille}-${e.nombre_colonnes}" style="display:block;border:${e.type_contour} ${e.epaisseur_contour}px ${e.couleur_contour};border-radius:${e.contour_arrondi}px;color:${e.couleur_text};background-color:${e.couleur_fond}">
@@ -122,7 +126,7 @@ $(function() {
 					<h3 class="myfont">${e.nom}</h3>
 					<div class="text-center">
 						<a type="button" style="cursor: pointer;">
-							<img class="resize_width adjust_height produitImage" id="produitImage_${e.num}_${type}" style="background-color:${e.couleur_fond_image}; border-radius:${e.contour_arrondi_image}px;height:400px;width:auto;cursor:pointer;" src="media/${e.face_style}">
+							<img class="resize_width adjust_height produitImage" id="produitImage_${elt.pk}_${type}" style="background-color:${e.couleur_fond_image}; border-radius:${e.contour_arrondi_image}px;height:400px;width:auto;cursor:pointer;" src="media/${e.face_style}">
 						</a>
 					</div>
 					<br><br>
@@ -131,27 +135,28 @@ $(function() {
 				</center>
 			</div>
 		`);
-		$(`#produitImage_${e.num}_${type}`).one("click", function(event) {
+		$(`#produitImage_${elt.pk}_${type}`).one("click", function(event) {
 			//if this is the first titme the user click on a textil : we append the detail to the modal body
 			//and hide all the other textiles
-			presentationTextilDetail($(this), e, location, type);
+			presentationTextilDetail(elt, location, type);
 			location.children('.produit').fadeOut(0);
 			//then we attach an event for the next time the user might want to see any detail of this specific
 			//textile
 			$(this).click(function() {
 				$('.produit').fadeOut(0);
-				$(`#produitDetail_${e.num}_${type}`).fadeIn(0);
+				$(`#produitDetail_${elt.pk}_${type}`).fadeIn(0);
 			});
 		});
 	}
 
-	function presentationTextilDetail(elt, e, location, type) {
+	function presentationTextilDetail(elt, location, type) {
+		const e = elt.fields;
 		//function that show all the detail of one specific textile
 		location.append(`
-			<div class="produitDetail" id="produitDetail_${e.num}_${type}">
+			<div class="produitDetail" id="produitDetail_${elt.pk}_${type}">
 				<p class="myfont-lg">${e.text_description_short} : ${e.prix}€</p>
 				<div class="col-xs-10" style="border: solid 1px gray; border-radius: 10px 0 0 10px;">
-					<img id="image_${e.num}_${type}" class="produitImage droite" style="height :600px; width: auto;background-color: ${e.couleur_fond_image};" src="media/${e.face_style}">
+					<img id="image_${elt.pk}_${type}" class="produitImage droite" style="height :600px; width: auto;background-color: ${e.couleur_fond_image};" src="media/${e.face_style}">
 					<div style="padding : 100px 0 100px 0; display : none;overflow: scroll;">
 						<video controls poster="media/${e.face_style}" height="395" width="auto">
 							<source src="media/${e.video_mp4}">
@@ -161,7 +166,7 @@ $(function() {
 					</div>
 				</div>
 				<div class="col-xs-2" style="border: solid 1px gray; border-radius:0 10px 10px 0;">
-					<div id="first_${e.num}_${type}" class="produitImage droite" style="background-color: ${e.couleur_fond_image}; background-image: url('media/${e.face_style}')" src="media/${e.face_style}"></div>
+					<div id="first_${elt.pk}_${type}" class="produitImage droite" style="background-color: ${e.couleur_fond_image}; background-image: url('media/${e.face_style}')" src="media/${e.face_style}"></div>
 					<div class="produitImage droite" style="background-color: ${e.couleur_fond_image}; background-image: url('media/${e.dos_style}')" src="media/${e.dos_style}"></div>
 					<div class="produitImage droite" style="background-color: ${e.couleur_fond_image}; background-image: url('media/${e.gauche_style}')" src="media/${e.gauche_style}"></div>
 					<div class="produitImage droite" style="background-color: ${e.couleur_fond_image}; background-image: url('media/${e.droite_style}')" src="media/${e.droite_style}"></div>
@@ -169,7 +174,7 @@ $(function() {
 				</div>
 				<div class="col-xs-12">
 					<button class="fermer" style="margin-top: 10px;"><img style="height: 40px; width: auto;" src=${staticBackURL}></button>
-					<a href="TshirtDesigner/designer/${e.num}" style="margin-top: 10px;"><button>Customier ! <img style="height: 40px; width: auto;" src=${staticLogoURL}></button></a>
+					<a href="TshirtDesigner/designer/${elt.pk}" style="margin-top: 10px;"><button>Customier ! <img style="height: 40px; width: auto;" src=${staticLogoURL}></button></a>
 				</div>
 			</div>
 		`);
@@ -202,8 +207,8 @@ $(function() {
 				});
 				produitDetail.fadeOut(0);
 				$('.produit').fadeIn(400);
-				$(`#image_${e.num}_${type}`).fadeIn(0);
-				$(`#image_${e.num}_${type}`)[0].src = $(`#first_${e.num}_${type}`)[0].attributes.src.value;
+				$(`#image_${elt.pk}_${type}`).fadeIn(0);
+				$(`#image_${elt.pk}_${type}`)[0].src = $(`#first_${elt.pk}_${type}`)[0].attributes.src.value;
 			});
 		});
 		$('.modal').each(function() {
@@ -218,8 +223,8 @@ $(function() {
 					$(this).fadeOut(0);
 				});
 				$('.produit').fadeIn(0);
-				$(`#image_${e.num}_${type}`).fadeIn(0);
-				$(`#image_${e.num}_${type}`)[0].src = $(`#first_${e.num}_${type}`)[0].attributes.src.value;
+				$(`#image_${elt.pk}_${type}`).fadeIn(0);
+				$(`#image_${elt.pk}_${type}`)[0].src = $(`#first_${elt.pk}_${type}`)[0].attributes.src.value;
 			});
 		});
 	}
