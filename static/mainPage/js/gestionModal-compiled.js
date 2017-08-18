@@ -8,16 +8,10 @@ $(function () {
 	var staticPlayLogoURL = "/static/mainPage/image/icons8-Circled Play Filled-50.png";
 	var errorMessage = "<p>Sorry, something went wrong...</p>";
 	var csrftoken = getCookie('csrftoken');
-<<<<<<< HEAD
-<<<<<<< HEAD
 	var __DATA__ = {
 		'csrfmiddlewaretoken': csrftoken,
 		type: "POST"
 	};
-=======
->>>>>>> parent of e2988fa... re-init modal content on back button clik
-=======
->>>>>>> parent of e2988fa... re-init modal content on back button clik
 	//function to generate the crsf
 	function getCookie(name) {
 		var cookieValue = null;
@@ -52,6 +46,14 @@ $(function () {
 		return url == origin || url.slice(0, origin.length + 1) == origin + '/' || url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/' || !/^(\/\/|http:|https:).*/.test(url);
 	}
 
+	$(document).ajaxStart(function () {
+		//document.getElementById("loading").style.display = "flex";
+	});
+
+	$(document).ajaxStop(function () {
+		//document.getElementById("loading").style.display = "none";
+	});
+
 	$.ajaxSetup({
 		beforeSend: function beforeSend(xhr, settings) {
 			if (!csrfSafeMethod(settings.type) && sameOrigin(settings.url)) {
@@ -65,55 +67,16 @@ $(function () {
 
 	$('.categorie_achat').each(function () {
 		$(this).one("click", function () {
-<<<<<<< HEAD
-<<<<<<< HEAD
 			var modalBody = $(this.nextElementSibling.children[0].children[0].children[0].nextElementSibling.children[0].children[0]);
 			var categorie = $(this).attr('name');
 			var __URL__ = "achat/addLogo/" + categorie + "/";
 			$.get(__URL__, __DATA__, function (data) {
-=======
-=======
->>>>>>> parent of e2988fa... re-init modal content on back button clik
-			var categorie = $(this).attr('name');
-			var __URL__ = "achat/addLogo/" + categorie + "/";
-			var modalBody = this.nextElementSibling.children[0].children[0].children[0].nextElementSibling.children[0].children[0];
-			$.get(__URL__, { 'csrfmiddlewaretoken': csrftoken, type: "POST" }, function (data) {
-<<<<<<< HEAD
->>>>>>> parent of e2988fa... re-init modal content on back button clik
-=======
->>>>>>> parent of e2988fa... re-init modal content on back button clik
 				JSON.parse(data).filter(function (elt) {
 					return elt.fields.confirm;
 				}).forEach(function (elt) {
-					var e = elt.fields;
-<<<<<<< HEAD
-<<<<<<< HEAD
-					modalBody.append("\n\t\t\t\t\t<div class=\"col-" + e.taille + "-" + e.nombre_colonnes + " col-" + e.taille + "-offset-" + e.nombre_offset + " logo animation_ease-slow\" style=\"height: 250px; vertical-align:middle; line-height: 250px;\">\n\t\t\t\t\t\t<img src=\"/media/" + e.logo + "\" id=\"logo_" + elt.pk + "\" style=\"max-width: 100%; max-height: 100%;\">\n\t\t\t\t\t</div>\n\t\t\t\t\t");
-					$("#logo_" + elt.pk).one("click", function () {
-						console.log('click');
-						$(this.parentElement.parentElement).fadeOut(0);
-						var __URL2__ = "achat/addTextil/";
-						var type = "logo";
-						$.get(__URL2__, __DATA__, function (data) {
-							JSON.parse(data).filter(function (elt) {
-								return elt.fields.confirm;
-							}).forEach(function (elt) {
-								presentationTextil(modalBody, elt, logo);
-							});
-						}).fail(function () {
-							modalBody.append(errorMessage);
-						});
-=======
-=======
->>>>>>> parent of e2988fa... re-init modal content on back button clik
-					e.nom = e.nom.replace(/ /, "").replace(/'/, "");
-					$(modalBody).append("\n\t\t\t\t\t\t<div class=\"col-" + e.taille + "-" + e.nombre_colonnes + " col-" + e.taille + "-offset-" + e.nombre_offset + " logo animation_ease-slow\" style=\"height: 250px; vertical-align:middle; line-height: 250px;\">\n\t\t\t\t\t\t\t<img src=\"/media/" + e.logo + "\" id=\"logo_" + e.num + "\" style=\"max-width: 100%; max-height: 100%;\">\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t");
+					modalBody.append("\n\t\t\t\t\t<div class=\"col-" + e.taille + "-" + e.nombre_colonnes + " col-" + e.taille + "-offset-" + e.nombre_offset + " logo animation_ease-slow\" style=\"height: 250px; vertical-align:middle; line-height: 250px;\">\n\t\t\t\t\t\t<img src=\"/media/" + e.logo + "\" id=\"logo_" + e.num + "\" style=\"max-width: 100%; max-height: 100%;\">\n\t\t\t\t\t</div>\n\t\t\t\t\t");
 					$("#logo_" + e.num).one("click", function () {
 						presentationTextil(modalBody, e, 4);
-<<<<<<< HEAD
->>>>>>> parent of e2988fa... re-init modal content on back button clik
-=======
->>>>>>> parent of e2988fa... re-init modal content on back button clik
 					});
 				});
 			}).fail(function () {
@@ -134,30 +97,13 @@ $(function () {
 			var __URL__ = function (type) {
 				if (type == "categorie") return "achat/addTextilCategorie/" + id + "/";else if (type == "produit") return "achat/addTextilProduit/" + id + "/";
 			}(type);
-<<<<<<< HEAD
-<<<<<<< HEAD
 			$.get(__URL__, __DATA__, function (data) {
-=======
-			$.get(__URL__, { 'csrfmiddlewaretoken': csrftoken, type: "POST" }, function (data) {
->>>>>>> parent of e2988fa... re-init modal content on back button clik
-=======
-			$.get(__URL__, { 'csrfmiddlewaretoken': csrftoken, type: "POST" }, function (data) {
->>>>>>> parent of e2988fa... re-init modal content on back button clik
 				//on succes, show every element that we requested
 				JSON.parse(data).filter(function (elt) {
 					return elt.fields.confirm;
 				}).forEach(function (elt) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-					presentationTextil(modalBody, elt, type);
-=======
 					var e = elt.fields;
 					presentationTextil(modalBody, e, type);
->>>>>>> parent of e2988fa... re-init modal content on back button clik
-=======
-					var e = elt.fields;
-					presentationTextil(modalBody, e, type);
->>>>>>> parent of e2988fa... re-init modal content on back button clik
 				});
 			}).fail(function () {
 				//on fail, append a message error
@@ -166,64 +112,26 @@ $(function () {
 		});
 	});
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-	function presentationTextil(location, elt, type) {
-		var e = elt.fields;
-		//function that show up all the textil matching the user request (=> click on a categorie or produit)
-		location.append("\n\t\t\t<div class=\"produit animation_ease col-" + e.taille + "-offset-" + e.nombre_offset + " col-" + e.taille + "-" + e.nombre_colonnes + "\" style=\"display:block;border:" + e.type_contour + " " + e.epaisseur_contour + "px " + e.couleur_contour + ";border-radius:" + e.contour_arrondi + "px;color:" + e.couleur_text + ";background-color:" + e.couleur_fond + "\">\n\t\t\t\t<center>\n\t\t\t\t\t<h3 class=\"myfont\">" + e.nom + "</h3>\n\t\t\t\t\t<div class=\"text-center\">\n\t\t\t\t\t\t<a type=\"button\" style=\"cursor: pointer;\">\n\t\t\t\t\t\t\t<img class=\"resize_width adjust_height produitImage\" id=\"produitImage_" + elt.pk + "_" + type + "\" style=\"background-color:" + e.couleur_fond_image + "; border-radius:" + e.contour_arrondi_image + "px;height:400px;width:auto;cursor:pointer;\" src=\"media/" + e.face_style + "\">\n\t\t\t\t\t\t</a>\n\t\t\t\t\t</div>\n\t\t\t\t\t<br><br>\n\t\t\t\t\t<p class=\"myfont\">" + e.prix + "\u20AC</p>\n\t\t\t\t\t<p class=\"myfont\">" + e.text_description_short + "</p>\n\t\t\t\t</center>\n\t\t\t</div>\n\t\t");
-		$("#produitImage_" + elt.pk + "_" + type).one("click", function (event) {
-			//if this is the first titme the user click on a textil : we append the detail to the modal body
-			//and hide all the other textiles
-			presentationTextilDetail(elt, location, type);
-=======
-=======
->>>>>>> parent of e2988fa... re-init modal content on back button clik
 	function presentationTextil(location, e, type) {
 		//function that show up all the textil matching the user request (=> click on a categorie or produit)
-		location.append("\n\t\t\t<div class=\"produit animation_ease col-" + e.taille + "-offset-" + e.nombre_offset + " col-" + e.taille + "-" + e.nombre_colonnes + "\" style=\"display:block;border:" + e.type_contour + " " + e.epaisseur_contour + "px " + e.couleur_contour + ";border-radius:" + e.contour_arrondi + "px;color:" + e.couleur_text + ";background-color:" + e.couleur_fond + "\">\n\t\t\t\t<center>\n\t\t\t\t\t<h3 class=\"myfont\">" + e.nom + "</h3>\n\t\t\t\t\t<div class=\"text-center\">\n\t\t\t\t\t\t<a type=\"button\" style=\"cursor: pointer;\">\n\t\t\t\t\t\t\t<img class=\"resize_width adjust_height produitImage\" id=\"produitImage_" + e.num + "_" + type + "\" style=\"background-color:" + e.couleur_fond_image + "; border-radius:" + e.contour_arrondi_image + "px;height:400px;width:auto;cursor:pointer;\" src=\"media/" + e.face_style + "\">\n\t\t\t\t\t\t</a>\n\t\t\t\t\t</div>\n\t\t\t\t\t<br><br>\n\t\t\t\t\t<p class=\"myfont\">" + e.prix + "\u20AC</p>\n\t\t\t\t\t<p class=\"myfont\">" + e.text_description_short + "</p>\n\t\t\t\t</center>\n\t\t\t</div>\n\t\t\t");
+		location.append("\n\t\t\t<div class=\"produit animation_ease col-" + e.taille + "-offset-" + e.nombre_offset + " col-" + e.taille + "-" + e.nombre_colonnes + "\" style=\"display:block;border:" + e.type_contour + " " + e.epaisseur_contour + "px " + e.couleur_contour + ";border-radius:" + e.contour_arrondi + "px;color:" + e.couleur_text + ";background-color:" + e.couleur_fond + "\">\n\t\t\t\t<center>\n\t\t\t\t\t<h3 class=\"myfont\">" + e.nom + "</h3>\n\t\t\t\t\t<div class=\"text-center\">\n\t\t\t\t\t\t<a type=\"button\" style=\"cursor: pointer;\">\n\t\t\t\t\t\t\t<img class=\"resize_width adjust_height produitImage\" id=\"produitImage_" + e.num + "_" + type + "\" style=\"background-color:" + e.couleur_fond_image + "; border-radius:" + e.contour_arrondi_image + "px;height:400px;width:auto;cursor:pointer;\" src=\"media/" + e.face_style + "\">\n\t\t\t\t\t\t</a>\n\t\t\t\t\t</div>\n\t\t\t\t\t<br><br>\n\t\t\t\t\t<p class=\"myfont\">" + e.prix + "\u20AC</p>\n\t\t\t\t\t<p class=\"myfont\">" + e.text_description_short + "</p>\n\t\t\t\t</center>\n\t\t\t</div>\n\t\t");
 		$("#produitImage_" + e.num + "_" + type).one("click", function (event) {
 			//if this is the first titme the user click on a textil : we append the detail to the modal body
 			//and hide all the other textiles
 			presentationTextilDetail($(this), e, location, type);
-<<<<<<< HEAD
->>>>>>> parent of e2988fa... re-init modal content on back button clik
-=======
->>>>>>> parent of e2988fa... re-init modal content on back button clik
 			location.children('.produit').fadeOut(0);
 			//then we attach an event for the next time the user might want to see any detail of this specific
 			//textile
 			$(this).click(function () {
 				$('.produit').fadeOut(0);
-<<<<<<< HEAD
-<<<<<<< HEAD
-				$("#produitDetail_" + elt.pk + "_" + type).fadeIn(0);
-=======
 				$("#produitDetail_" + e.num + "_" + type).fadeIn(0);
->>>>>>> parent of e2988fa... re-init modal content on back button clik
-=======
-				$("#produitDetail_" + e.num + "_" + type).fadeIn(0);
->>>>>>> parent of e2988fa... re-init modal content on back button clik
 			});
 		});
 	}
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-	function presentationTextilDetail(elt, location, type) {
-		var e = elt.fields;
-		//function that show all the detail of one specific textile
-		location.append("\n\t\t\t<div class=\"produitDetail\" id=\"produitDetail_" + elt.pk + "_" + type + "\">\n\t\t\t\t<p class=\"myfont-lg\">" + e.text_description_short + " : " + e.prix + "\u20AC</p>\n\t\t\t\t<div class=\"col-xs-10\" style=\"border: solid 1px gray; border-radius: 10px 0 0 10px;\">\n\t\t\t\t\t<img id=\"image_" + elt.pk + "_" + type + "\" class=\"produitImage droite\" style=\"height :600px; width: auto;background-color: " + e.couleur_fond_image + ";\" src=\"media/" + e.face_style + "\">\n\t\t\t\t\t<div style=\"padding : 100px 0 100px 0; display : none;overflow: scroll;\">\n\t\t\t\t\t\t<video controls poster=\"media/" + e.face_style + "\" height=\"395\" width=\"auto\">\n\t\t\t\t\t\t\t<source src=\"media/" + e.video_mp4 + "\">\n\t\t\t\t\t\t\t<source src=\"media/" + e.video_webm + "\">\n\t\t\t\t\t\t\tCette video n'est pas support\xE9e sur votre navigateur...\n\t\t\t\t\t\t</video>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"col-xs-2\" style=\"border: solid 1px gray; border-radius:0 10px 10px 0;\">\n\t\t\t\t\t<div id=\"first_" + elt.pk + "_" + type + "\" class=\"produitImage droite\" style=\"background-color: " + e.couleur_fond_image + "; background-image: url('media/" + e.face_style + "')\" src=\"media/" + e.face_style + "\"></div>\n\t\t\t\t\t<div class=\"produitImage droite\" style=\"background-color: " + e.couleur_fond_image + "; background-image: url('media/" + e.dos_style + "')\" src=\"media/" + e.dos_style + "\"></div>\n\t\t\t\t\t<div class=\"produitImage droite\" style=\"background-color: " + e.couleur_fond_image + "; background-image: url('media/" + e.gauche_style + "')\" src=\"media/" + e.gauche_style + "\"></div>\n\t\t\t\t\t<div class=\"produitImage droite\" style=\"background-color: " + e.couleur_fond_image + "; background-image: url('media/" + e.droite_style + "')\" src=\"media/" + e.droite_style + "\"></div>\n\t\t\t\t\t<div class=\"produitImage droite video\" style=\"background-color: " + e.couleur_fond_image + "; background-image: url('media/" + e.face_style + "')\" src=\"media/" + e.face_style + "\"><img src=\"" + staticPlayLogoURL + "\" style=\"padding-top: 25px;\"></div>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"col-xs-12\">\n\t\t\t\t\t<button class=\"fermer\" style=\"margin-top: 10px;\"><img style=\"height: 40px; width: auto;\" src=" + staticBackURL + "></button>\n\t\t\t\t\t<a href=\"TshirtDesigner/designer/" + elt.pk + "\" style=\"margin-top: 10px;\"><button>Customier ! <img style=\"height: 40px; width: auto;\" src=" + staticLogoURL + "></button></a>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t");
-=======
 	function presentationTextilDetail(elt, e, location, type) {
 		//function that show all the detail of one specific textile
-		location.append("\n\t\t\t<div class=\"produitDetail\" id=\"produitDetail_" + e.num + "_" + type + "\">\n\t\t\t\t<p class=\"myfont-lg\">" + e.text_description_short + " : " + e.prix + "\u20AC</p>\n\t\t\t\t<div class=\"col-xs-10\" style=\"border: solid 1px gray; border-radius: 10px 0 0 10px;\">\n\t\t\t\t\t<img id=\"image_" + e.num + "_" + type + "\" class=\"produitImage droite\" style=\"height :600px; width: auto;background-color: " + e.couleur_fond_image + ";\" src=\"media/" + e.face_style + "\">\n\t\t\t\t\t<div style=\"padding : 100px 0 100px 0; display : none;overflow: scroll;\">\n\t\t\t\t\t\t<video controls poster=\"media/" + e.face_style + "\" height=\"395\" width=\"auto\">\n\t\t\t\t\t\t\t<source src=\"media/" + e.video_mp4 + "\">\n\t\t\t\t\t\t\t<source src=\"media/" + e.video_webm + "\">\n\t\t\t\t\t\t\tCette video n'est pas support\xE9e sur votre navigateur...\n\t\t\t\t\t\t</video>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"col-xs-2\" style=\"border: solid 1px gray; border-radius:0 10px 10px 0;\">\n\t\t\t\t\t<div id=\"first_" + e.num + "_" + type + "\" class=\"produitImage droite\" style=\"background-color: " + e.couleur_fond_image + "; background-image: url('media/" + e.face_style + "')\" src=\"media/" + e.face_style + "\"></div>\n\t\t\t\t\t<div class=\"produitImage droite\" style=\"background-color: " + e.couleur_fond_image + "; background-image: url('media/" + e.dos_style + "')\" src=\"media/" + e.dos_style + "\"></div>\n\t\t\t\t\t<div class=\"produitImage droite\" style=\"background-color: " + e.couleur_fond_image + "; background-image: url('media/" + e.gauche_style + "')\" src=\"media/" + e.gauche_style + "\"></div>\n\t\t\t\t\t<div class=\"produitImage droite\" style=\"background-color: " + e.couleur_fond_image + "; background-image: url('media/" + e.droite_style + "')\" src=\"media/" + e.droite_style + "\"></div>\n\t\t\t\t\t<div class=\"produitImage droite video\" style=\"background-color: " + e.couleur_fond_image + "; background-image: url('media/" + e.face_style + "')\" src=\"media/" + e.face_style + "\"><img src=\"" + staticPlayLogoURL + "\" style=\"padding-top: 25px;\"></div>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"col-xs-12\">\n\t\t\t\t\t<button class=\"fermer\" style=\"margin-top: 10px;\"><img style=\"height: 40px; width: auto;\" src=" + staticBackURL + "></button>\n\t\t\t\t\t<a href=\"TshirtDesigner/designer/" + e.num + "\" style=\"margin-top: 10px;\"><button>Customier ! <img style=\"height: 40px; width: auto;\" src=" + staticLogoURL + "></button></a>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t");
->>>>>>> parent of e2988fa... re-init modal content on back button clik
-=======
-	function presentationTextilDetail(elt, e, location, type) {
-		//function that show all the detail of one specific textile
-		location.append("\n\t\t\t<div class=\"produitDetail\" id=\"produitDetail_" + e.num + "_" + type + "\">\n\t\t\t\t<p class=\"myfont-lg\">" + e.text_description_short + " : " + e.prix + "\u20AC</p>\n\t\t\t\t<div class=\"col-xs-10\" style=\"border: solid 1px gray; border-radius: 10px 0 0 10px;\">\n\t\t\t\t\t<img id=\"image_" + e.num + "_" + type + "\" class=\"produitImage droite\" style=\"height :600px; width: auto;background-color: " + e.couleur_fond_image + ";\" src=\"media/" + e.face_style + "\">\n\t\t\t\t\t<div style=\"padding : 100px 0 100px 0; display : none;overflow: scroll;\">\n\t\t\t\t\t\t<video controls poster=\"media/" + e.face_style + "\" height=\"395\" width=\"auto\">\n\t\t\t\t\t\t\t<source src=\"media/" + e.video_mp4 + "\">\n\t\t\t\t\t\t\t<source src=\"media/" + e.video_webm + "\">\n\t\t\t\t\t\t\tCette video n'est pas support\xE9e sur votre navigateur...\n\t\t\t\t\t\t</video>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"col-xs-2\" style=\"border: solid 1px gray; border-radius:0 10px 10px 0;\">\n\t\t\t\t\t<div id=\"first_" + e.num + "_" + type + "\" class=\"produitImage droite\" style=\"background-color: " + e.couleur_fond_image + "; background-image: url('media/" + e.face_style + "')\" src=\"media/" + e.face_style + "\"></div>\n\t\t\t\t\t<div class=\"produitImage droite\" style=\"background-color: " + e.couleur_fond_image + "; background-image: url('media/" + e.dos_style + "')\" src=\"media/" + e.dos_style + "\"></div>\n\t\t\t\t\t<div class=\"produitImage droite\" style=\"background-color: " + e.couleur_fond_image + "; background-image: url('media/" + e.gauche_style + "')\" src=\"media/" + e.gauche_style + "\"></div>\n\t\t\t\t\t<div class=\"produitImage droite\" style=\"background-color: " + e.couleur_fond_image + "; background-image: url('media/" + e.droite_style + "')\" src=\"media/" + e.droite_style + "\"></div>\n\t\t\t\t\t<div class=\"produitImage droite video\" style=\"background-color: " + e.couleur_fond_image + "; background-image: url('media/" + e.face_style + "')\" src=\"media/" + e.face_style + "\"><img src=\"" + staticPlayLogoURL + "\" style=\"padding-top: 25px;\"></div>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"col-xs-12\">\n\t\t\t\t\t<button class=\"fermer\" style=\"margin-top: 10px;\"><img style=\"height: 40px; width: auto;\" src=" + staticBackURL + "></button>\n\t\t\t\t\t<a href=\"TshirtDesigner/designer/" + e.num + "\" style=\"margin-top: 10px;\"><button>Customier ! <img style=\"height: 40px; width: auto;\" src=" + staticLogoURL + "></button></a>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t");
->>>>>>> parent of e2988fa... re-init modal content on back button clik
+		location.append("\n\t\t\t<div class=\"produitDetail\" id=\"produitDetail_" + e.num + "_" + type + "\">\n\t\t\t\t<p class=\"myfont-lg\">" + e.text_description_short + " : " + e.prix + "\u20AC</p>\n\t\t\t\t<div class=\"col-xs-10\" style=\"border: solid 1px gray; border-radius: 10px 0 0 10px;\">\n\t\t\t\t\t<img id=\"image_" + e.num + "_" + type + "\" class=\"produitImage droite\" style=\"height :600px; width: auto;background-color: " + e.couleur_fond_image + ";\" src=\"media/" + e.face_style + "\">\n\t\t\t\t\t<div style=\"padding : 100px 0 100px 0; display : none;overflow: scroll;\">\n\t\t\t\t\t\t<video controls poster=\"media/" + e.face_style + "\" height=\"395\" width=\"auto\">\n\t\t\t\t\t\t\t<source src=\"media/" + e.video_mp4 + "\">\n\t\t\t\t\t\t\t<source src=\"media/" + e.video_webm + "\">\n\t\t\t\t\t\t\tCette video n'est pas support\xE9e sur votre navigateur...\n\t\t\t\t\t\t</video>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"col-xs-2\" style=\"border: solid 1px gray; border-radius:0 10px 10px 0;\">\n\t\t\t\t\t<div id=\"first_" + e.num + "_" + type + "\" class=\"produitImage droite\" style=\"background-color: " + e.couleur_fond_image + "; background-image: url('media/" + e.face_style + "')\" src=\"media/" + e.face_style + "\"></div>\n\t\t\t\t\t<div class=\"produitImage droite\" style=\"background-color: " + e.couleur_fond_image + "; background-image: url('media/" + e.dos_style + "')\" src=\"media/" + e.dos_style + "\"></div>\n\t\t\t\t\t<div class=\"produitImage droite\" style=\"background-color: " + e.couleur_fond_image + "; background-image: url('media/" + e.gauche_style + "')\" src=\"media/" + e.gauche_style + "\"></div>\n\t\t\t\t\t<div class=\"produitImage droite\" style=\"background-color: " + e.couleur_fond_image + "; background-image: url('media/" + e.droite_style + "')\" src=\"media/" + e.droite_style + "\"></div>\n\t\t\t\t\t<div class=\"produitImage droite video\" style=\"background-color: " + e.couleur_fond_image + "; background-image: url('media/" + e.face_style + "')\" src=\"media/" + e.face_style + "\"><img src=\"" + staticPlayLogoURL + "\" style=\"padding-top: 25px;\"></div>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"col-xs-12\">\n\t\t\t\t\t<button class=\"fermer\" style=\"margin-top: 10px;\"><img style=\"height: 40px; width: auto;\" src=" + staticBackURL + "></button>\n\t\t\t\t\t<a href=\"TshirtDesigner/designer/" + e.num + "\" style=\"margin-top: 10px;\"><button>Customier ! <img style=\"height: 40px; width: auto;\" src=" + staticLogoURL + "></button></a>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t");
 		//we then attach some event to manage the user's click to go back to the proposition, change the cureent dislayed 
 		//image, display the video
 		$('.droite').each(function () {
@@ -246,8 +154,6 @@ $(function () {
 		});
 		$('.fermer').each(function () {
 			$(this).click(function () {
-<<<<<<< HEAD
-<<<<<<< HEAD
 				var produitDetail = $(this.parentElement.parentElement);
 				produitDetail.find('video').each(function () {
 					this.pause();
@@ -257,16 +163,8 @@ $(function () {
 				});
 				produitDetail.fadeOut(0);
 				$('.produit').fadeIn(400);
-				$("#image_" + elt.pk + "_" + type).fadeIn(0);
-				$("#image_" + elt.pk + "_" + type)[0].src = $("#first_" + elt.pk + "_" + type)[0].attributes.src.value;
-=======
-				$(this.parentElement.parentElement).fadeOut(0);
-				$('.produit').fadeIn(400);
->>>>>>> parent of e2988fa... re-init modal content on back button clik
-=======
-				$(this.parentElement.parentElement).fadeOut(0);
-				$('.produit').fadeIn(400);
->>>>>>> parent of e2988fa... re-init modal content on back button clik
+				$("#image_" + e.num + "_" + type).fadeIn(0);
+				$("#image_" + e.num + "_" + type)[0].src = $("#first_" + e.num + "_" + type)[0].attributes.src.value;
 			});
 		});
 		$('.modal').each(function () {
@@ -281,18 +179,8 @@ $(function () {
 					$(this).fadeOut(0);
 				});
 				$('.produit').fadeIn(0);
-<<<<<<< HEAD
-<<<<<<< HEAD
-				$("#image_" + elt.pk + "_" + type).fadeIn(0);
-				$("#image_" + elt.pk + "_" + type)[0].src = $("#first_" + elt.pk + "_" + type)[0].attributes.src.value;
-=======
 				$("#image_" + e.num + "_" + type).fadeIn(0);
 				$("#image_" + e.num + "_" + type)[0].src = $("#first_" + e.num + "_" + type)[0].attributes.src.value;
->>>>>>> parent of e2988fa... re-init modal content on back button clik
-=======
-				$("#image_" + e.num + "_" + type).fadeIn(0);
-				$("#image_" + e.num + "_" + type)[0].src = $("#first_" + e.num + "_" + type)[0].attributes.src.value;
->>>>>>> parent of e2988fa... re-init modal content on back button clik
 			});
 		});
 	}
