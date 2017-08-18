@@ -6,10 +6,6 @@ $(function() {
 	const staticPlayLogoURL = "/static/mainPage/image/icons8-Circled Play Filled-50.png";
 	const errorMessage = "<p>Sorry, something went wrong...</p>";
 	const csrftoken = getCookie('csrftoken');
-	const __DATA__ = {
-		'csrfmiddlewaretoken': csrftoken,
-		type: "POST",
-	};
 	//function to generate the crsf
 	function getCookie(name) {
 		let cookieValue = null;
@@ -28,21 +24,21 @@ $(function() {
 	}
 
 	function csrfSafeMethod(method) {
-		// these HTTP methods do not require CSRF protection
-		return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+	    // these HTTP methods do not require CSRF protection
+	    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
 	}
 
 	function sameOrigin(url) {
-		// test that a given url is a same-origin URL
-		// url could be relative or scheme relative or absolute
-		const host = document.location.host; // host + port
-		const protocol = document.location.protocol;
-		const sr_origin = '//' + host;
-		const origin = protocol + sr_origin;
-		// Allow absolute or scheme relative URLs to same origin or any other URL that isn't scheme relative or absolute i.e relative.
-		return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
-			(url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
-			!(/^(\/\/|http:|https:).*/.test(url));
+	    // test that a given url is a same-origin URL
+	    // url could be relative or scheme relative or absolute
+	    const host = document.location.host; // host + port
+	    const protocol = document.location.protocol;
+	    const sr_origin = '//' + host;
+	    const origin = protocol + sr_origin;
+	    // Allow absolute or scheme relative URLs to same origin or any other URL that isn't scheme relative or absolute i.e relative.
+	    return 	(url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+	    (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+	    !(/^(\/\/|http:|https:).*/.test(url));
 	}
 
 	$.ajaxSetup({
@@ -56,14 +52,16 @@ $(function() {
 		}
 	});
 
-	$('.categorie_achat').each(function() {
-		$(this).one("click", function() {
-			const modalBody = $(this.nextElementSibling.children[0].children[0].children[0].nextElementSibling.children[0].children[0]);
+	$('.categorie_achat').each(function(){
+		$(this).one("click",function(){
 			const categorie = $(this).attr('name');
 			const __URL__ = `achat/addLogo/${categorie}/`;
-			$.get(__URL__, __DATA__, data => {
+			const modalBody = this.nextElementSibling.children[0].children[0].children[0].nextElementSibling.children[0].children[0];
+			$.get(__URL__, {'csrfmiddlewaretoken' : csrftoken, type : "POST" }, data => {
 				JSON.parse(data).filter(elt => elt.fields.confirm).forEach(elt => {
 					const e = elt.fields;
+<<<<<<< HEAD
+<<<<<<< HEAD
 					modalBody.append(`
 					<div class="col-${e.taille}-${e.nombre_colonnes} col-${e.taille}-offset-${e.nombre_offset} logo animation_ease-slow" style="height: 250px; vertical-align:middle; line-height: 250px;">
 						<img src="/media/${e.logo}" id="logo_${elt.pk}" style="max-width: 100%; max-height: 100%;">
@@ -82,6 +80,18 @@ $(function() {
 						.fail(() => {
 							modalBody.append(errorMessage);
 						});
+=======
+=======
+>>>>>>> parent of e2988fa... re-init modal content on back button clik
+					e.nom = e.nom.replace(/ /, "").replace(/'/,"");
+					$(modalBody).append(`
+						<div class="col-${e.taille}-${e.nombre_colonnes} col-${e.taille}-offset-${e.nombre_offset} logo animation_ease-slow" style="height: 250px; vertical-align:middle; line-height: 250px;">
+							<img src="/media/${e.logo}" id="logo_${e.num}" style="max-width: 100%; max-height: 100%;">
+						</div>
+						`);
+					$(`#logo_${e.num}`).one("click", function(){
+						presentationTextil(modalBody, e, 4);
+>>>>>>> parent of e2988fa... re-init modal content on back button clik
 					});
 				});
 			})
@@ -101,10 +111,10 @@ $(function() {
 			const id = attr.split("_")[1];
 			//redirect to the corresponding url to match ether categorie or produit textile
 			const __URL__ = (type => {
-				if (type == "categorie") return `achat/addTextilCategorie/${id}/`;
-				else if (type == "produit") return `achat/addTextilProduit/${id}/`;
+				if(type == "categorie") return `achat/addTextilCategorie/${id}/`;
+				else if(type == "produit") return `achat/addTextilProduit/${id}/`;
 			})(type);
-			$.get(__URL__, __DATA__, data => {
+			$.get(__URL__, {'csrfmiddlewaretoken' : csrftoken, type : "POST" }, data => {
 				//on succes, show every element that we requested
 				JSON.parse(data).filter(elt => elt.fields.confirm).forEach(elt => {
 					presentationTextil(modalBody, elt, type);
@@ -117,8 +127,16 @@ $(function() {
 		});
 	});
 
+<<<<<<< HEAD
+<<<<<<< HEAD
 	function presentationTextil(location, elt, type) {
 		const e = elt.fields;
+=======
+	function presentationTextil(location, e, type){
+>>>>>>> parent of e2988fa... re-init modal content on back button clik
+=======
+	function presentationTextil(location, e, type){
+>>>>>>> parent of e2988fa... re-init modal content on back button clik
 		//function that show up all the textil matching the user request (=> click on a categorie or produit)
 		location.append(`
 			<div class="produit animation_ease col-${e.taille}-offset-${e.nombre_offset} col-${e.taille}-${e.nombre_colonnes}" style="display:block;border:${e.type_contour} ${e.epaisseur_contour}px ${e.couleur_contour};border-radius:${e.contour_arrondi}px;color:${e.couleur_text};background-color:${e.couleur_fond}">
@@ -134,23 +152,41 @@ $(function() {
 					<p class="myfont">${e.text_description_short}</p>
 				</center>
 			</div>
+<<<<<<< HEAD
+<<<<<<< HEAD
 		`);
 		$(`#produitImage_${elt.pk}_${type}`).one("click", function(event) {
+=======
+			`);
+		$(`#produitImage_${e.num}_${type}`).one("click",function(event){
+>>>>>>> parent of e2988fa... re-init modal content on back button clik
+=======
+			`);
+		$(`#produitImage_${e.num}_${type}`).one("click",function(event){
+>>>>>>> parent of e2988fa... re-init modal content on back button clik
 			//if this is the first titme the user click on a textil : we append the detail to the modal body
 			//and hide all the other textiles
 			presentationTextilDetail(elt, location, type);
 			location.children('.produit').fadeOut(0);
 			//then we attach an event for the next time the user might want to see any detail of this specific
 			//textile
-			$(this).click(function() {
+			$(this).click(function(){
 				$('.produit').fadeOut(0);
 				$(`#produitDetail_${elt.pk}_${type}`).fadeIn(0);
 			});
 		});
 	}
 
+<<<<<<< HEAD
+<<<<<<< HEAD
 	function presentationTextilDetail(elt, location, type) {
 		const e = elt.fields;
+=======
+	function presentationTextilDetail(elt, e, location, type){
+>>>>>>> parent of e2988fa... re-init modal content on back button clik
+=======
+	function presentationTextilDetail(elt, e, location, type){
+>>>>>>> parent of e2988fa... re-init modal content on back button clik
 		//function that show all the detail of one specific textile
 		location.append(`
 			<div class="produitDetail" id="produitDetail_${elt.pk}_${type}">
@@ -177,14 +213,14 @@ $(function() {
 					<a href="TshirtDesigner/designer/${elt.pk}" style="margin-top: 10px;"><button>Customier ! <img style="height: 40px; width: auto;" src=${staticLogoURL}></button></a>
 				</div>
 			</div>
-		`);
+			`);
 		//we then attach some event to manage the user's click to go back to the proposition, change the cureent dislayed 
 		//image, display the video
-		$('.droite').each(function() {
-			$(this).click(function() {
+		$('.droite').each(function(){
+			$(this).click(function(){
 				let elt = $(this.parentElement.previousElementSibling.children)[0];
 				let video = $(this.parentElement.previousElementSibling.children)[1];
-				if ($(this).hasClass('video')) {
+				if($(this).hasClass('video')){
 					$(elt).fadeOut(0);
 					$(video).fadeIn(400);
 				} else {
@@ -196,30 +232,29 @@ $(function() {
 				}
 			});
 		});
-		$('.fermer').each(function() {
+		$('.fermer').each(function(){
 			$(this).click(function() {
-				const produitDetail = $(this.parentElement.parentElement);
-				produitDetail.find('video').each(function() {
-					this.pause();
-					this.currentTime = 0;
-					this.load();
-					$(this.parentElement).fadeOut(0);
-				});
-				produitDetail.fadeOut(0);
+				$(this.parentElement.parentElement).fadeOut(0);
 				$('.produit').fadeIn(400);
+<<<<<<< HEAD
+<<<<<<< HEAD
 				$(`#image_${elt.pk}_${type}`).fadeIn(0);
 				$(`#image_${elt.pk}_${type}`)[0].src = $(`#first_${elt.pk}_${type}`)[0].attributes.src.value;
+=======
+>>>>>>> parent of e2988fa... re-init modal content on back button clik
+=======
+>>>>>>> parent of e2988fa... re-init modal content on back button clik
 			});
 		});
-		$('.modal').each(function() {
-			$(this).on('hidden.bs.modal', function() {
-				$(this).find('video').each(function() {
+		$('.modal').each(function(){
+			$(this).on('hidden.bs.modal', function(){
+				$(this).find('video').each(function(){
 					this.pause();
 					this.currentTime = 0;
 					this.load();
 					$(this.parentElement).fadeOut(0);
 				});
-				$('.produitDetail').each(function() {
+				$('.produitDetail').each(function(){
 					$(this).fadeOut(0);
 				});
 				$('.produit').fadeIn(0);
