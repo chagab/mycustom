@@ -1,5 +1,40 @@
-.sprites {
-	background: url(sprites.png) no-repeat;
+.Paypal-icon ,
+.facebook ,
+.icons8-Back-26 ,
+.icons8-CircledPlayFilled-50 ,
+.icons8-DoubleDownFilled-50 ,
+.icons8-Pinterest-26 ,
+.instagram ,
+.logo_my_custom_police ,
+.logomycustombyNFblanc ,
+.master-card-icon ,
+.twitter ,
+.visa {
+	background: url(mainPage/image/sprite/sprites.png) no-repeat;
+}
+
+
+.logo_my_custom_police ,
+.icons8-DoubleDownFilled-50 {
+	-webkit-filter: invert(100%);
+	-moz-filter: invert(100%);
+	-o-filter: invert(100%);
+	-ms-filter: invert(100%);
+	filter: invert(100%);
+}
+
+.facebook ,
+.twitter ,
+.instagram ,
+.icons8-Pinterest-26 ,
+.Paypal-icon ,
+.master-card-icon ,
+.visa {
+	-webkit-filter: invert(70%);
+	-moz-filter: invert(70%);
+	-o-filter: invert(70%);
+	-ms-filter: invert(70%);
+	filter: invert(70%);
 }
 
 .Paypal-icon {
@@ -45,8 +80,8 @@
 }
 
 .logo_my_custom_police {
-	width: 162px;
-	height: 50px;
+	width: 162px!important;
+	height: 50px!important;
 	background-position: 0 0;
 }
 

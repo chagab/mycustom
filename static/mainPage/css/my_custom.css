@@ -948,7 +948,7 @@ body.modal-open .wrap {
 }
 @font-face {
   font-family: 'CaviarDreams';
-  src: url('/font/Caviar-Dreams/web_fonts/caviardreams_regular_macroman/CaviarDreams-webfont.eot') format('eot'), url('/font/Caviar-Dreams/web_fonts/caviardreams_regular_macroman/CaviarDreams-webfont.ttf') format('truetype'), url('/font/Caviar-Dreams/web_fonts/caviardreams_regular_macroman/CaviarDreams-webfont.svg') format('svg'), url('/font/Caviar-Dreams/web_fonts/caviardreams_regular_macroman/CaviarDreams-webfont.woff') format('woff');
+  src: url('font/Caviar-Dreams/web_fonts/caviardreams_regular_macroman/CaviarDreams-webfont.eot') format('eot'), url('font/Caviar-Dreams/web_fonts/caviardreams_regular_macroman/CaviarDreams-webfont.ttf') format('truetype'), url('font/Caviar-Dreams/web_fonts/caviardreams_regular_macroman/CaviarDreams-webfont.svg') format('svg'), url('font/Caviar-Dreams/web_fonts/caviardreams_regular_macroman/CaviarDreams-webfont.woff') format('woff');
 }
 
 .gal-container {

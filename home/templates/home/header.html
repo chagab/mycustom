@@ -12,14 +12,7 @@
 		{% for page in page_accueil_from_view %}
 			<link rel="icon" type="image/png" href="{{ page.logo.url }}"/>
 		{% endfor %}
-		<!--<link rel="stylesheet" type="text/css" href="{% static 'lib/bootstrap/css/bootstrap.min.css' %}">
-		<link rel="stylesheet" type="text/css" href="{% static 'lib/animates.min.css' %}">
-		<link rel="stylesheet" type="text/css" href="{% static 'mainPage/css/my_custom.min.css' %}">-->
-		<link rel="stylesheet" type="text/css" href="{% static 'my_custom.min.css' %}">
-		<!--<script type="text/javascript" src="{% static 'lib/polyfill.min.js' %}"></script>
-		<script type="text/javascript" src="{% static 'lib/jquery.min.js' %}"></script>
-		<script type="text/javascript" src="{% static 'lib/bootstrap/js/bootstrap.min.js' %}"></script>-->
-		<script type="text/javascript" src="{% static 'my_custom.min.js' %}"></script>
+		{% block scriptMenu %}{% endblock %}
 	</head>
 	<body id="haut">
 		{% block menu %}{% endblock %}
@@ -32,7 +25,6 @@
 		{% block element %}{% endblock %}
 		{% block compte %}{% endblock %}
 		{% block designer %}{% endblock %}
-		{% block scriptMenu %}{% endblock %}
 		{% block ListProduit %}{% endblock %}
 		{% block ListLogo %}{% endblock %}
 	</body>
