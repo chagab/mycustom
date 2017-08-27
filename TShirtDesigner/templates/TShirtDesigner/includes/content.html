@@ -1,8 +1,8 @@
 {% load staticfiles %}
-<div id="conteneur" style="display: block;margin: auto; min-height: 800px;
-  /*background-image: url({% static 'TShirtDesigner/image/Beautiful-Sunset-Landscape-Full-HD-Wallpapers.jpg' %}); background-size: cover;*/">
+<div id="conteneur" style="display: block;margin: auto; min-height: 800px;">
   {% for fond in fond_from_view %}
     <div id="fond_id" style="display: none;">{{ fond }}</div>
+    <link type="text/css" rel="stylesheet" href="{% static 'my_custom.min.css' %}">
     <link type="text/css" rel="stylesheet" href="{% static 'TshirtDesigner/css/designer.css' %}">
     <script type="text/javascript" src="{% static 'lib/p5.js' %}"></script>
     <script type="text/javascript" src="{% static 'lib/p5.dom.js' %}"></script>
@@ -20,7 +20,7 @@
     </center>
     <!--||||||||||||||||||||||||||||||||élément visible dès le début||||||||||||||||||||||||||||||||-->
     <div style="display: inline-block;" id="buttonNb">
-      <button title="choisir le nombre et la taille" class="parametre" style="background-image: url({% static 'TShirtDesigner/image/icons8-Panier chargé-64.png' %});"></button>
+      <button title="choisir le nombre et la taille" class="parametre" style="background-image: url({% static 'TShirtDesigner/image/icons8-Paniercharge-64.png' %});"></button>
     </div><br>
     <div style="display: inline-block;" id="buttonProduit">
       <button title="choisir un produit" class="parametre" style="background-image: url({% static 'TShirtDesigner/image/icons8-Clothes.png' %});"></button>
@@ -29,7 +29,7 @@
       <button title="trouver un design" class="parametre" style="background-image: url({% static 'TShirtDesigner/image/icons8-Fantasy.png' %});"></button>
     </div><br>
     <div style="display: inline-block;display:table;" id="buttonImage">
-      <label for="file-input" class="input-label" onchange="onFileSelected(event)"><img title="télécharger une image" src="{% static 'TShirtDesigner/image/icons8-Image File.png' %}" class="parametre"><input type="file" id="file-input"></label>
+      <label for="file-input" class="input-label" onchange="onFileSelected(event)"><img title="télécharger une image" src="{% static 'TShirtDesigner/image/icons8-ImageFile.png' %}" class="parametre"><input type="file" id="file-input"></label>
     </div><br>
     <div style="display: inline-block;" id="buttonText">
       <button title="ajouter un texte" class="parametre" style="background-image: url({% static 'TShirtDesigner/image/icons8-Pencil.png' %});"></button>
@@ -72,7 +72,7 @@
         <br>
         <center>
           <button class="parametre" id="choixDesign" style=" width: 50px; height: 50px; background-image: url({% static 'TShirtDesigner/image/icons8-Fantasy.png' %}); margin-right: 20px;" title="Choix du design"></button>
-          <button class="parametre" id="choixParametreDesign" style=" width: 50px; height: 50px; background-image: url({% static 'TShirtDesigner/image/icons8-Paramètres-64.png' %}); margin-right: 20px;" title="Paramètres du design"></button>
+          <button class="parametre" id="choixParametreDesign" style=" width: 50px; height: 50px; background-image: url({% static 'TShirtDesigner/image/icons8-Parametres-64.png' %}); margin-right: 20px;" title="Paramètres du design"></button>
           <button class="parametre" id="choixCouleurDesign" style=" width: 50px; height: 50px; background-image: url({% static 'TShirtDesigner/image/icons8-Brosse-64.png' %});" title="couleurs du design"></button>
         </center>
         <br>
@@ -80,7 +80,6 @@
       <div id="choisiDesign" class="modal-body" style="display: block;">
         <center>
           {% for logo in achatLogo_from_view %}
-            <!--<object type="image" onclick="gotfile(this)" style="width: 200px; height: auto;" data="/{{ logo.logo.url }}"></object>-->
             <img onclick="gotfile(this)" style="width: 200px; height: auto;" src="/{{ logo.logo.url }} ">
           {% endfor %}
         </center>
@@ -90,36 +89,36 @@
           <br>
           <p>Customisez des paramètres précis de votre design :</p>
           <img src="{% static 'TShirtDesigner/image/icons8-Grille-50.png' %}"><input style="width: 30px;" id="quadrillage" type="checkbox">
-          <img src="{% static 'TShirtDesigner/image/icons8-Ratio d&#39;aspect-50.png' %}" title="conserver le ratio"><input style="width: 30px;" id="ratio" type="checkbox" checked="checked">
+          <img src="{% static 'TShirtDesigner/image/icons8-Ratiod.png' %}" title="conserver le ratio"><input style="width: 30px;" id="ratio" type="checkbox" checked="checked">
         </center>
         <table>
           <tr>
-            <td><img src="{% static 'TShirtDesigner/image/icons8-Zoom taille réelle-50.png' %}" title="taille du design"></td>
+            <td><img src="{% static 'TShirtDesigner/image/icons8-Zoomtaillereelle-50.png' %}" title="Taille du design"></td>
             <td><input id="tailleImage" type="range" defaultValue="1" step="0.01" min="0" max="2"/></td>
             <td class="indicator"><input style="margin-left: 15px; " type="number" name=""></td>
           </tr>
           <tr>
-            <td><img src="{% static 'TShirtDesigner/image/icons8-Largeur-50.png' %}" title="ajuster la largeur"></td>
+            <td><img src="{% static 'TShirtDesigner/image/icons8-Largeur-50.png' %}" title="Ajuster la largeur"></td>
             <td><input id="largeurImage" type="range" min="0" max="1000"/></td>
             <td class="indicator"><input style="margin-left: 15px; " type="number" id="largeurImageSetting"></td>
           </tr>
           <tr>
-            <td><img src="{% static 'TShirtDesigner/image/icons8-Hauteur Filled-50.png' %}" title="ajuster la hauteur"></td>
+            <td><img src="{% static 'TShirtDesigner/image/icons8-HauteurFilled-50.png' %}" title="Ajuster la hauteur"></td>
             <td><input id="hauteurImage" type="range" min="0" max="1000"/></td>
             <td class="indicator"><input style="margin-left: 15px; " type="number" id="hauteurImageSetting"></td>
           </tr>
           <tr>
-            <td><img src="{% static 'TShirtDesigner/image/icons8-Rotate Left-64.png' %}" title="rotation du design"></td>
+            <td><img src="{% static 'TShirtDesigner/image/circular-arrow-counterclockwise-rotating-symbol_icon-icons.png' %}" title="Rotation du design"></td>
             <td><input id="orientationImage" type="range" value="0" min="0" max="360" defaultValue="0"/></td>
             <td class="indicator"><input style="margin-left: 15px; " type="number" name=""></td>
           </tr>
           <tr>
-            <td><img src="{% static 'TShirtDesigner/image/icons8-Coordonnée X-50.png' %}" title="taille du design"></td>
+            <td><img src="{% static 'TShirtDesigner/image/icons8-CoordonneX-50.png' %}" title="Coordonnée X"></td>
             <td><input id="xImage" type="range" min="-1000" max="1000"/></td>
             <td class="indicator"><input style="margin-left: 15px; " type="number" id="xImageSetting"></td>
           </tr>
           <tr>
-            <td><img src="{% static 'TShirtDesigner/image/icons8-Y Coordinate-50.png' %}" title="taille du design"></td>
+            <td><img src="{% static 'TShirtDesigner/image/icons8-YCoordinate-50.png' %}" title="Coordonnée Y"></td>
             <td><input id="yImage" type="range" min="-1000" max="1000"/></td>
             <td class="indicator"><input style="margin-left: 15px; " type="number" id="yImageSetting"></td>
           </tr>
@@ -172,7 +171,7 @@
           <br>
           <center>
             <button class="parametre" id="choixTexte" style=" width: 50px; height: 50px; background-image: url({% static 'TShirtDesigner/image/icons8-Pencil.png' %}); margin-right: 20px;" title="Choix du texte"></button>
-            <button class="parametre" id="choixParametreTexte" style=" width: 50px; height: 50px; background-image: url({% static 'TShirtDesigner/image/icons8-Paramètres-64.png' %}); margin-right: 20px;" title="Paramètres du texte"></button>
+            <button class="parametre" id="choixParametreTexte" style=" width: 50px; height: 50px; background-image: url({% static 'TShirtDesigner/image/icons8-Parametres-64.png' %}); margin-right: 20px;" title="Paramètres du texte"></button>
             <button class="parametre" id="choixCouleurTexte" style=" width: 50px; height: 50px; background-image: url({% static 'TShirtDesigner/image/icons8-Brosse-64.png' %}); margin-right: 20px;" title="Couleur du texte"></button>
           </center>
           <br>
@@ -248,20 +247,20 @@
                 <td class="indicator"><input style="margin-left: 15px; " type="number" id="hauteurTexteSetting"></td>
               </tr>
               <tr>
-                <td><img src="{% static 'TShirtDesigner/image/icons8-Rotate Left-64.png' %}" title="rotation du design"></td>
+                <td><img src="{% static 'TShirtDesigner/image/circular-arrow-counterclockwise-rotating-symbol_icon-icons.png' %}" title="Rotation du texte"></td>
                 <td><input id="orientationTexte" type="range" value="0" min="0" max="360" defaultValue="0"/></td>
                 <td class="indicator"><input style="margin-left: 15px; " type="number" name=""></td>
               </tr>
               <tr>
                 <td>
-                  <img src="{% static 'TShirtDesigner/image/icons8-Coordonnée X-50.png' %}" title="taille du design">
+                  <img src="{% static 'TShirtDesigner/image/icons8-CoordonneX-50.png' %}" title="Coordonnée X">
                 </td>
                 <td><input id="xTexte" type="range" min="-1000" max="1000"/></td>
                 <td class="indicator"><input style="margin-left: 15px; " type="number" id="xTexteSetting"></td>
               </tr>
               <tr>
                 <td>
-                  <img src="{% static 'TShirtDesigner/image/icons8-Y Coordinate-50.png' %}" title="taille du design">
+                  <img src="{% static 'TShirtDesigner/image/icons8-YCoordinate-50.png' %}" title="Coordonnée Y">
                 </td>
                 <td><input id="yTexte" type="range" min="-1000" max="1000"/></td>
                 <td class="indicator"><input style="margin-left: 15px; " type="number" id="yTexteSetting"></td>
@@ -329,7 +328,7 @@
             <br>
             <button style="padding: 15px; background-color: rgb(26,124,249); border-radius: 5px; color : white; font-size: 50px;">
               <b>COMMANDER !
-                <img style="filter: invert(100%);" src="{% static 'TShirtDesigner/image/icons8-Avion en papier-50.png' %}"></b>
+                <img style="filter: invert(100%);" src="{% static 'TShirtDesigner/image/icons8-Avionenpapier-50.png' %}"></b>
             </button>
           </center>
         </div>

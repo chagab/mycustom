@@ -29,7 +29,7 @@
 		{% block ListLogo %}{% endblock %}
 	</body>
 	<style type="text/css">
-		#loading, .Loading {
+		#loading {
 			width: 100%;
 			height: 100%;
 			top: 0;
@@ -40,15 +40,20 @@
 			justify-content:center opacity: 1;
 			background-color: #fff;
 			z-index: 9999;
+	        -webkit-transform: scale(1.2, 1.2);
+	        -moz-transform: scale(1.2, 1.2);
+	        -o-transform: scale(1.2, 1.2);
+	        -ms-transform: scale(1.2, 1.2);
+	        transform: scale(1.2, 1.2);
 		}
-		#loading-image, .Loading-image {
+		#loading-image {
 			position: relative;
 			margin: auto;
 			z-index: 10000;
 		}
 	</style>
 	<div id="loading">
-		
+		<div id="loading-image" class="animated infinite tada logomycustombyNFblanc"></div>
 	</div>
 	<script language="javascript" type="text/javascript">
 		window.onload = function () {

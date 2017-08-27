@@ -76,7 +76,7 @@ $(function() {
 						const type = "logo";
 						$.get(__URL2__, __DATA__, data => {
 							JSON.parse(data).filter(elt => elt.fields.confirm).forEach(elt =>{
-								presentationTextil(modalBody, elt, logo);
+								presentationTextil(modalBody, elt, type);
 							});
 						})
 						.fail(() => {
@@ -174,7 +174,7 @@ $(function() {
 				</div>
 				<div class="col-xs-12">
 					<button class="fermer" style="margin-top: 10px;"><img style="height: 40px; width: auto;" src=${staticBackURL}></button>
-					<a href="TshirtDesigner/designer/${elt.pk}" style="margin-top: 10px;"><button>Customier ! <img style="height: 40px; width: auto;" src=${staticLogoURL}></button></a>
+					<a href="TshirtDesigner/designer/${e.num}" style="margin-top: 10px;"><button>Customiser ! <img style="height: 40px; width: auto;" src=${staticLogoURL}></button></a>
 				</div>
 			</div>
 		`);
