@@ -41,7 +41,7 @@ def de_confirm(modeladmin, request, queryset):
 	queryset.update(confirm=False)
 
 class ProduitAdmin(admin.ModelAdmin):
-	list_display = ('nom', 'date', 'confirm', 'taille', 'nombre_colonnes', 'presentation')
+	list_display = ('nom', 'prix','date', 'taille', 'nombre_colonnes', 'presentation', 'confirm')
 	list_filter   = ('confirm',)
 	ordering = ('date',)
 	search_fields = ('nom',)
@@ -74,11 +74,10 @@ class ProduitAdmin(admin.ModelAdmin):
 		else :
 			pass
 		return text
-
 	presentation.shor_description = u'Aperçu du contenu'
 
 class LogoAdmin(admin.ModelAdmin):
-	list_display = ('nom', 'categorie' ,'date', 'confirm',)
+	list_display = ('nom', 'prix', 'categorie' ,'date', 'confirm',)
 	list_filter   = ('confirm', 'categorie')
 	ordering = ('date',)
 	search_fields = ('nom',)
@@ -102,6 +101,7 @@ class LogoAdmin(admin.ModelAdmin):
 	 	column_11,
 	 	column_12,
 	 ]
+
 
 class CategorieAdmin(admin.ModelAdmin) :
 		list_display = ('nom' ,'date', 'taille', 'nombre_colonnes' ,'confirm',)

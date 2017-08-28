@@ -1,4 +1,9 @@
 {% extends "home/header.html" %}
+{% block scriptMenu %}
+{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'my_custom.min.css' %}">
+	<script type="text/javascript" src="{% static 'my_custom.min.js' %}"></script>
+{% endblock %}
 {% block menu %}
 	{% include "achetez/includes/menu.html" %}
 {% endblock %}
