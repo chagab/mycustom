@@ -3,6 +3,8 @@ from __future__ import unicode_literals
 from django.db import models
 from cutsomise.models import customiseCategorie, customiseProduit
 from django.views.generic import ListView
+from django.db.models import Q
+from django.shortcuts import get_list_or_404, get_object_or_404
 
 COLUMN_CHOICES  = (
 	('0', '0'),
@@ -78,8 +80,8 @@ class Produit(models.Model):
 	epaisseur_contour     = models.PositiveSmallIntegerField(default=0)
 
 	class Meta:
-		verbose_name = "produits de l'onglet Achetez"
-		verbose_name_plural = "produits de l'onglet Achetez"
+		verbose_name = "Textile"
+		verbose_name_plural = "Textiles"
 
 	def __str__(self):
 		return self.nom
@@ -93,10 +95,43 @@ class ListProduit(ListView):
 	template_name = "achetez/Produit.html"
 	paginate_by = 5
 
+
+	def get_queryset(self, **kwargs) :
+		search_param = self.request.GET['search_param']
+		search_key = self.request.GET['search_key']
+		
+		def date(search_key) :
+			return Produit.objects.all().filter(date = search_key)
+
+		
+		def prix(search_key) :
+			return Produit.objects.all().filter(prix = search_key)
+
+		
+		def categorie(search_key) :
+			categorie  = get_object_or_404(customiseCategorie, nom = search_key)
+			return get_object_or_404(Produit, categorie = categorie)
+
+		def default() :
+			return Produit.objects.all()
+
+		switch = {
+		'prix' : prix,
+		'date' : date,
+		'categorie' : categorie,
+		'default' : default,
+		}
+
+		if search_key == "" :
+			return switch["default"]()
+		else :
+			return get_list_or_404(switch[search_param](search_key))
+
 class AchatLogo(models.Model):
 	nom                    = models.CharField(max_length=140)
 	logo                   = models.ImageField(upload_to="achetez/logo/")
 	date                   = models.DateField()
+	prix                   = models.DecimalField(max_digits=20, decimal_places=2)
 	text_description_short = models.CharField(max_length=140)
 	couleur_text           = models.CharField(max_length=7,default='black')
 	categorie              = models.ForeignKey('AchatCategorie')
@@ -107,8 +142,8 @@ class AchatLogo(models.Model):
 	confirm                = models.BooleanField()
 
 	class Meta:
-		verbose_name = "logo de l'onglet Achetez"
-		verbose_name_plural = "logos de l'onglet Achetez"
+		verbose_name = "Logo"
+		verbose_name_plural = "Logos"
 
 	def __str__(self):
 		return self.nom
@@ -121,6 +156,42 @@ class ListLogo(ListView):
 	context_object_name = "list_logo"
 	template_name = "achetez/AchatLogo.html"
 	paginate_by = 9
+
+	def get_queryset(self, **kwargs) :
+
+		print('\n\n')
+		print(self.request.GET)
+		print('\n\n')
+
+		search_param = self.request.GET['search_param']
+		search_key = self.request.GET['search_key']
+		
+		def date(search_key) :
+			return AchatLogo.objects.all().filter(date = search_key)
+
+		
+		def prix(search_key) :
+			return AchatLogo.objects.all().filter(prix = search_key)
+
+		
+		def categorie(search_key) :
+			categorie  = get_object_or_404(customiseCategorie, nom = search_key)
+			return get_object_or_404(AchatLogo, categorie = categorie)
+
+		def default() :
+			return AchatLogo.objects.all()
+
+		switch = {
+		'prix' : prix,
+		'date' : date,
+		'categorie' : categorie,
+		'default' : default,
+		}
+
+		if search_key == "" :
+			return switch["default"]()
+		else :
+			return get_list_or_404(switch[search_param](search_key))
 
 
 class AchatCategorie(models.Model):
