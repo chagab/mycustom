@@ -50,7 +50,6 @@ def addTextil(request) :
 def addLogo(request, getter) :
 	""" Vue qui envoit les données nécéssaires pour ajouter un logo
 	dans la rubrique ACHAT de la page principale """
-	print(getter)
 	logoCategorie = AchatCategorie.objects.get(id = getter)
 	logos = AchatLogo.objects.all().filter(categorie = logoCategorie)
 	json_models = serializers.serialize("json", logos)

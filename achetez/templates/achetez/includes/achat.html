@@ -14,7 +14,7 @@
   <br>
   <div class="container">
     <p class="container myfont-lg">Consectetur beatae autem corporis magni consectetur commodi tempora minima. Corrupti necessitatibus libero ut labore. Sit explicabo quaerat optio architecto.Dolorum qui molestiae facere omnis quo totam mollitia tempora.
-    Velit molestiae vitae nemo occaecati.</p>
+      Velit molestiae vitae nemo occaecati.</p>
   </div>
   <br><br><br><br>
   <div class="container">
@@ -24,10 +24,11 @@
         class="wrap col-{{ categorie.taille }}-{{ categorie.nombre_colonnes }} col-{{ categorie.taille }}-offset-{{ categorie.nombre_offset }} collapsed categorie_achat animation_ease-fast animation_scale_up-small"
         role="button"
         data-toggle="modal"
-        data-target="#achat_categorie_{{ categorie.id }}" name="{{ categorie.id }}">
+        data-target="#achat_categorie_{{ categorie.id }}"
+        name="{{ categorie.id }}">
         <center>
-        <b class="myfont" style="color : {{categorie.couleur_titre }} ;">{{ categorie.titre }}
-        </b>
+          <b class="myfont" style="color : {{categorie.couleur_titre }} ;">{{ categorie.titre }}
+          </b>
         </center>
       </a>
       <div class="modal fade" id="achat_categorie_{{ categorie.id }}" tabindex="-1" role="dialog">
@@ -35,26 +36,28 @@
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
+                <span aria-hidden="true">&times;</span>
               </button>
               <center>
-              <h2 class="myfont-llg">
-              {{ categorie.titre }}</h2>
+                <h2 class="myfont-llg">
+                  {{ categorie.titre }}</h2>
               </center>
             </div>
             <div class="modal-body col-xs-12" style="overflow: hidden;">
               <div class="propositionLogo" style="display: block;" name="{{ categorie }}">
                 <center>
-                <!-- here come the ajax load of logo -->
+                  <!-- here come the ajax load of logo -->
                 </center>
               </div>
               <div class="propositionTextile" style="display: none;">
                 <center>
-                <p class="myfont-llg">Choisissez votre textil</p>
+                  <p class="myfont-llg">Choisissez votre textil</p>
                 </center>
                 <div class="col-xs-12">
                   <center>
-                  <button class="fermerLogo" onclick="revenir(this)" style="margin-top: 10px;"><div class="icons8-Back-26"></div></button>
+                    <button class="fermerLogo" onclick="revenir(this)" style="margin-top: 10px;">
+                      <div class="icons8-Back-26"></div>
+                    </button>
                   </center>
                 </div>
               </div>
@@ -79,32 +82,35 @@
 <br>
 <br>
 <div class="container">
-<form method="GET" action="{% url 'searchLogo' %}" >
-  {% csrf_token %}
-  <div class="row">
-    <div class="col-xs-8 col-xs-offset-2">
-      <div class="input-group">
-        <div class="input-group-btn search-panel">
-          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" style="border-bottom-left-radius: 15px; border-top-left-radius: 15px; height: 33px;">
-          <span id="search_concept" class="myfont">Filtrer par</span>
-          <span class="caret"></span>
-          </button>
-          <div class="dropdown-menu" role="menu">
-            <p class="myfont" style="padding-left: 5px;" ><input style="width: auto;" type="checkbox" name="search_param" value="date"> Date</p>
-            <p class="myfont" style="padding-left: 5px;" ><input style="width: auto;" type="checkbox" name="search_param" value="prix"> Prix</p>
-            <p class="myfont" style="padding-left: 5px;" ><input style="width: auto;" type="checkbox" name="search_param" value="categorie"> Catégorie</p>
+  <form method="GET" action="{% url 'searchLogo' %}">
+    {% csrf_token %}
+    <div class="row">
+      <div class="col-xs-8 col-xs-offset-2">
+        <div class="input-group">
+          <div class="input-group-btn search-panel">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" style="border-bottom-left-radius: 15px; border-top-left-radius: 15px; height: 33px;">
+              <span id="search_concept" class="myfont">Filtrer par</span>
+              <span class="caret"></span>
+            </button>
+            <div class="dropdown-menu" role="menu">
+              <p class="myfont" style="padding-left: 5px;"><input style="width: auto;" type="checkbox" name="search_param" value="date">
+                Date</p>
+              <p class="myfont" style="padding-left: 5px;"><input style="width: auto;" type="checkbox" name="search_param" value="prix">
+                Prix</p>
+              <p class="myfont" style="padding-left: 5px;"><input style="width: auto;" type="checkbox" name="search_param" value="categorie">
+                Catégorie</p>
+            </div>
           </div>
-        </div>
-        <input type="text" class="form-control myfont" name="search_key" placeholder="Entrez un mot clé ..." style="height: 33px;">
-        <span class="input-group-btn">
-          <span class="btn btn-default" style="height: 33px; color : black ; border-bottom-right-radius: 15px; border-top-right-radius: 15px;">
-            <span style="padding-right: 10px;" class="glyphicon glyphicon-search"></span>
-            <input type="submit" value="Chercher !" class="myfont" style="border: 0px; background-color: white;">
+          <input type="text" class="form-control myfont" name="search_key" placeholder="Entrez un mot clé ..." style="height: 33px;">
+          <span class="input-group-btn">
+            <span class="btn btn-default" style="height: 33px; color : black ; border-bottom-right-radius: 15px; border-top-right-radius: 15px;">
+              <span style="padding-right: 10px;" class="glyphicon glyphicon-search"></span>
+              <input type="submit" value="Chercher !" class="myfont" style="border: 0px; background-color: white;">
+            </span>
           </span>
-        </span>
+        </div>
       </div>
     </div>
-  </div>
-</form>
+  </form>
 </div>
 </center>

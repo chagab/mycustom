@@ -1,6 +1,6 @@
 {% extends "home/header.html" %}
 {% block scriptMenu %}
-{% load static %}
+	{% load static %}
 	<link rel="stylesheet" type="text/css" href="{% static 'my_custom.min.css' %}">
 	<script type="text/javascript" src="{% static 'my_custom.min.js' %}"></script>
 {% endblock %}
@@ -14,91 +14,101 @@
 	<br>
 	<div style="display: block;margin: auto; min-height: 800px; overflow: scroll;">
 		<center>
-		<br>
-		<h1 class="myfont-llg">Résultats de votre recherche</h1>
-		<br>
-		{% for produit in list_produit %}
-			<div class="col-md-3">
-				<img src="/{{ produit.face_style.url }}" data-toggle="modal" data-target="#produit_{{ produit.id }}" style="height:400px;width:auto;cursor:pointer;">
-			</div>
-			<div class="modal fade" id="produit_{{ produit.id }}" tabindex="-1" role="dialog" aria-hidden="true">
-				<div class="modal-dialog modal-lg">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-							</button>
-							<h2 class="modal-title" id="testLabel">{{ produit.nom }}</h2>
-						</div>
-						<div class="modal-body">
-							<div class="produitDetail" id="produitDetail_{{produit.nom}}">
-								<p class="myfont-lg">{{produit.text_description_short}} : {{produit.prix}}€</p>
-								<div class="col-xs-10" style="border: solid 1px gray; border-radius: 10px 0 0 10px; background-color: white;">
-									<img class="produitImage droite" style="height :600px; width: auto;background-color: {{produit.couleur_fond_image}};" src="/{{produit.face_style.url}}">
-									<div style="padding : 100px 0 100px 0; display : none; overflow: scroll;">
-										<video controls poster="/{{produit.face_style.url}}" height="395" width="auto">
-											<source src="/media/{{produit.video_mp4}}">
-											<source src="/media/{{produit.video_webm}}">
-											Cette video n'est pas supportée sur votre navigateur...
-										</video>
+			<br>
+			<h1 class="myfont-llg">Résultats de votre recherche</h1>
+			<br>
+			{% for produit in list_produit %}
+				<div class="col-md-3">
+					<img src="/{{ produit.face_style.url }}" data-toggle="modal" data-target="#produit_{{ produit.id }}" style="height:400px;width:auto;cursor:pointer;">
+				</div>
+				<div class="modal fade" id="produit_{{ produit.id }}" tabindex="-1" role="dialog" aria-hidden="true">
+					<div class="modal-dialog modal-lg">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+								<h2 class="modal-title" id="testLabel">{{ produit.nom }}</h2>
+							</div>
+							<div class="modal-body">
+								<div class="produitDetail" id="produitDetail_{{produit.nom}}">
+									<p class="myfont-lg">{{produit.text_description_short}}
+										:
+										{{produit.prix}}€</p>
+									<div class="col-xs-10" style="border: solid 1px gray; border-radius: 10px 0 0 10px; background-color: white;">
+										<img class="produitImage droite" style="height :600px; width: auto;background-color: {{produit.couleur_fond_image}};" src="/{{produit.face_style.url}}">
+										<div style="padding : 100px 0 100px 0; display : none; overflow: scroll;">
+											<video controls poster="/{{produit.face_style.url}}" height="395" width="auto">
+												<source src="/media/{{produit.video_mp4}}">
+												<source src="/media/{{produit.video_webm}}">
+												Cette video n'est pas supportée sur votre navigateur...
+											</video>
+										</div>
+									</div>
+									<div class="col-xs-2" style="border: solid 1px gray; border-radius:0 10px 10px 0; background-color: white;">
+										<div class="produitImage droite" style="background-color: {{produit.couleur_fond_image}}; background-image: url('/{{produit.face_style.url}}');" src="/{{produit.face_style.url}}"></div>
+										<div class="produitImage droite" style="background-color: {{produit.couleur_fond_image}}; background-image: url('/{{produit.dos_style.url}}');" src="/{{produit.dos_style.url}}"></div>
+										<div class="produitImage droite" style="background-color: {{produit.couleur_fond_image}}; background-image: url('/{{produit.gauche_style.url}}');" src="/{{produit.gauche_style.url}}"></div>
+										<div class="produitImage droite" style="background-color: {{produit.couleur_fond_image}}; background-image: url('/{{produit.droite_style.url}}');" src="/{{produit.droite_style.url}}"></div>
+										<div class="produitImage droite video" style="background-color: {{produit.couleur_fond_image}};background-image: url('/{{ produit.face_style.url }}');"><img src="{% static 'mainPage/image/icons8-Circled Play Filled-50.png' %}" style="padding-top: 25px;"></div>
+									</div>
+									<div class="col-xs-12">
+										<br><br>
+										<a href="/TshirtDesigner/designer/{{ produit.num }}" style="margin-top: 10px;" class="myfont">
+											<button>Customiser !
+												<img style="height: 40px; width: auto;" src="{% static 'mainPage/image/logo my custom by NF blanc.png' %}">
+											</button>
+										</a>
 									</div>
 								</div>
-								<div class="col-xs-2" style="border: solid 1px gray; border-radius:0 10px 10px 0; background-color: white;">
-									<div class="produitImage droite" style="background-color: {{produit.couleur_fond_image}}; background-image: url('/{{produit.face_style.url}}');" src="/{{produit.face_style.url}}"></div>
-									<div class="produitImage droite" style="background-color: {{produit.couleur_fond_image}}; background-image: url('/{{produit.dos_style.url}}');" src="/{{produit.dos_style.url}}"></div>
-									<div class="produitImage droite" style="background-color: {{produit.couleur_fond_image}}; background-image: url('/{{produit.gauche_style.url}}');" src="/{{produit.gauche_style.url}}"></div>
-									<div class="produitImage droite" style="background-color: {{produit.couleur_fond_image}}; background-image: url('/{{produit.droite_style.url}}');" src="/{{produit.droite_style.url}}"></div>
-									<div class="produitImage droite video" style="background-color: {{produit.couleur_fond_image}};background-image: url('/{{ produit.face_style.url }}');"></div>
-								</div>
-								<div class="col-xs-12">
-									<br><br>
-									<a href="/TshirtDesigner/designer/{{ produit.num }}" style="margin-top: 10px;" class="myfont"><button>Customier !</button></a>
-								</div>
 							</div>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-default myfont" data-dismiss="modal">Fermer</button>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default myfont" data-dismiss="modal">Fermer</button>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			{% empty %}
-			<p class="myfont">Votre recherche n'a donné aucun résultat<p>
-			{% endfor %}
-			<script type="text/javascript">
-				$('.droite').each(function () {
-					$(this).click(function () {
-						var _this = this;
-						var elt = $(this.parentElement.previousElementSibling.children)[0];
-						var srcInitial = elt.src;
-						var video = $(this.parentElement.previousElementSibling.children)[1];
-						if ($(this).hasClass('video')) {
-							$(elt).fadeOut(0);
-							$(video).fadeIn(400);
-						} else {
-							$(elt).fadeTo(100, 0, function () {
-								$(video).hide();
-								elt.src = _this.attributes.src.value;
-								$(elt).fadeTo(100, 1);
+				{% empty %}
+				<p class="myfont">Votre recherche n'a donné aucun résultat<p>
+					{% endfor %}
+					<script type="text/javascript">
+						$('.droite').each(function () {
+							$(this).mouseenter(function () {
+								var _this = this;
+								var elt = $(this.parentElement.previousElementSibling.children)[0];
+								var srcInitial = elt.src;
+								var video = $(this.parentElement.previousElementSibling.children)[1];
+								if ($(this).hasClass('video')) {
+									$(elt).fadeOut(0);
+									$(video).fadeIn(400);
+								} else {
+									var videoElt = $(video).children()[0];
+									videoElt.pause();
+									videoElt.currentTime = 0;
+									videoElt.load();
+									$(elt).fadeTo(100, 0, function () {
+										$(video).hide();
+										elt.src = _this.attributes.src.value;
+										$(elt).fadeTo(100, 1);
+									});
+								}
 							});
-						}
-					});
-				});
-			$('.modal').each(function(){
-				$(this).on('hidden.bs.modal', function(){
-					const video = $(this).find('video')[0];
-					video.pause();
-					video.currentTime = 0;
-					video.load();
-			 		$('.produit').show();
-			 		$(this).find('img.droite.produitImage')[0].src = $(this).find('div.droite.produitImage')[0].attributes.src.value;
-				});
-			});
-			</script>
-			</center>
-			{% include "achetez/includes/pagination.html" %}
-		</div>
-	{% endblock %}
-	{% block footer %}
-		{% include "home/includes/footer.html" %}
-	{% endblock %}
+						});
+						$('.modal').each(function () {
+							$(this).on('hidden.bs.modal', function () {
+								const video = $(this).find('video')[0];
+								video.pause();
+								video.currentTime = 0;
+								video.load();
+								$('.produit').show();
+								$(this).find('img.droite.produitImage')[0].src = $(this).find('div.droite.produitImage')[0].attributes.src.value;
+							});
+						});
+					</script>
+				</center>
+				{% include "achetez/includes/pagination.html" %}
+			</div>
+		{% endblock %}
+		{% block footer %}
+			{% include "home/includes/footer.html" %}
+		{% endblock %}

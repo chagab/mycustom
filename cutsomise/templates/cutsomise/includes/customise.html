@@ -1,40 +1,71 @@
 {% load staticfiles %}
 <div id="customize" class="space_section">
 	<center>
-	{% for onglet in customiseOnglet_from_view %}
-		{% if onglet.confirm %}
-			<div class="col-xs-12 space_section-lg fond" style="color: {{ onglet.couleur_titre }}; background-image: url({{ onglet.image_titre.url }}); ">
-				<div class="container">
-					<h2>{{ onglet.titre }}</h2>
+		{% for onglet in customiseOnglet_from_view %}
+			{% if onglet.confirm %}
+				<div class="col-xs-12 space_section-lg fond" style="color: {{ onglet.couleur_titre }}; background-image: url({{ onglet.image_titre.url }}); ">
+					<div class="container">
+						<h2>{{ onglet.titre }}</h2>
+					</div>
+				</div>
+			{% endif %}
+		{% endfor %}
+		<div class="container">
+			<p class="container myfont-lg">Consectetur beatae autem corporis magni consectetur commodi tempora minima. Corrupti necessitatibus libero ut labore. Sit explicabo quaerat optio architecto.Dolorum qui molestiae facere omnis quo totam mollitia tempora.
+				Velit molestiae vitae nemo occaecati.</p>
+			<div class="col-md-6 myfont" style="box-shadow: 0px 5px 10px;">
+				<h3>Catégories</h3>
+				<div id='categorie_container'>
+					<div class="panel-group" id="accordion_2" role="tablist" aria-multiselectable="true">
+						{% for categorie in customise_categorie_from_view %}
+							{% if categorie.confirm %}
+								<div class="panel panel-default">
+									<div role="button" data-toggle="modal" data-parent="#accordion_2" data-target="#test_{{ categorie.id }}" class="categorie animation_ease-slow" style="background-image: url({{ categorie.image.url }});" id="categorie_{{categorie.id}}">
+										<b>{{ categorie.nom }}
+										</b>
+									</div>
+									<div class="modal fade bs-example-modal-lg" id="test_{{ categorie.id }}" tabindex="-1" role="dialog" aria-labelledby="testLabel">
+										<div class="modal-dialog modal-lg" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+													<h2 class="modal-title" id="testLabel">{{ categorie.nom }}</h2>
+												</div>
+												<div class="modal-body" style="overflow: scroll;"></div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							{% endif %}
+						{% endfor %}
+					</div>
 				</div>
 			</div>
-		{% endif %}
-	{% endfor %}
-	<div class="container">
-		<p class="container myfont-lg">Consectetur beatae autem corporis magni consectetur commodi tempora minima. Corrupti necessitatibus libero ut labore. Sit explicabo quaerat optio architecto.Dolorum qui molestiae facere omnis quo totam mollitia tempora.
-		Velit molestiae vitae nemo occaecati.</p>
-		<div class="col-md-6 myfont" style="box-shadow: 0px 5px 10px;">
-			<h3>Catégories</h3>
-			<div id='categorie_container'>
-				<div class="panel-group" id="accordion_2" role="tablist" aria-multiselectable="true">
-					{% for categorie in customise_categorie_from_view %}
-						{% if categorie.confirm %}
+			<div class="col-md-6 myfont" style="box-shadow: 0px 5px 10px;">
+				<h3>Produits</h3>
+				<div style="overflow: scroll; height: 750px;">
+					{% for produit in customise_produit_from_view %}
+						{% if produit.confirm %}
 							<div class="panel panel-default">
-								<div role="button" data-toggle="modal" data-parent="#accordion_2" data-target="#test_{{ categorie.id }}" class="categorie animation_ease-slow" style="background-image: url({{ categorie.image.url }});" id="categorie_{{categorie.id}}">
-									<b>{{ categorie.nom }}
+								<div role="button" data-toggle="modal" data-parent="#accordion_2" data-target="#test_{{ produit.id }}" class="categorie animation_ease-slow" style="background-image: url({{ produit.image.url }});" id="produit_{{ produit.id }}">
+									<b>{{ produit.nom }}
 									</b>
 								</div>
-								<div class="modal fade bs-example-modal-lg" id="test_{{ categorie.id }}" tabindex="-1" role="dialog" aria-labelledby="testLabel">
+								<div class="modal fade bs-example-modal-lg" id="test_{{ produit.id }}" tabindex="-1" role="dialog" aria-labelledby="testLabel">
 									<div class="modal-dialog modal-lg" role="document">
 										<div class="modal-content">
 											<div class="modal-header">
 												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-												<span aria-hidden="true">&times;</span>
+													<span aria-hidden="true">&times;</span>
 												</button>
-												<h2 class="modal-title" id="testLabel">{{ categorie.nom }}</h2>
+												<h2 class="modal-title" id="testLabel">{{ produit.nom }}</h2>
 											</div>
-											<div class="modal-body" style="overflow: scroll;">
-											</div>
+											<div class="modal-body" style="overflow: hidden;"></div>
 											<div class="modal-footer">
 												<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
 											</div>
@@ -47,77 +78,47 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-md-6 myfont" style="box-shadow: 0px 5px 10px;">
-			<h3>Produits</h3>
-			<div style="overflow: scroll; height: 750px;">
-				{% for produit in customise_produit_from_view %}
-					{% if produit.confirm %}
-						<div class="panel panel-default">
-							<div role="button" data-toggle="modal" data-parent="#accordion_2" data-target="#test_{{ produit.id }}" class="categorie animation_ease-slow" style="background-image: url({{ produit.image.url }});" id="produit_{{ produit.id }}">
-								<b>{{ produit.nom }}
-								</b>
-							</div>
-							<div class="modal fade bs-example-modal-lg" id="test_{{ produit.id }}" tabindex="-1" role="dialog" aria-labelledby="testLabel">
-								<div class="modal-dialog modal-lg" role="document">
-									<div class="modal-content">
-										<div class="modal-header">
-											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-											<span aria-hidden="true">&times;</span>
-											</button>
-											<h2 class="modal-title" id="testLabel">{{ produit.nom }}</h2>
-										</div>
-										<div class="modal-body" style="overflow: hidden;">
-										</div>
-										<div class="modal-footer">
-											<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					{% endif %}
-				{% endfor %}
-			</div>
-		</div>
-	</div>
 	</center>
 </div>
 <br>
 <br>
 <br>
 <center>
-<h2 class="myfont-llg">Vous cherchez un textil en particulier ?
-</h2>
-<br>
-<br>
-<br>
-<div class="container">
-	<form method="GET" action="{% url 'searchTextil' %}" >
-	{% csrf_token %}
-	<div class="row">
-		<div class="col-xs-8 col-xs-offset-2">
-			<div class="input-group">
-					<div class="input-group-btn search-panel">
-						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" style="border-bottom-left-radius: 15px; border-top-left-radius: 15px; height: 33px;">
-						<span id="search_concept" class="myfont">Filtrer par</span>
-						<span class="caret"></span>
-						</button>
-						<div class="dropdown-menu" role="menu">
-							<p class="myfont" style="padding-left: 5px;" ><input style="width: auto;" type="checkbox" name="search_param" value="date"> Date</p>
-							<p class="myfont" style="padding-left: 5px;" ><input style="width: auto;" type="checkbox" name="search_param" value="prix"> Prix</p>
-							<p class="myfont" style="padding-left: 5px;" ><input style="width: auto;" type="checkbox" name="search_param" value="categorie"> Catégorie</p>
+	<h2 class="myfont-llg">Vous cherchez un textil en particulier ?
+	</h2>
+	<br>
+	<br>
+	<br>
+	<div class="container">
+		<form method="GET" action="{% url 'searchTextil' %}">
+			{% csrf_token %}
+			<div class="row">
+				<div class="col-xs-8 col-xs-offset-2">
+					<div class="input-group">
+						<div class="input-group-btn search-panel">
+							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" style="border-bottom-left-radius: 15px; border-top-left-radius: 15px; height: 33px;">
+								<span id="search_concept" class="myfont">Filtrer par</span>
+								<span class="caret"></span>
+							</button>
+							<div class="dropdown-menu" role="menu">
+								<p class="myfont" style="padding-left: 5px;"><input style="width: auto;" type="checkbox" name="search_param" value="date">
+									Date</p>
+								<p class="myfont" style="padding-left: 5px;"><input style="width: auto;" type="checkbox" name="search_param" value="prix">
+									Prix</p>
+								<p class="myfont" style="padding-left: 5px;"><input style="width: auto;" type="checkbox" name="search_param" value="categorie">
+									Catégorie</p>
+							</div>
 						</div>
-					</div>
-					<input type="text" class="form-control myfont" name="search_key" placeholder="Entrez un mot clé ..." style="height: 33px;">
-					<span class="input-group-btn">
-						<span class="btn btn-default" style="height: 33px; color : black ; border-bottom-right-radius: 15px; border-top-right-radius: 15px;">
-							<span style="padding-right: 10px;" class="glyphicon glyphicon-search"></span>
-							<input type="submit" value="Chercher !" class="myfont" style="border: 0px; background-color: white;">
+						<input type="text" class="form-control myfont" name="search_key" placeholder="Entrez un mot clé ..." style="height: 33px;">
+						<span class="input-group-btn">
+							<span class="btn btn-default" style="height: 33px; color : black ; border-bottom-right-radius: 15px; border-top-right-radius: 15px;">
+								<span style="padding-right: 10px;" class="glyphicon glyphicon-search"></span>
+								<input type="submit" value="Chercher !" class="myfont" style="border: 0px; background-color: white;">
+							</span>
 						</span>
-					</span>
+					</div>
+				</div>
 			</div>
-		</div>
+		</form>
 	</div>
-	</form>
-</div>
 </center>

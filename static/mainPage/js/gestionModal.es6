@@ -62,32 +62,32 @@ $(function() {
 			const categorie = $(this).attr('name');
 			const __URL__ = `achat/addLogo/${categorie}/`;
 			$.get(__URL__, __DATA__, data => {
-				JSON.parse(data).filter(elt => elt.fields.confirm).forEach(elt => {
-					const e = elt.fields;
-					modalBody.append(`
+					JSON.parse(data).filter(elt => elt.fields.confirm).forEach(elt => {
+						const e = elt.fields;
+						modalBody.append(`
 					<div class="col-${e.taille}-${e.nombre_colonnes} col-${e.taille}-offset-${e.nombre_offset} logo animation_ease-slow" style="height: 250px; vertical-align:middle; line-height: 250px;">
 						<img src="/media/${e.logo}" id="logo_${elt.pk}" style="max-width: 100%; max-height: 100%;">
 					</div>
 					`);
-					$(`#logo_${elt.pk}`).one("click", function() {
-						console.log('click');
-						$(this.parentElement.parentElement).fadeOut(0);
-						const __URL2__ = "achat/addTextil/";
-						const type = "logo";
-						$.get(__URL2__, __DATA__, data => {
-							JSON.parse(data).filter(elt => elt.fields.confirm).forEach(elt =>{
-								presentationTextil(modalBody, elt, type);
-							});
-						})
-						.fail(() => {
-							modalBody.append(errorMessage);
+						$(`#logo_${elt.pk}`).one("click", function() {
+							console.log('click');
+							$(this.parentElement.parentElement).fadeOut(0);
+							const __URL2__ = "achat/addTextil/";
+							const type = "logo";
+							$.get(__URL2__, __DATA__, data => {
+									JSON.parse(data).filter(elt => elt.fields.confirm).forEach(elt => {
+										presentationTextil(modalBody, elt, type);
+									});
+								})
+								.fail(() => {
+									modalBody.append(errorMessage);
+								});
 						});
 					});
+				})
+				.fail(() => {
+					modalBody.append(errorMessage);
 				});
-			})
-			.fail(() => {
-				modalBody.append(errorMessage);
-			});
 		});
 	});
 
@@ -105,15 +105,15 @@ $(function() {
 				else if (type == "produit") return `achat/addTextilProduit/${id}/`;
 			})(type);
 			$.get(__URL__, __DATA__, data => {
-				//on succes, show every element that we requested
-				JSON.parse(data).filter(elt => elt.fields.confirm).forEach(elt => {
-					presentationTextil(modalBody, elt, type);
+					//on succes, show every element that we requested
+					JSON.parse(data).filter(elt => elt.fields.confirm).forEach(elt => {
+						presentationTextil(modalBody, elt, type);
+					});
+				})
+				.fail(() => {
+					//on fail, append a message error
+					modalBody.append(errorMessage);
 				});
-			})
-			.fail(() => {
-				//on fail, append a message error
-				modalBody.append(errorMessage);
-			});
 		});
 	});
 
@@ -178,23 +178,28 @@ $(function() {
 				</div>
 			</div>
 		`);
-		//we then attach some event to manage the user's click to go back to the proposition, change the cureent dislayed 
+		//we then attach some event to manage the user's click to go back to the proposition, change the cureent dislayed
 		//image, display the video
 		$('.droite').each(function() {
-			$(this).click(function() {
-				let elt = $(this.parentElement.previousElementSibling.children)[0];
-				let video = $(this.parentElement.previousElementSibling.children)[1];
-				if ($(this).hasClass('video')) {
-					$(elt).fadeOut(0);
-					$(video).fadeIn(400);
-				} else {
-					$(elt).fadeTo(100, 0, () => {
-						$(video).fadeOut(0);
-						elt.src = this.attributes.src.nodeValue;
-						$(elt).fadeTo(100, 1);
-					});
-				}
-			});
+			$(this)
+				.mouseenter(function() {
+					let elt = $(this.parentElement.previousElementSibling.children)[0];
+					let video = $(this.parentElement.previousElementSibling.children)[1];
+					if ($(this).hasClass('video')) {
+						$(elt).fadeOut(0);
+						$(video).fadeIn(400);
+					} else {
+						const videoElt = $(video).children()[0];
+						videoElt.pause();
+						videoElt.currentTime = 0;
+						videoElt.load();
+						$(elt).fadeTo(100, 0, () => {
+							$(video).fadeOut(0);
+							elt.src = this.attributes.src.nodeValue;
+							$(elt).fadeTo(100, 1);
+						});
+					}
+				});
 		});
 		$('.fermer').each(function() {
 			$(this).click(function() {

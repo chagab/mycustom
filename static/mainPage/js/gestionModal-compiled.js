@@ -138,10 +138,10 @@ $(function () {
 		var e = elt.fields;
 		//function that show all the detail of one specific textile
 		location.append("\n\t\t\t<div class=\"produitDetail\" id=\"produitDetail_" + elt.pk + "_" + type + "\">\n\t\t\t\t<p class=\"myfont-lg\">" + e.text_description_short + " : " + e.prix + "\u20AC</p>\n\t\t\t\t<div class=\"col-xs-10\" style=\"border: solid 1px gray; border-radius: 10px 0 0 10px;\">\n\t\t\t\t\t<img id=\"image_" + elt.pk + "_" + type + "\" class=\"produitImage droite\" style=\"height :600px; width: auto;background-color: " + e.couleur_fond_image + ";\" src=\"media/" + e.face_style + "\">\n\t\t\t\t\t<div style=\"padding : 100px 0 100px 0; display : none;overflow: scroll;\">\n\t\t\t\t\t\t<video controls poster=\"media/" + e.face_style + "\" height=\"395\" width=\"auto\">\n\t\t\t\t\t\t\t<source src=\"media/" + e.video_mp4 + "\">\n\t\t\t\t\t\t\t<source src=\"media/" + e.video_webm + "\">\n\t\t\t\t\t\t\tCette video n'est pas support\xE9e sur votre navigateur...\n\t\t\t\t\t\t</video>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"col-xs-2\" style=\"border: solid 1px gray; border-radius:0 10px 10px 0;\">\n\t\t\t\t\t<div id=\"first_" + elt.pk + "_" + type + "\" class=\"produitImage droite\" style=\"background-color: " + e.couleur_fond_image + "; background-image: url('media/" + e.face_style + "')\" src=\"media/" + e.face_style + "\"></div>\n\t\t\t\t\t<div class=\"produitImage droite\" style=\"background-color: " + e.couleur_fond_image + "; background-image: url('media/" + e.dos_style + "')\" src=\"media/" + e.dos_style + "\"></div>\n\t\t\t\t\t<div class=\"produitImage droite\" style=\"background-color: " + e.couleur_fond_image + "; background-image: url('media/" + e.gauche_style + "')\" src=\"media/" + e.gauche_style + "\"></div>\n\t\t\t\t\t<div class=\"produitImage droite\" style=\"background-color: " + e.couleur_fond_image + "; background-image: url('media/" + e.droite_style + "')\" src=\"media/" + e.droite_style + "\"></div>\n\t\t\t\t\t<div class=\"produitImage droite video\" style=\"background-color: " + e.couleur_fond_image + "; background-image: url('media/" + e.face_style + "')\" src=\"media/" + e.face_style + "\"><img src=\"" + staticPlayLogoURL + "\" style=\"padding-top: 25px;\"></div>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"col-xs-12\">\n\t\t\t\t\t<button class=\"fermer\" style=\"margin-top: 10px;\"><img style=\"height: 40px; width: auto;\" src=" + staticBackURL + "></button>\n\t\t\t\t\t<a href=\"TshirtDesigner/designer/" + e.num + "\" style=\"margin-top: 10px;\"><button>Customiser ! <img style=\"height: 40px; width: auto;\" src=" + staticLogoURL + "></button></a>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t");
-		//we then attach some event to manage the user's click to go back to the proposition, change the cureent dislayed 
+		//we then attach some event to manage the user's click to go back to the proposition, change the cureent dislayed
 		//image, display the video
 		$('.droite').each(function () {
-			$(this).click(function () {
+			$(this).mouseenter(function () {
 				var _this = this;
 
 				var elt = $(this.parentElement.previousElementSibling.children)[0];
@@ -150,6 +150,10 @@ $(function () {
 					$(elt).fadeOut(0);
 					$(video).fadeIn(400);
 				} else {
+					var videoElt = $(video).children()[0];
+					videoElt.pause();
+					videoElt.currentTime = 0;
+					videoElt.load();
 					$(elt).fadeTo(100, 0, function () {
 						$(video).fadeOut(0);
 						elt.src = _this.attributes.src.nodeValue;
