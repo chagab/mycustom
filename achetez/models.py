@@ -126,6 +126,35 @@ class ListProduit(ListView):
         except:
             return switch["default"]()
 
+        def get_queryset(self, **kwargs):
+            search_param = self.request.GET['search_param']
+            search_key = self.request.GET['search_key']
+
+            def date(search_key):
+                return Produit.objects.all().filter(date=search_key)
+
+            def prix(search_key):
+                return Produit.objects.all().filter(prix=search_key)
+
+            def categorie(search_key):
+                categorie = get_object_or_404(customiseCategorie, nom=search_key)
+                return get_object_or_404(Produit, categorie=categorie)
+
+            def default():
+                return Produit.objects.all()
+
+            switch = {
+                'prix': prix,
+                'date': date,
+                'categorie': categorie,
+                'default': default,
+            }
+
+            if search_key == "":
+                return switch["default"]()
+            else:
+                return get_list_or_404(switch[search_param](search_key))
+
 
 class AchatLogo(models.Model):
     nom = models.CharField(max_length=140)
@@ -185,6 +214,40 @@ class ListLogo(ListView):
             return get_list_or_404(switch[search_param](search_key))
         except:
             return switch["default"]()
+
+        def get_queryset(self, **kwargs):
+
+            print('\n\n')
+            print(self.request.GET)
+            print('\n\n')
+
+            search_param = self.request.GET['search_param']
+            search_key = self.request.GET['search_key']
+
+            def date(search_key):
+                return AchatLogo.objects.all().filter(date=search_key)
+
+            def prix(search_key):
+                return AchatLogo.objects.all().filter(prix=search_key)
+
+            def categorie(search_key):
+                categorie = get_object_or_404(customiseCategorie, nom=search_key)
+                return get_object_or_404(AchatLogo, categorie=categorie)
+
+            def default():
+                return AchatLogo.objects.all()
+
+            switch = {
+                'prix': prix,
+                'date': date,
+                'categorie': categorie,
+                'default': default,
+            }
+
+            if search_key == "":
+                return switch["default"]()
+            else:
+                return get_list_or_404(switch[search_param](search_key))
 
 
 class AchatCategorie(models.Model):
