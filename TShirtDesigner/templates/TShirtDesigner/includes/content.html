@@ -93,6 +93,7 @@
         </center>
         <table>
           <tr>
+            <!-- FIXME : doesn't work -->
             <td><img src="{% static 'TShirtDesigner/image/icons8-Zoomtaillereelle-50.png' %}" title="Taille du design"></td>
             <td><input id="tailleImage" type="range" defaultValue="1" step="0.01" min="0" max="2"/></td>
             <td class="indicator"><input style="margin-left: 15px; " type="number" name=""></td>
@@ -108,6 +109,7 @@
             <td class="indicator"><input style="margin-left: 15px; " type="number" id="hauteurImageSetting"></td>
           </tr>
           <tr>
+            <!-- FIXME : doesn't work properly. Find a way to rotate the logo on itself and not respectivily to the center of the canvas -->
             <td><img src="{% static 'TShirtDesigner/image/circular-arrow-counterclockwise-rotating-symbol_icon-icons.png' %}" title="Rotation du design"></td>
             <td><input id="orientationImage" type="range" value="0" min="0" max="360" defaultValue="0"/></td>
             <td class="indicator"><input style="margin-left: 15px; " type="number" name=""></td>
@@ -282,57 +284,56 @@
         <div class="modal-body">
           <center>
             <br>
-            <table id="tblColorPalette" class="colorPicker" style="background-color: white;">
-              </td>
-                <td style="background-color: white; width: 100px; margin: 5px;">
-                  <center>
-                    <button>
-                      <b>XS</b>
-                    </button><br><input type="number"></center>
-                </td>
-                <td style="background-color: white; width: 100px; margin: 5px;">
-                  <center>
-                    <button>
-                      <b>S</b>
-                    </button><br><input type="number"></center>
-                </td>
-                <td style="background-color: white; width: 100px; margin: 5px;">
-                  <center>
-                    <button>
-                      <b>M</b>
-                    </button><br><input type="number"></center>
-                </td>
-                <br>
-                <td style="background-color: white; width: 100px; margin: 5px;">
-                  <center>
-                    <button>
-                      <b>L</b>
-                    </button><br><input type="number"></center>
-                </td>
-                <td style="background-color: white; width: 100px; margin: 5px;">
-                  <center>
-                    <button>
-                      <b>XL</b>
-                    </button><br><input type="number"></center>
-                </td>
-                <td style="background-color: white; width: 100px; margin: 5px;">
-                  <center>
-                    <button>
-                      <b>XXL</b>
-                    </button><br><input type="number"></center>
-                </td>
-              </tr>
-            </table>
+            <table id="tblColorPalette" class="colorPicker" style="background-color: white;"></td>
+            <td style="background-color: white; width: 100px; margin: 5px;">
+              <center>
+                <button>
+                  <b>XS</b>
+                </button><br><input type="number"></center>
+            </td>
+            <td style="background-color: white; width: 100px; margin: 5px;">
+              <center>
+                <button>
+                  <b>S</b>
+                </button><br><input type="number"></center>
+            </td>
+            <td style="background-color: white; width: 100px; margin: 5px;">
+              <center>
+                <button>
+                  <b>M</b>
+                </button><br><input type="number"></center>
+            </td>
             <br>
-            <br>
-            <br>
-            <button style="padding: 15px; background-color: rgb(26,124,249); border-radius: 5px; color : white; font-size: 50px;">
-              <b>COMMANDER !
-                <img style="filter: invert(100%);" src="{% static 'TShirtDesigner/image/icons8-Avionenpapier-50.png' %}"></b>
-            </button>
-          </center>
-        </div>
-      </div>
+            <td style="background-color: white; width: 100px; margin: 5px;">
+              <center>
+                <button>
+                  <b>L</b>
+                </button><br><input type="number"></center>
+            </td>
+            <td style="background-color: white; width: 100px; margin: 5px;">
+              <center>
+                <button>
+                  <b>XL</b>
+                </button><br><input type="number"></center>
+            </td>
+            <td style="background-color: white; width: 100px; margin: 5px;">
+              <center>
+                <button>
+                  <b>XXL</b>
+                </button><br><input type="number"></center>
+            </td>
+          </tr>
+        </table>
+        <br>
+        <br>
+        <br>
+        <button style="padding: 15px; background-color: rgb(26,124,249); border-radius: 5px; color : white; font-size: 50px;">
+          <b>COMMANDER !
+            <img style="filter: invert(100%);" src="{% static 'TShirtDesigner/image/icons8-Avionenpapier-50.png' %}"></b>
+        </button>
+      </center>
     </div>
   </div>
+</div>
+</div>
 </div>

@@ -340,17 +340,19 @@ function setup() {
 			if (evtobj.keyCode == 90 && evtobj.ctrlKey) {
 				d.history.undo();
 			}
-			if (evtobj.keyCode == 90 && evtobj.ctrlKey && evtobj.shiftKey) {
-				d.history.redo();
-			}
+			// TODO : add this features !
+			//if (evtobj.keyCode == 90 && evtobj.ctrlKey && evtobj.shiftKey) {
+			//	d.history.redo();
+			//}
 		}
 		if (d.OSName == "MacOS") {
 			if (evtobj.keyCode == 90 && evtobj.metaKey && !evtobj.shiftKey) {
 				d.history.undo();
 			}
-			if (evtobj.keyCode == 90 && evtobj.metaKey && evtobj.shiftKey) {
-				d.history.redo();
-			}
+			// TODO : add this features !
+			//if (evtobj.keyCode == 90 && evtobj.metaKey && evtobj.shiftKey) {
+			//	d.history.redo();
+			//}
 		}
 		if (evtobj.keyCode == 8 && evtobj.shiftKey) {
 			if (d.ci > 1) {

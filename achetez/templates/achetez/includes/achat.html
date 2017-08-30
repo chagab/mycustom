@@ -71,46 +71,45 @@
     {% endfor %}
   </div>
 </div>
-</div>
 <br>
 <br>
 <br>
 <center>
-<h2 class="myfont-llg">Vous cherchez un logo en particulier ?
-</h2>
-<br>
-<br>
-<br>
-<div class="container">
-  <form method="GET" action="{% url 'searchLogo' %}">
-    {% csrf_token %}
-    <div class="row">
-      <div class="col-xs-8 col-xs-offset-2">
-        <div class="input-group">
-          <div class="input-group-btn search-panel">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" style="border-bottom-left-radius: 15px; border-top-left-radius: 15px; height: 33px;">
-              <span id="search_concept" class="myfont">Filtrer par</span>
-              <span class="caret"></span>
-            </button>
-            <div class="dropdown-menu" role="menu">
-              <p class="myfont" style="padding-left: 5px;"><input style="width: auto;" type="checkbox" name="search_param" value="date">
-                Date</p>
-              <p class="myfont" style="padding-left: 5px;"><input style="width: auto;" type="checkbox" name="search_param" value="prix">
-                Prix</p>
-              <p class="myfont" style="padding-left: 5px;"><input style="width: auto;" type="checkbox" name="search_param" value="categorie">
-                Catégorie</p>
+  <h2 class="myfont-llg">Vous cherchez un logo en particulier ?
+  </h2>
+  <br>
+  <br>
+  <br>
+  <div class="container">
+    <form method="GET" action="{% url 'searchLogo' %}">
+      {% csrf_token %}
+      <div class="row">
+        <div class="col-xs-8 col-xs-offset-2">
+          <div class="input-group">
+            <div class="input-group-btn search-panel">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" style="border-bottom-left-radius: 15px; border-top-left-radius: 15px; height: 33px;">
+                <span id="search_concept" class="myfont">Filtrer par</span>
+                <span class="caret"></span>
+              </button>
+              <div class="dropdown-menu" role="menu">
+                <p class="myfont" style="padding-left: 5px;"><input style="width: auto;" type="checkbox" name="search_param" value="date">
+                  Date</p>
+                <p class="myfont" style="padding-left: 5px;"><input style="width: auto;" type="checkbox" name="search_param" value="prix">
+                  Prix</p>
+                <p class="myfont" style="padding-left: 5px;"><input style="width: auto;" type="checkbox" name="search_param" value="categorie">
+                  Catégorie</p>
+              </div>
             </div>
-          </div>
-          <input type="text" class="form-control myfont" name="search_key" placeholder="Entrez un mot clé ..." style="height: 33px;">
-          <span class="input-group-btn">
-            <span class="btn btn-default" style="height: 33px; color : black ; border-bottom-right-radius: 15px; border-top-right-radius: 15px;">
-              <span style="padding-right: 10px;" class="glyphicon glyphicon-search"></span>
-              <input type="submit" value="Chercher !" class="myfont" style="border: 0px; background-color: white;">
+            <input type="text" class="form-control myfont" name="search_key" placeholder="Entrez un mot clé ..." style="height: 33px;">
+            <span class="input-group-btn">
+              <span class="btn btn-default" style="height: 33px; color : black ; border-bottom-right-radius: 15px; border-top-right-radius: 15px;">
+                <span style="padding-right: 10px;" class="glyphicon glyphicon-search"></span>
+                <input type="submit" value="Chercher !" class="myfont" style="border: 0px; background-color: white;">
+              </span>
             </span>
-          </span>
+          </div>
         </div>
       </div>
-    </div>
-  </form>
-</div>
+    </form>
+  </div>
 </center>

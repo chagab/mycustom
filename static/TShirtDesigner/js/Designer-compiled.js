@@ -199,13 +199,16 @@ function Designer() {
 				d.logo[d.ci].image.src = "";
 				this.index = 0;
 			}
-		},
-		redo: function redo() {
-			if (this.index < this.undoList.face.length - 1) {
-				this.index++;
-				this.update();
-			}
 		}
+		/* FIXME : doesn't work properly for the moment ...
+  		error pops on call
+  		
+  redo: function() {
+  	if (this.index < this.undoList.face.length - 1) {
+  		this.index++;
+  		this.update();
+  	}
+  },*/
 	};
 }
 //# sourceMappingURL=Designer-compiled.js.map

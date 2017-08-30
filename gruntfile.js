@@ -1,3 +1,35 @@
+/*
+				TODO : minify the following html files
+							- /achetez/templates/achetez/AchatLogo.html
+							- /achetez/templates/achetez/aller_a_element.html
+							- /achetez/templates/achetez/includes/achat.html
+							- /achetez/templates/achetez/includes/element.html
+							- /achetez/templates/achetez/includes/menu.html
+							- /achetez/templates/achetez/includes/pagination.html
+							- /achetez/templates/achetez/includes/presentation.html
+							- /achetez/templates/achetez/Produit.html
+							- /collection_ephemere/templates/collection_ephemere/aller_a_element.html
+							- /collection_ephemere/templates/collection_ephemere/includes/collection_ephemere.html
+							- /collection_ephemere/templates/collection_ephemere/includes/element.html
+							- /collection_ephemere/templates/collection_ephemere/includes/menu.html
+							- /cutsomise/templates/cutsomise/includes/customise.html
+							- /home/templates/home/header.html
+							- /home/templates/home/home.html
+							- /home/templates/home/includes/accueil.html
+							- /home/templates/home/includes/accueil.pretty.html
+							- /home/templates/home/includes/accueil2.html
+							- /home/templates/home/includes/enConstruction.html
+							- /home/templates/home/includes/footer.html
+							- /home/templates/home/includes/menu.html
+							- /home/templates/home/includes/menu_accueil.html
+							- /TShirtDesigner/templates/TShirtDesigner/includes/content.html
+							- /TShirtDesigner/templates/TShirtDesigner/includes/menu.html
+							- /TShirtDesigner/templates/TShirtDesigner/index.html
+							- /utilisateur/templates/utilisateur/includes/compte.html
+							- /utilisateur/templates/utilisateur/includes/connexion.html
+							- /vendre/templates/vendre/includes/vendre.html
+*/
+
 module.exports = function(grunt) {
 	const path = "/Users/gabrielchatelain/Desktop/mycustom/static/";
 	const pathMedia = "/Users/gabrielchatelain/Desktop/mycustom/media/";

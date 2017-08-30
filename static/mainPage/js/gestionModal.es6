@@ -76,6 +76,9 @@ $(function() {
 							const type = "logo";
 							$.get(__URL2__, __DATA__, data => {
 									JSON.parse(data).filter(elt => elt.fields.confirm).forEach(elt => {
+										/*
+													FIXME : this features doesn't work properly => can be quite difficult to fixed :(
+										*/
 										presentationTextil(modalBody, elt, type);
 									});
 								})

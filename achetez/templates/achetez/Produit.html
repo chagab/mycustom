@@ -71,41 +71,41 @@
 				{% empty %}
 				<p class="myfont">Votre recherche n'a donné aucun résultat<p>
 					{% endfor %}
-					<script type="text/javascript">
-						$('.droite').each(function () {
-							$(this).mouseenter(function () {
-								var _this = this;
-								var elt = $(this.parentElement.previousElementSibling.children)[0];
-								var srcInitial = elt.src;
-								var video = $(this.parentElement.previousElementSibling.children)[1];
-								if ($(this).hasClass('video')) {
-									$(elt).fadeOut(0);
-									$(video).fadeIn(400);
-								} else {
-									var videoElt = $(video).children()[0];
-									videoElt.pause();
-									videoElt.currentTime = 0;
-									videoElt.load();
-									$(elt).fadeTo(100, 0, function () {
-										$(video).hide();
-										elt.src = _this.attributes.src.value;
-										$(elt).fadeTo(100, 1);
-									});
-								}
-							});
-						});
-						$('.modal').each(function () {
-							$(this).on('hidden.bs.modal', function () {
-								const video = $(this).find('video')[0];
-								video.pause();
-								video.currentTime = 0;
-								video.load();
-								$('.produit').show();
-								$(this).find('img.droite.produitImage')[0].src = $(this).find('div.droite.produitImage')[0].attributes.src.value;
-							});
-						});
-					</script>
 				</center>
+				<script type="text/javascript">
+					$('.droite').each(function () {
+						$(this).mouseenter(function () {
+							var _this = this;
+							var elt = $(this.parentElement.previousElementSibling.children)[0];
+							var srcInitial = elt.src;
+							var video = $(this.parentElement.previousElementSibling.children)[1];
+							if ($(this).hasClass('video')) {
+								$(elt).fadeOut(0);
+								$(video).fadeIn(400);
+							} else {
+								var videoElt = $(video).children()[0];
+								videoElt.pause();
+								videoElt.currentTime = 0;
+								videoElt.load();
+								$(elt).fadeTo(100, 0, function () {
+									$(video).hide();
+									elt.src = _this.attributes.src.value;
+									$(elt).fadeTo(100, 1);
+								});
+							}
+						});
+					});
+					$('.modal').each(function () {
+						$(this).on('hidden.bs.modal', function () {
+							const video = $(this).find('video')[0];
+							video.pause();
+							video.currentTime = 0;
+							video.load();
+							$('.produit').show();
+							$(this).find('img.droite.produitImage')[0].src = $(this).find('div.droite.produitImage')[0].attributes.src.value;
+						});
+					});
+				</script>
 				{% include "achetez/includes/pagination.html" %}
 			</div>
 		{% endblock %}
