@@ -3,6 +3,21 @@
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function Designer() {
+	/*
+ 			TODO : add a way to suppress text and logo !
+ 			the best way would be to place into the "choisire la quantite et le nombre"
+ */
+
+	/*
+ 			TODO : add the following features : the state of the logo and texts must
+ 			be "place dependant". That mean that when the user decide to switch to
+ 			the left view (for example) the canvas must be empty of logos and texts whereas
+ 			the front view must conserve it's logos and texts
+ */
+
+	/*
+ 			TODO : add a price counter for every logo and text added to the textile
+ */
 	this.canvas;
 	this.ctx;
 	this.canvasOffset;
@@ -202,8 +217,7 @@ function Designer() {
 		}
 		/* FIXME : doesn't work properly for the moment ...
   		error pops on call
-  		
-  redo: function() {
+  	redo: function() {
   	if (this.index < this.undoList.face.length - 1) {
   		this.index++;
   		this.update();

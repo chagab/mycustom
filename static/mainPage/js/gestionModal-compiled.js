@@ -57,6 +57,9 @@ $(function () {
 		}
 	});
 
+	///////////////////////
+	//for the logo modal //
+	///////////////////////
 	$('.categorie_achat').each(function () {
 		$(this).one("click", function () {
 			var modalBody = $(this.nextElementSibling.children[0].children[0].children[0].nextElementSibling.children[0].children[0]);
@@ -69,15 +72,32 @@ $(function () {
 					var e = elt.fields;
 					modalBody.append("\n\t\t\t\t\t<div class=\"col-" + e.taille + "-" + e.nombre_colonnes + " col-" + e.taille + "-offset-" + e.nombre_offset + " logo animation_ease-slow\" style=\"height: 250px; vertical-align:middle; line-height: 250px;\">\n\t\t\t\t\t\t<img src=\"/media/" + e.logo + "\" id=\"logo_" + elt.pk + "\" style=\"max-width: 100%; max-height: 100%;\">\n\t\t\t\t\t</div>\n\t\t\t\t\t");
 					$("#logo_" + elt.pk).one("click", function () {
-						console.log('click');
-						$(this.parentElement.parentElement).fadeOut(0);
+						var propositionLogo = $(this.parentElement.parentElement);
+						var propositionTextile = $(this.parentElement.parentElement.parentElement.nextElementSibling);
+						var propositionTextileCenter = $(this.parentElement.parentElement.parentElement.nextElementSibling.children[0]);
 						var __URL2__ = "achat/addTextil/";
 						var type = "logo";
+						propositionLogo.fadeOut(0);
 						$.get(__URL2__, __DATA__, function (data) {
 							JSON.parse(data).filter(function (elt) {
 								return elt.fields.confirm;
 							}).forEach(function (elt) {
-								presentationTextil(modalBody, elt, type);
+								/*
+        			FIXME : this features doesn't work properly => can be quite difficult to fixed :(
+        */
+								presentationTextil(propositionTextileCenter, elt, type);
+								propositionTextile.css({
+									'display': 'block'
+								});
+								propositionTextile.fadeIn(0);
+								console.log('fermer', propositionTextile.children('.fermerLogo'));
+								propositionTextile.children('.fermerLogo').click(function () {
+									console.log('click');
+									console.log('propositionTextile', propositionTextile);
+									console.log('propositionLogo', propositionLogo);
+									propositionTextile.fadeOut(0);
+									propositionLogo.fadeIn(0);
+								});
 							});
 						}).fail(function () {
 							modalBody.append(errorMessage);
@@ -90,6 +110,9 @@ $(function () {
 		});
 	});
 
+	///////////////////////////
+	// for the textile modal //
+	///////////////////////////
 	$('.categorie').each(function () {
 		//when the user click on a textile, we request the database the infos about all the matching textile
 		//and append some html to the modal body. Hence, we want to do this only once !

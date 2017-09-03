@@ -56,6 +56,9 @@ $(function() {
 		}
 	});
 
+	///////////////////////
+	//for the logo modal //
+	///////////////////////
 	$('.categorie_achat').each(function() {
 		$(this).one("click", function() {
 			const modalBody = $(this.nextElementSibling.children[0].children[0].children[0].nextElementSibling.children[0].children[0]);
@@ -70,16 +73,30 @@ $(function() {
 					</div>
 					`);
 						$(`#logo_${elt.pk}`).one("click", function() {
-							console.log('click');
-							$(this.parentElement.parentElement).fadeOut(0);
+							const propositionLogo = $(this.parentElement.parentElement);
+							const propositionTextile = $(this.parentElement.parentElement.parentElement.nextElementSibling);
+							const propositionTextileCenter = $(this.parentElement.parentElement.parentElement.nextElementSibling.children[0]);
 							const __URL2__ = "achat/addTextil/";
 							const type = "logo";
+							propositionLogo.fadeOut(0);
 							$.get(__URL2__, __DATA__, data => {
 									JSON.parse(data).filter(elt => elt.fields.confirm).forEach(elt => {
 										/*
 													FIXME : this features doesn't work properly => can be quite difficult to fixed :(
 										*/
-										presentationTextil(modalBody, elt, type);
+										presentationTextil(propositionTextileCenter, elt, type);
+										propositionTextile.css({
+											'display': 'block',
+										});
+										propositionTextile.fadeIn(0);
+										console.log('fermer', propositionTextile.children('.fermerLogo'));
+										propositionTextile.children('.fermerLogo').click(function() {
+											console.log('click');
+											console.log('propositionTextile', propositionTextile);
+											console.log('propositionLogo', propositionLogo);
+											propositionTextile.fadeOut(0);
+											propositionLogo.fadeIn(0);
+										});
 									});
 								})
 								.fail(() => {
@@ -94,6 +111,9 @@ $(function() {
 		});
 	});
 
+	///////////////////////////
+	// for the textile modal //
+	///////////////////////////
 	$('.categorie').each(function() {
 		//when the user click on a textile, we request the database the infos about all the matching textile
 		//and append some html to the modal body. Hence, we want to do this only once !

@@ -107,9 +107,13 @@ class ListProduit(ListView):
 
         def categorie(search_key):
             categorie = get_object_or_404(customiseCategorie, nom=search_key)
+            print('categorie')
+            print(categorie)
             return get_object_or_404(Produit, categorie=categorie)
 
         def default():
+            print('default')
+            print(Produit.objects.all())
             return Produit.objects.all()
 
         switch = {
@@ -122,6 +126,11 @@ class ListProduit(ListView):
         try:
             search_param = self.request.GET['search_param']
             search_key = self.request.GET['search_key']
+            print("\n\n")
+            print(search_key)
+            print(search_param)
+            print(switch[search_param](search_key))
+            print("\n\n")
             return get_list_or_404(switch[search_param](search_key))
         except:
             return switch["default"]()
