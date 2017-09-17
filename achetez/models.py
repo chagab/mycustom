@@ -3,8 +3,7 @@ from __future__ import unicode_literals
 from django.db import models
 from cutsomise.models import customiseCategorie, customiseProduit
 from django.views.generic import ListView
-from django.db.models import Q
-from django.shortcuts import get_list_or_404, get_object_or_404
+import re
 
 COLUMN_CHOICES = (
     ('0', '0'),
@@ -54,6 +53,7 @@ class Produit(models.Model):
     type_produit = models.ForeignKey(customiseProduit)
     text_description_short = models.CharField(max_length=200)
     text_description = models.TextField()
+    tag = models.TextField(help_text="Entrer les tag séparés par des espaces.")
     # photo du produit
     face = models.ImageField(upload_to="achetez/produit/", blank=True)
     dos = models.ImageField(upload_to="achetez/produit/", blank=True)
@@ -106,15 +106,13 @@ class ListProduit(ListView):
             return Produit.objects.all().filter(prix=search_key)
 
         def categorie(search_key):
-            categorie = get_object_or_404(customiseCategorie, nom=search_key)
-            print('categorie')
-            print(categorie)
-            return get_object_or_404(Produit, categorie=categorie)
+            listOfProduit = []
+            for categorie in [categorie for categorie in customiseCategorie.objects.all() if re.search(search_key.lower(), categorie.nom.lower())]:
+                listOfProduit += customiseCategorie.objects.filter(categorie=categorie)
+            return listOfProduit
 
         def default():
-            print('default')
-            print(Produit.objects.all())
-            return Produit.objects.all()
+            return [Produit.objects.get(id=produit.id) for produit in Produit.objects.all() if re.search(search_key.lower(), produit.tag.lower())]
 
         switch = {
             'prix': prix,
@@ -125,50 +123,24 @@ class ListProduit(ListView):
 
         try:
             search_param = self.request.GET['search_param']
-            search_key = self.request.GET['search_key']
-            print("\n\n")
-            print(search_key)
-            print(search_param)
-            print(switch[search_param](search_key))
-            print("\n\n")
-            return get_list_or_404(switch[search_param](search_key))
+            try:
+                search_key = self.request.GET['search_key']
+                return switch[search_param](search_key)
+            except:
+                return []
         except:
-            return switch["default"]()
-
-        def get_queryset(self, **kwargs):
-            search_param = self.request.GET['search_param']
-            search_key = self.request.GET['search_key']
-
-            def date(search_key):
-                return Produit.objects.all().filter(date=search_key)
-
-            def prix(search_key):
-                return Produit.objects.all().filter(prix=search_key)
-
-            def categorie(search_key):
-                categorie = get_object_or_404(customiseCategorie, nom=search_key)
-                return get_object_or_404(Produit, categorie=categorie)
-
-            def default():
+            try:
+                search_key = self.request.GET['search_key']
+                return default(search_key)
+            except:
                 return Produit.objects.all()
-
-            switch = {
-                'prix': prix,
-                'date': date,
-                'categorie': categorie,
-                'default': default,
-            }
-
-            if search_key == "":
-                return switch["default"]()
-            else:
-                return get_list_or_404(switch[search_param](search_key))
 
 
 class AchatLogo(models.Model):
     nom = models.CharField(max_length=140)
     logo = models.ImageField(upload_to="achetez/logo/")
     date = models.DateField()
+    tag = models.TextField(help_text="Entrer les tag séparés par des espaces.")
     prix = models.DecimalField(max_digits=20, decimal_places=2)
     text_description_short = models.CharField(max_length=140)
     couleur_text = models.CharField(max_length=7, default='black')
@@ -199,64 +171,41 @@ class ListLogo(ListView):
     def get_queryset(self, **kwargs):
 
         def date(search_key):
+            # on veut les logos qui match exactement la date donnée
             return AchatLogo.objects.all().filter(date=search_key)
 
         def prix(search_key):
+            # on veut les logos qui match exactement le prix donné
             return AchatLogo.objects.all().filter(prix=search_key)
 
         def categorie(search_key):
-            categorie = get_object_or_404(customiseCategorie, nom=search_key)
-            return get_object_or_404(AchatLogo, categorie=categorie)
+            listOfLogo = []
+            for categorie in [categorie for categorie in AchatCategorie.objects.all() if re.search(search_key.lower(), categorie.nom.lower())]:
+                listOfLogo += AchatLogo.objects.filter(categorie=categorie)
+            return listOfLogo
 
-        def default():
-            return AchatLogo.objects.all()
+        def default(search_key):
+            return [AchatLogo.objects.get(id=logo.id) for logo in AchatLogo.objects.all() if re.search(search_key.lower(), logo.tag.lower())]
+
         switch = {
             'prix': prix,
             'date': date,
             'categorie': categorie,
-            'default': default,
         }
 
         try:
             search_param = self.request.GET['search_param']
-            search_key = self.request.GET['search_key']
-            return get_list_or_404(switch[search_param](search_key))
+            try:
+                search_key = self.request.GET['search_key']
+                return switch[search_param](search_key)
+            except:
+                return []
         except:
-            return switch["default"]()
-
-        def get_queryset(self, **kwargs):
-
-            print('\n\n')
-            print(self.request.GET)
-            print('\n\n')
-
-            search_param = self.request.GET['search_param']
-            search_key = self.request.GET['search_key']
-
-            def date(search_key):
-                return AchatLogo.objects.all().filter(date=search_key)
-
-            def prix(search_key):
-                return AchatLogo.objects.all().filter(prix=search_key)
-
-            def categorie(search_key):
-                categorie = get_object_or_404(customiseCategorie, nom=search_key)
-                return get_object_or_404(AchatLogo, categorie=categorie)
-
-            def default():
+            try:
+                search_key = self.request.GET['search_key']
+                return default(search_key)
+            except:
                 return AchatLogo.objects.all()
-
-            switch = {
-                'prix': prix,
-                'date': date,
-                'categorie': categorie,
-                'default': default,
-            }
-
-            if search_key == "":
-                return switch["default"]()
-            else:
-                return get_list_or_404(switch[search_param](search_key))
 
 
 class AchatCategorie(models.Model):
