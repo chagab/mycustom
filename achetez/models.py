@@ -168,6 +168,11 @@ class ListLogo(ListView):
     template_name = "achetez/AchatLogo.html"
     paginate_by = 9
 
+    def get_context_data(self, **kwargs):
+        context = super(ListLogo, self).get_context_data(**kwargs)
+        context['list_produit'] = Produit.objects.all()
+        return context
+
     def get_queryset(self, **kwargs):
 
         def date(search_key):

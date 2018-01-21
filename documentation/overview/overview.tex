@@ -1,0 +1,17 @@
+\section{Global overview}
+
+The overhall principle of the website mycustom is resumed on Figure \ref{fig:principe}. The main page of the website is organized as a single app page. The link between the database and the interface client is done by several Django App namely \texttt{"home", "collection$\_$ephemere", "cutsomise", "achetez", "vendre"}. These apps contains the HTML templates that render in the interface client and the Django model used to fulfill them. The interface admin is able to modify the database in the backend and thus the interface client. In order to fully understand how a Django app works, see \cite{Django}. 
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.5\textwidth]{Intro/principe}
+	\caption{Global principle of the mycustom website}
+	\label{fig:principe}
+\end{figure}
+
+The purpose of each of theses section is the following : 
+
+\begin{itemize}
+	\item \texttt{home} : contains the landing page of the website, i.e the first thing that the client see. The Django app contains a video for the welcome page, the HTML template for the header, the footer, the menu and the welcome page. The Django models contains all the visual characteristic for the welcome page
+	\item \texttt{collection$\_$epehemere} : contains the transitory trends, i.e textile and logo of the month. 
+\end{itemize}
