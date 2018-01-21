@@ -1,20 +1,17 @@
 \section{Global overview}
 
-The overhall principle of the website mycustom is resumed on Figure \ref{fig:principe}. The main page of the website is organized as a single app page. The link between the database and the interface client is done by several Django App namely \texttt{"home", "collection$\_$ephemere", "cutsomise", "achetez", "vendre"}. These apps contains the HTML templates that render in the interface client and the Django model used to fulfill them. The interface admin is able to modify the database in the backend and thus the interface client. In order to fully understand how a Django app works, see \cite{Django}. 
-
 \begin{figure}[!ht]
 	\centering
-	\includegraphics[width=0.5\textwidth]{Intro/principe}
-	\caption{Global principle of the mycustom website}
-	\label{fig:principe}
+	\includegraphics[width=0.2\textwidth]{overview/sellingProcess}
+	\caption{Selling process of the website mycustom}
+	\label{fig:sellingProcess}
 \end{figure}
 
-The purpose of each of theses section is the following : 
+The selling process is represented on Figure \ref{fig:sellingProcess}. The idea is the following : the customer lands on the welcome page of mycustom. There, he can choose to browse the product either by textile or by logo. Once he has choose both, he can customize his choice, i.e move the logo on the textile, rotate the logo, increase the size of the logo, write text, change the color of the text ...
 
-\begin{itemize}
-	\item \texttt{home} : Contains the landing page of the website, i.e the first thing that the client see. The Django app contains a video for the welcome page, the HTML template for the header, the footer, the menu and the welcome page. The Django models contains all the visual characteristic for the welcome page
-	\item \texttt{collection$\_$epehemere} : Contains the transitory trends, i.e textile and logo of the month. The Django models are the \texttt{collection$\_$Ephemere} that contains all the graphical characteristics for this sections of the page and \texttt{mosaic} that contains all the graphical characteristics for an add of this section.
-	\item \texttt{customiser} : This is the place where the customer choose a textile. The textile are classed by two manners : by category and by type of product. 
-\end{itemize}
+This is achieved by building the site in two distinct part. The first one is a single app page that allow the customer to browse the product as easily as possible. The seconde one is a graphical user interface (GUI) that allows the customer to customize his order. 
 
-The Bootstrap framework is used in order to render the visual aspects of the website. In order to fully understand Bootstrap see \cite{Bootstrap}. The Django template engine will fill in Bootstrap code with data of the database in order to achieve the desire visual output. 
+Note that some other part are add to the main page. One is so called the "collection éphémère" and its purpose is to promote the newest trends of the moment. This part is added at the beginning of the single app page.  An other one is added at the bottom of the single app page. It is the part "vendre" which purpose is to propose to the customer to signe in/up. A social network aspect needs to be implemented (it is currently not done). The idea behind this section of the main page is to propose the customer to sell his own logos and creations. Thus other customers can like logos, follow artistes ... 
+
+Finally note that three search bars are added to the main page, one in the menu and two at the bottom of each choosing categories. These search bars are used to find specific textile/logos, thus adding an other way to choose a paire of textile-logo. 
+

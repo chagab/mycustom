@@ -3,44 +3,44 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: /Users/gabrielchatelain/Desktop/mycustom/documentation/.texpadtmp/main.aux
 The style file: unsrt.bst
 Database file #1: ../biblio.bib
-You've used 7 entries,
+You've used 13 entries,
             1791 wiz_defined-function locations,
-            479 strings with 4691 characters,
-and the built_in function-call counts, 881 in all, are:
-= -- 63
-> -- 28
+            502 strings with 5129 characters,
+and the built_in function-call counts, 1471 in all, are:
+= -- 105
+> -- 34
 < -- 0
-+ -- 14
++ -- 20
 - -- 7
 * -- 2
-:= -- 135
-add.period$ -- 21
-call.type$ -- 7
-change.case$ -- 7
+:= -- 185
+add.period$ -- 33
+call.type$ -- 13
+change.case$ -- 13
 chr.to.int$ -- 0
-cite$ -- 7
-duplicate$ -- 35
-empty$ -- 127
+cite$ -- 13
+duplicate$ -- 65
+empty$ -- 235
 format.name$ -- 7
-if$ -- 204
+if$ -- 360
 int.to.chr$ -- 0
-int.to.str$ -- 7
+int.to.str$ -- 13
 missing$ -- 0
-newline$ -- 38
+newline$ -- 62
 num.names$ -- 7
-pop$ -- 56
+pop$ -- 110
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 21
+skip$ -- 44
 stack$ -- 0
 substring$ -- 0
-swap$ -- 7
+swap$ -- 13
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 0
 while$ -- 7
-width$ -- 8
-write$ -- 65
+width$ -- 15
+write$ -- 107

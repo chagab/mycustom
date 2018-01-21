@@ -1,4 +1,4 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 
 \bibitem{Javascript}
 Baptiste Pesquet.
@@ -22,21 +22,45 @@ Mathieu Nebra.
 \newblock
   https://openclassrooms.com/courses/utilisez-les-effets-avances-de-css-sur-votre-site.
 
-\bibitem{Jquery}
-Michel Martin.
-\newblock Simplifiez vos développements javascript avec jquery.
-\newblock
-  https://openclassrooms.com/courses/simplifiez-vos-developpements-javascript-avec-jquery.
-
 \bibitem{Django}
 Mathieu~Xhonneux Maxime~Lorant.
 \newblock Développez votre site web avec le framework django.
 \newblock
   https://openclassrooms.com/courses/developpez-votre-site-web-avec-le-framework-django.
 
+\bibitem{Django_doc}
+Django documentation.
+\newblock https://docs.djangoproject.com/en/2.0/.
+
 \bibitem{Bootstrap}
 Maurice Chavelli.
 \newblock Prenez en main bootstrap.
 \newblock https://openclassrooms.com/courses/prenez-en-main-bootstrap.
+
+\bibitem{Bootstrap_doc}
+Bootstrap documentation.
+\newblock http://getbootstrap.com/docs/4.0/getting-started/introduction/.
+
+\bibitem{less_doc}
+Less documentation.
+\newblock http://lesscss.org/getting-started.
+
+\bibitem{Grunt_doc}
+Grunt documentation.
+\newblock https://gruntjs.com/getting-started.
+
+\bibitem{Jquery}
+Michel Martin.
+\newblock Simplifiez vos développements javascript avec jquery.
+\newblock
+  https://openclassrooms.com/courses/simplifiez-vos-developpements-javascript-avec-jquery.
+
+\bibitem{Jquery_doc}
+Jquery documentation.
+\newblock http://api.jquery.com/.
+
+\bibitem{P5_doc}
+P5 documentation.
+\newblock https://p5js.org/reference/.
 
 \end{thebibliography}
