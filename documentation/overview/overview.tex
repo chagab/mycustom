@@ -12,6 +12,9 @@ The overhall principle of the website mycustom is resumed on Figure \ref{fig:pri
 The purpose of each of theses section is the following : 
 
 \begin{itemize}
-	\item \texttt{home} : contains the landing page of the website, i.e the first thing that the client see. The Django app contains a video for the welcome page, the HTML template for the header, the footer, the menu and the welcome page. The Django models contains all the visual characteristic for the welcome page
-	\item \texttt{collection$\_$epehemere} : contains the transitory trends, i.e textile and logo of the month. 
+	\item \texttt{home} : Contains the landing page of the website, i.e the first thing that the client see. The Django app contains a video for the welcome page, the HTML template for the header, the footer, the menu and the welcome page. The Django models contains all the visual characteristic for the welcome page
+	\item \texttt{collection$\_$epehemere} : Contains the transitory trends, i.e textile and logo of the month. The Django models are the \texttt{collection$\_$Ephemere} that contains all the graphical characteristics for this sections of the page and \texttt{mosaic} that contains all the graphical characteristics for an add of this section.
+	\item \texttt{customiser} : This is the place where the customer choose a textile. The textile are classed by two manners : by category and by type of product. 
 \end{itemize}
+
+The Bootstrap framework is used in order to render the visual aspects of the website. In order to fully understand Bootstrap see \cite{Bootstrap}. The Django template engine will fill in Bootstrap code with data of the database in order to achieve the desire visual output. 

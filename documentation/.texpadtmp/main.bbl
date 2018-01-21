@@ -1,9 +1,42 @@
 \begin{thebibliography}{1}
 
+\bibitem{Javascript}
+Baptiste Pesquet.
+\newblock Apprenez à coder avec javascript.
+\newblock https://openclassrooms.com/courses/apprenez-a-coder-avec-javascript.
+
+\bibitem{Python}
+Vincent LeGoff.
+\newblock Apprenez à programmer en python.
+\newblock https://openclassrooms.com/courses/apprenez-a-programmer-en-python.
+
+\bibitem{HTML_CSS}
+Mathieu Nebra.
+\newblock Apprenez à créer votre site web avec html5 et css3.
+\newblock
+  https://openclassrooms.com/courses/apprenez-a-creer-votre-site-web-avec-html5-et-css3.
+
+\bibitem{CSS_Advanced}
+Mathieu Nebra.
+\newblock Utilisez les effets avancés de css sur votre site.
+\newblock
+  https://openclassrooms.com/courses/utilisez-les-effets-avances-de-css-sur-votre-site.
+
+\bibitem{Jquery}
+Michel Martin.
+\newblock Simplifiez vos développements javascript avec jquery.
+\newblock
+  https://openclassrooms.com/courses/simplifiez-vos-developpements-javascript-avec-jquery.
+
 \bibitem{Django}
 Mathieu~Xhonneux Maxime~Lorant.
 \newblock Développez votre site web avec le framework django.
 \newblock
   https://openclassrooms.com/courses/developpez-votre-site-web-avec-le-framework-django.
+
+\bibitem{Bootstrap}
+Maurice Chavelli.
+\newblock Prenez en main bootstrap.
+\newblock https://openclassrooms.com/courses/prenez-en-main-bootstrap.
 
 \end{thebibliography}
