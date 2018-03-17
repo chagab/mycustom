@@ -15,13 +15,21 @@
 		{% block scriptMenu %}{% endblock %}
 	</head>
 	<body id="haut">
+		<!-- The block that contain all the html to render the front page -->
+		<!-- contains the HTML for the menu bar -->
 		{% block menu %}{% endblock %}
+		<!-- contains the HTML for the welcome page (landing video and logo) -->
 		{% block accueil %}{% endblock %}
+		<!-- contains the HTML for the collection epehemere (add) -->
 		{% block collection %}{% endblock %}
 		{% block menu_accueil %}{% endblock %}
+		<!-- contains the HTML for browsing the product by textile -->
 		{% block customise %}{% endblock %}
+		<!-- contains the HTML for browsing the product by logo -->
 		{% block achat %}{% endblock %}
+		<!-- contains the HTML for the user to sign up/in -->
 		{% block vendre %}{% endblock %}
+		<!-- The block that contain all the html to render the TShirtDesigner -->
 		{% block element %}{% endblock %}
 		{% block compte %}{% endblock %}
 		{% block designer %}{% endblock %}
@@ -52,6 +60,7 @@
 			z-index: 10000;
 		}
 	</style>
+	<!-- html for the loading logo -->
 	<div id="loading">
 		<div id="loading-image" class="animated infinite tada logomycustombyNFblanc"></div>
 	</div>

@@ -1,20 +1,30 @@
 "use strict";
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _defineProperty(obj, key, value) {
+	if (key in obj) {
+		Object.defineProperty(obj, key, {
+			value: value,
+			enumerable: true,
+			configurable: true,
+			writable: true
+		});
+	} else {
+		obj[key] = value;
+	}
+	return obj;
+}
 
 function Designer() {
 	/*
  			TODO : add a way to suppress text and logo !
  			the best way would be to place into the "choisire la quantite et le nombre"
  */
-
 	/*
  			TODO : add the following features : the state of the logo and texts must
  			be "place dependant". That mean that when the user decide to switch to
  			the left view (for example) the canvas must be empty of logos and texts whereas
  			the front view must conserve it's logos and texts
  */
-
 	/*
  			TODO : add a price counter for every logo and text added to the textile
  */
@@ -59,27 +69,27 @@ function Designer() {
 	this.sliders = [];
 	this.inputs = [];
 	// on ajoute des méthodes pour pouvoir retrouver les éléments du DOM facilement
-	this.textarea = function (titre) {
-		return this.textareas.find(function (element) {
+	this.textarea = function(titre) {
+		return this.textareas.find(function(element) {
 			return element.elt.id == titre;
 		});
 	};
-	this.button = function (titre) {
-		return this.buttons.find(function (element) {
+	this.button = function(titre) {
+		return this.buttons.find(function(element) {
 			return element.elt.id === titre;
 		});
 	};
-	this.slider = function (titre) {
-		return this.sliders.find(function (element) {
+	this.slider = function(titre) {
+		return this.sliders.find(function(element) {
 			return element.elt.id === titre;
 		});
 	};
-	this.input = function (titre) {
-		return this.inputs.find(function (element) {
+	this.input = function(titre) {
+		return this.inputs.find(function(element) {
 			return element.elt.id === titre;
 		});
 	};
-	this.setGradient = function (x, y, w, h, c1, c2, axis) {
+	this.setGradient = function(x, y, w, h, c1, c2, axis) {
 		noFill();
 		if (axis == this.Y_AXIS) {
 			// Top to bottom gradient
@@ -99,7 +109,7 @@ function Designer() {
 			}
 		}
 	};
-	this.modal = function (id) {
+	this.modal = function(id) {
 		// on utilise la fonction soit pour fermer toutes les modales
 		// soit pour un afficher une
 		document.getElementById('modalProduit').style.display = "none";
@@ -110,7 +120,7 @@ function Designer() {
 			document.getElementById(id).style.display = "block";
 		}
 	};
-	this.Position = function () {
+	this.Position = function() {
 		if (windowHeight < windowWidth) {
 			d.canvas.position(windowWidth / 2 - this.canvas.width / 2 - 200, document.getElementById('topOfPage').offsetTop + 100);
 		} else {
@@ -149,19 +159,20 @@ function Designer() {
 				'ci': d.ci,
 				'ct': d.ct
 			});
-			d.logo.forEach(function (e) {
+			d.logo.forEach(function(e) {
 				var _Object$assign;
-
 				Object.assign(state, (_Object$assign = {}, _defineProperty(_Object$assign, 'xImage' + e.nb.toString(), e.x), _defineProperty(_Object$assign, 'yImage' + e.nb.toString(), e.y), _defineProperty(_Object$assign, 'widthImage' + e.nb.toString(), e.width), _defineProperty(_Object$assign, 'heightImage' + e.nb.toString(), e.height), _Object$assign));
 			});
-			d.text.forEach(function (e) {
+			d.text.forEach(function(e) {
 				var _Object$assign2;
-
 				Object.assign(state, (_Object$assign2 = {}, _defineProperty(_Object$assign2, 'xText' + e.nb.toString(), e.x), _defineProperty(_Object$assign2, 'yText' + e.nb.toString(), e.y), _defineProperty(_Object$assign2, 'widthText' + e.nb.toString(), e.width), _defineProperty(_Object$assign2, 'heightText' + e.nb.toString(), e.height), _Object$assign2));
 			});
 			/*if (this.index == this.undoList.length) {*/
 			this.index++;
-			if (d.fond == d.face) this.undoList.face.push(state);else if (d.fond == d.dos) this.undoList.dos.push(state);else if (d.fond == d.droite) this.undoList.droite.push(state);else if (d.fond == d.gauche) this.undoList.gauche.push(state);
+			if (d.fond == d.face) this.undoList.face.push(state);
+			else if (d.fond == d.dos) this.undoList.dos.push(state);
+			else if (d.fond == d.droite) this.undoList.droite.push(state);
+			else if (d.fond == d.gauche) this.undoList.gauche.push(state);
 			/*}*/
 		},
 		store: function store(list, e) {
@@ -173,19 +184,25 @@ function Designer() {
 			e.bottom = e.y + e.height;
 		},
 		update: function update() {
-			d.logo.forEach(function (e) {
+			d.logo.forEach(function(e) {
 				if (isNaN(e.x) && isNaN(e.y) && isNaN(e.width) && isNaN(e.height)) {
 					d.ci = d.logo.indexOf(e) - 1;
 					d.logo.splice(d.logo.indexOf(e), 1);
 				}
-				if (d.fond == d.face) this.store(this.undoList.face, e);else if (d.fond == d.dos) this.store(this.undoList.dos, e);else if (d.fond == d.droite) this.store(this.undoList.droite, e);else if (d.fond == d.gauche) this.store(this.undoList.gauche, e);
+				if (d.fond == d.face) this.store(this.undoList.face, e);
+				else if (d.fond == d.dos) this.store(this.undoList.dos, e);
+				else if (d.fond == d.droite) this.store(this.undoList.droite, e);
+				else if (d.fond == d.gauche) this.store(this.undoList.gauche, e);
 			}, this);
-			d.text.forEach(function (e) {
+			d.text.forEach(function(e) {
 				if (isNaN(e.x) && isNaN(e.y) && isNaN(e.width) && isNaN(e.height)) {
 					d.ct = d.logo.indexOf(e) - 1;
 					d.text.splice(d.text.indexOf(e), 1);
 				}
-				if (d.fond == d.face) this.store(this.undoList.face, e);else if (d.fond == d.dos) this.store(this.undoList.dos, e);else if (d.fond == d.droite) this.store(this.undoList.droite, e);else if (d.fond == d.gauche) this.store(this.undoList.gauche, e);
+				if (d.fond == d.face) this.store(this.undoList.face, e);
+				else if (d.fond == d.dos) this.store(this.undoList.dos, e);
+				else if (d.fond == d.droite) this.store(this.undoList.droite, e);
+				else if (d.fond == d.gauche) this.store(this.undoList.gauche, e);
 			}, this);
 			d.ci = this.undoList.face[this.index]['ci'];
 			d.ct = this.undoList.face[this.index]['ct'];
@@ -207,15 +224,15 @@ function Designer() {
 			d.input('hauteurTexteSetting').value(d.text[d.ct].height);
 		},
 		undo: function undo() {
-			if (this.index > 2) {
-				this.index--;
-				this.update();
-			} else {
-				d.logo[d.ci].image.src = "";
-				this.index = 0;
+				if (this.index > 2) {
+					this.index--;
+					this.update();
+				} else {
+					d.logo[d.ci].image.src = "";
+					this.index = 0;
+				}
 			}
-		}
-		/* FIXME : doesn't work properly for the moment ...
+			/* FIXME : doesn't work properly for the moment ...
   		error pops on call
   	redo: function() {
   	if (this.index < this.undoList.face.length - 1) {
