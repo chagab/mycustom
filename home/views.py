@@ -13,6 +13,10 @@ from collection_ephemere.models import mosaique
 from utilisateur.views import artisteInscription, revendeurInscription, particulierInscription, professionelInscription, connection
 
 def home(request):
+	""" this views is used to pass ALL the models data to the html template of ALL the front page :
+	 	- Every model x instance is gathered into an python x_from_view variable
+		- Then the render function gather all the python variable and transfer them to the home.html template with the function locals()
+		- Finaly, home.html dispatch the data to each html template """
 	# pour la mise en page du site
 	achatLogo_from_view           = AchatLogo.objects.all()
 	#ligneCategorie_from_view      = ligneCategorie.objects.all()

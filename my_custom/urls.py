@@ -23,6 +23,7 @@ import achetez.views
 import utilisateur.views
 import TShirtDesigner.views
 
+# all the possible urls of the website 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'', include('home.urls')),

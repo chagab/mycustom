@@ -12,6 +12,7 @@ USER_CHOICES  = (
 )
 
 class Utililsateur(models.Model):
+	"""These models need further developpement ! they are the begining of the social network aspect of mycustom """
 	user               = models.OneToOneField(User,blank=True,null=True)
 	nom                = models.CharField(max_length=140)
 	prenom             = models.CharField(max_length=140)
@@ -27,20 +28,20 @@ class Utililsateur(models.Model):
 
 class Revendeur(Utililsateur):
 
-	def __str__(self) : 
+	def __str__(self) :
 		return self.prenom + ' ' + self.nom
 
 class Particulier(Utililsateur):
 
-	def __str__(self) : 
+	def __str__(self) :
 		return self.prenom + ' ' + self.nom
 
 class Professionel(Utililsateur):
 
-	def __str__(self) : 
+	def __str__(self) :
 		return self.prenom + ' ' + self.nom
 
 class Artiste(Utililsateur):
 
-	def __str__(self) : 
+	def __str__(self) :
 		return self.prenom + ' ' + self.nom

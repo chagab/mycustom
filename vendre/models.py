@@ -557,6 +557,8 @@ SIZE_CHOICES = (
 
 
 class methodeDescription(models.Model):
+    """ Model that contains all the data to render the vendre section
+        --> Note that icone field needs to be changed ! """
     icone = models.CharField(max_length=140, choices=ICONE_CHOICES,
                              help_text="aller à http://getbootstrap.com/components/ pour les choix possible")
     ordre = models.PositiveSmallIntegerField()
@@ -578,6 +580,7 @@ class methodeDescription(models.Model):
 
 
 class ongletVendre(models.Model):
+    """" Model that contains all the data for the rendering of the pannels "vendre" in the front page, i.e the slogan, the wide back image, the color of the text ..."""
     nom = models.CharField(max_length=140)
     titre = models.CharField(max_length=140)
     date = models.DateField()

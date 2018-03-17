@@ -43,6 +43,15 @@ CONTOUR_CHOICES = (
 
 
 class Produit(models.Model):
+    """ Model that contains all the data to render one product :
+        - All the photos of the product :
+            - With a humans that wear it (front, back, left, right photos) --> "_style" photo fields
+            - Just the product (front, back, left, right)
+        -  All the videos of the product (in mp4 and webpm)
+        - Its price
+        - Its category
+        - Its description
+        - ... """
     # propriétés du produit
     nom = models.CharField(max_length=140)
     num = models.PositiveSmallIntegerField()
@@ -64,10 +73,12 @@ class Produit(models.Model):
     droite_style = models.ImageField(upload_to="achetez/produit/", blank=True)
     gauche_style = models.ImageField(upload_to="achetez/produit/", blank=True)
     # videos du produit
+    # boolean that confirm the rendering of the video
     video_confirm = models.BooleanField()
     video_mp4 = models.FileField(upload_to="achetez/produit/", blank=True)
     video_webm = models.FileField(upload_to="achetez/produit/", blank=True)
     # propriétés de style
+    # properties of the rendering of the product
     taille = models.CharField(max_length=2, choices=SIZE_CHOICES, default='md')
     nombre_colonnes = models.CharField(max_length=2, choices=COLUMN_CHOICES, default='2')
     nombre_offset = models.CharField(max_length=2, choices=COLUMN_CHOICES, default='0')
@@ -92,6 +103,7 @@ class Produit(models.Model):
 
 
 class ListProduit(ListView):
+    """ Class that is used to render the results of the search bar. """
     model = Produit
     context_object_name = "list_produit"
     template_name = "achetez/Produit.html"
@@ -100,18 +112,22 @@ class ListProduit(ListView):
     def get_queryset(self, **kwargs):
 
         def date(search_key):
+            # Search by date
             return Produit.objects.all().filter(date=search_key)
 
         def prix(search_key):
+            # Search by price
             return Produit.objects.all().filter(prix=search_key)
 
         def categorie(search_key):
+            # Search by category
             listOfProduit = []
             for categorie in [categorie for categorie in customiseCategorie.objects.all() if re.search(search_key.lower(), categorie.nom.lower())]:
                 listOfProduit += customiseCategorie.objects.filter(categorie=categorie)
             return listOfProduit
 
         def default():
+            # Output if nothing have been found
             return [Produit.objects.get(id=produit.id) for produit in Produit.objects.all() if re.search(search_key.lower(), produit.tag.lower())]
 
         switch = {
@@ -174,7 +190,7 @@ class ListLogo(ListView):
         return context
 
     def get_queryset(self, **kwargs):
-
+        # defining all the possibe way to search for product/logo
         def date(search_key):
             # on veut les logos qui match exactement la date donnée
             return AchatLogo.objects.all().filter(date=search_key)
@@ -214,6 +230,7 @@ class ListLogo(ListView):
 
 
 class AchatCategorie(models.Model):
+    """ Model that contains all the data to render a logo """
     nom = models.CharField(max_length=140)
     titre = models.CharField(max_length=140)
     date = models.DateField()
@@ -236,6 +253,7 @@ class AchatCategorie(models.Model):
 
 
 class OngletAchetez(models.Model):
+    """" Model that contains all the data for the rendering of the pannels "achetez" in the front page, i.e the slogan, the wide back image, the color of the text ..."""
     nom = models.CharField(max_length=140)
     date = models.DateField()
     image_titre = models.ImageField(upload_to="achetez/image_titre/")
