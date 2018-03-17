@@ -25,7 +25,17 @@ SIZE_CHOICES    = (
 		('xs', 'very small')
 	)
 
+
+# In the "customise" section there are two colums, one that lists all the type of categories of product
+# (i.e SPORT, STREET WEAR, WORK CLOTHES ...) and the other one that list all the the type of products (i.e
+# TSHIRT, JOGGING, SWEAT, JEANS ...)
+# Adding an entry in each of these colum is done by adding an instance of one the models below that store
+# all the visual features of its apperance
+# this features are then passed to the html template customise.html
+
+
 class customiseCategorie(models.Model):
+	"""" Models that contains all the data to render one class of category in the "customize" section"""
 	nom                    = models.CharField(max_length=140)
 	date                   = models.DateField()
 	image                  = models.ImageField(upload_to="customise/categorie/")
@@ -45,6 +55,7 @@ class customiseCategorie(models.Model):
 		return self.nom
 
 class customiseProduit(models.Model):
+	"""" Models that contains all the data to render one class of product in the "customize" section"""
 	nom                    = models.CharField(max_length=140)
 	date                   = models.DateField()
 	image                  = models.ImageField(upload_to="customise/produit/")
@@ -62,6 +73,7 @@ class customiseProduit(models.Model):
 		return self.nom
 
 class customiseOnglet(models.Model):
+	"""" Models that contains all the data for the rendering of the pannels "custommize" in the front page, i.e the slogan, the wide back image, the color of the text ..."""
 	nom           = models.CharField(max_length=140)
 	titre         = models.CharField(max_length=140)
 	date          = models.DateField()

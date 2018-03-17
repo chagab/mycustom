@@ -1,3 +1,4 @@
+<!-- filling in the block of the header.html -->
 {% extends "home/header.html" %}
 {% block menu %}
 	{% include "home/includes/menu.html" %}
@@ -20,6 +21,8 @@
 {% block footer %}
 	{% include "home/includes/footer.html" %}
 {% endblock %}
+<!-- Note that first the html is loaded, and then the js/css in order to allow a
+faster render -->
 {% block scriptMenu %}
 	{% load static %}
 	<link rel="stylesheet" type="text/css" href="{% static 'my_custom.min.css' %}">

@@ -22,26 +22,8 @@ COLONNE_CHOICES = (
 	('colonne_3','colonne_3'),
 )
 
-class ongletCollectionEphemere(models.Model):
-	nom           = models.CharField(max_length=140)
-	date          = models.DateField()
-	image_titre   = models.ImageField(upload_to="collectionEphemere/image_titre/")
-	couleur_titre = models.CharField(max_length=140, default='white')
-	description   = models.TextField()
-	confirm       = models.BooleanField()
-
-
-	class Meta:
-		verbose_name = "Présentation de l'onglet Achetez"
-		verbose_name_plural = "Présentation de l'onglet Achetez"
-
-	def __str__(self):
-		return self.nom
-
-	def __unicode__(self):
-		return self.nom
-
 class mosaique(models.Model):
+	"""" Model that contains all the data for the rendering of one add in the "collection epehemere" section """
 	image            = models.ImageField(upload_to="collection_ephemere/mosaique")
 	titre            = models.CharField(max_length=140)
 	text_description = models.TextField()
@@ -53,6 +35,7 @@ class mosaique(models.Model):
 
 
 class collectionEphemere(models.Model):
+	""" THIS MODEL IS OBSELETE """
 	image                 = models.ImageField(upload_to="collection_ephemere/image/")
 	text_description      = models.TextField()
 	couleur_text          = models.CharField(max_length=7,default='#111111')
@@ -64,3 +47,21 @@ class collectionEphemere(models.Model):
 	epaisseur_contour     = models.PositiveSmallIntegerField(default=0)
 	pub               	  = models.BooleanField()
 
+class ongletCollectionEphemere(models.Model):
+	"""" Model that contains all the data for the rendering of the pannels "collection ephemere" in the front page, i.e the slogan, the wide back image, the color of the text ..."""
+	nom           = models.CharField(max_length=140)
+	date          = models.DateField()
+	image_titre   = models.ImageField(upload_to="collectionEphemere/image_titre/")
+	couleur_titre = models.CharField(max_length=140, default='white')
+	description   = models.TextField()
+	confirm       = models.BooleanField()
+
+	class Meta:
+		verbose_name = "Présentation de l'onglet Achetez"
+		verbose_name_plural = "Présentation de l'onglet Achetez"
+
+	def __str__(self):
+		return self.nom
+
+	def __unicode__(self):
+		return self.nom
