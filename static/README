@@ -1,0 +1,17 @@
+This files contains all the static code (js/css) that is used for 
+	- the front page 
+	- the TShirtDesigner
+
+----Front Page-----
+The idea is to optimize the number of request to speed up the loading process. To that purpose, the only files that are send to the client for the front page are the my_custom.min.js and my_custom.min.css files that are generated via grunt with all the files in mainPage/
+
+With Grunt : 
+	- The less files are concatenate in one file : my_custom.css and then minified in my_custom.min.css
+	- The js files are transpile from es6 javacsript to usable javascript, concatenate in my_custom.js and then minified in my_custom.min.js
+
+FurtherMore the icones/images are put into CSS sprites in order to send only one image file to the client. The sprite is then "cut" with css that is incorporate into the my_custom.min.css. 
+
+So in conclusion, only 3 files are send : the js, the css and the icones 
+
+----TShirtDesinger-----
+The same applies 
